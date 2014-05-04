@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="translucent">#a0000000</color>
+    <color name="blue">#3366cc</color>
+    <color name="login_bj">#0496e2</color>
+    <color name="red">#FF0000</color>
+    <color name="tab_text">#0a8ece</color>
+    <color name="alert_tile">#1ba1e2</color>
+    <color name="WHITE">#FFFFFF</color>
+    <color name="alert_button_color">#ffcc33</color>
+    <color name="hueise">#0033cc</color>
+    <color name="logincolor">#007171</color>
+    <color name="black">#000000</color>
+    <color name="mian_jb">#f0f0f0</color>
+    <color name="gray_typeface">#666666</color>
+    <color name="about1">#999999</color>
+    <color name="about2">#333366</color>
+    <color name="chat_send_color">#333333</color>
+    <!-- LIST BORDER COLOR -->
+    <color name="rounded_container_border">#ffb7babb</color>
+
+    <!-- ITEM BACKGROUND COLOR - STATE - DEFAULT -->
+    <color name="base_start_color_default">#FFFFFF</color>
+    <color name="base_end_color_default">#FFFFFF</color>
+
+    <!-- ITEM BACKGROUND COLOR - STATE - PRESSED -->
+    <color name="base_start_color_pressed">#ff3590c4</color>
+    <color name="base_end_color_pressed">#ff2570ba</color>
+
+    <!-- ITEM TEXT COLORS - STATES - PRESSED AND DEFAULT -->
+    <color name="text_color_default">#000000</color>
+    <color name="text_color_pressed">#ffffff</color>
+    <color name="user_detail_public_bg">#f3f3f3</color>
+    <color name="user_list_public_bg">#e5e6e7</color>
+    <color name="normal_text">#FF758493</color>
+    <color name="text_color_shenhui_677582">#677582</color>
+    <color name="text_color_qianhui_a3a4a4">#a3a4a4</color>
+    <color name="text_color_heise_504f4f">#504f4f</color>
+    <color name="text_color_baise_fffefe">#fffefe</color>
+    <color name="text_color_hongse_ff4318">#ff4318</color>
+    <color name="text_color_zhongheise_461bd4">#461bd4</color>
+    <color name="text_color_zhonghongse_461b04">#461b04</color>
+    <color name="text_color_huangse_ff8800">#ff8800</color>
+    <color name="text_color_shurukuang_aeb6bd">#aeb6bd</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="grey">#ff333333</color>
+    <color name="pref_category">#ffaaaaaa</color>
+
+</resources>

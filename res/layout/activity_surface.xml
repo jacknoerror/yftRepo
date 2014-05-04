@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.qfc.yft.ui.custom.DragImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY" >
+    </com.qfc.yft.ui.custom.DragImageView>
+
+    <LinearLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/translucent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/cancel_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textColor="@color/WHITE"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/rotate_butt"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+           
+            android:background="@drawable/title_reload_selected"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/complete_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/translucent"
+            android:text="保存"
+            android:textColor="@color/WHITE"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@drawable/bg_shape"
+    android:layout_marginLeft="@dimen/common_margin"
+        android:layout_marginRight="@dimen/common_margin"
+        android:layout_marginTop="@dimen/v_margin_side"
+    >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        >
+        <RelativeLayout 
+            android:id="@+id/relativelayout_that_to_figure_out_a_perfect_performance_of_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:layout_alignWithParentIfMissing="true"
+            >
+            
+	    <ImageView 
+	        android:id="@+id/img_fall_item"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@id/img_fall_item"
+	        android:src="@drawable/noimg"
+	        android:adjustViewBounds="true"
+	        android:scaleType="fitCenter"
+	        />
+        </RelativeLayout>
+	    <TextView 
+	        android:id="@+id/tv_fall_item_sub"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/bg_fall_sub"
+	        android:layout_marginBottom="@dimen/common_margin"
+	        android:layout_marginRight="@dimen/common_margin"
+	        android:layout_alignRight="@id/relativelayout_that_to_figure_out_a_perfect_performance_of_image"
+	        android:layout_alignBottom="@id/relativelayout_that_to_figure_out_a_perfect_performance_of_image"
+	        android:textColor="@android:color/black"
+	        android:textSize="@dimen/textsize_alitlittle"
+	        android:paddingLeft="@dimen/common_margin"
+	        android:paddingRight="@dimen/common_margin"
+	        />
+    </RelativeLayout>
+    <TextView 
+        android:id="@+id/tv_fall_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textsize_detail"
+        android:padding="@dimen/common_margin"
+        />
+
+</LinearLayout>
+    
+</FrameLayout>

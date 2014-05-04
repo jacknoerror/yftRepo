@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#ffffff"
+    >
+    <TextView 
+        style="@style/TitleBlueTextView"
+        android:text="@string/title_chat"
+        >
+        
+    </TextView>
+    <ListView 
+        android:id="@+id/lv_chat_conversation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:divider="@drawable/divider_h"
+        android:layout_marginTop="-2dp"
+        ></ListView>
+	<TextView  
+	    style="@style/Nodata_textview"
+	    android:id="@+id/tv_empty"
+     android:text="@string/no_conversation"
+     ><!-- 在代码中实现不能居中 -->
+       
+</TextView>
+</LinearLayout>

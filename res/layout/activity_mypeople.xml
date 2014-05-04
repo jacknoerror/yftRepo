@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/bg_grey"
+    xmlns:app="http://schemas.android.com/apk/res/com.qfc.yft">
+    <!-- <include layout="@layout/layout_titleblue"/> -->
+    <com.qfc.yft.ui.custom.JackTitle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:text="载入中"
+        />
+    <FrameLayout 
+        android:id="@+id/frame_people"
+    	android:layout_width="match_parent" android:layout_height="match_parent"
+    	>
+    	<TextView 
+	        android:id="@+id/emptyview_mypeople"
+	        style="@style/Nodata_textview"
+	        android:text="@string/no_people"
+	        />
+	</FrameLayout>
+	
+</LinearLayout>

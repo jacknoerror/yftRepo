@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.qfc.yft">
+    <!-- <include 
+        layout="@layout/layout_titleblue"
+        /> -->
+    <com.qfc.yft.ui.custom.JackTitle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:text="我的收藏"
+        >
+    </com.qfc.yft.ui.custom.JackTitle>
+    <RadioGroup 
+        android:id="@+id/group_fav"
+        android:layout_width="match_parent"
+	    android:layout_height="@dimen/v_height_titlebar_large"
+	    android:orientation="horizontal"
+	    android:background="@drawable/bg_grey"
+	    android:gravity="center"
+	    android:layout_marginTop="-2dp"
+	    android:padding="@dimen/h_margin_side"
+	    
+        >
+         <RadioButton 
+	        android:id="@+id/btn_fav_1_product"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/selector_search_1"
+	        android:scaleType="fitEnd"
+	        android:layout_weight="1"
+	        android:contentDescription="@id/btn_fav_1_product"
+	        android:button="@null"
+	        />
+	    <RadioButton 
+	        android:id="@+id/btn_fav_2_company"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/selector_search_2"
+	        android:scaleType="fitCenter"
+	        android:layout_weight="1"
+	        android:contentDescription="@id/btn_fav_2_company"
+	android:button="@null"	        
+	        />
+	    <RadioButton 
+	        android:id="@+id/btn_fav_3_snap"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/selector_search_4"
+	        android:scaleType="fitStart"
+	        android:layout_weight="1"
+	        android:contentDescription="@id/btn_fav_3_snap"
+	        android:button="@null"
+	        />
+        
+    </RadioGroup>
+	<View 
+	    android:layout_width="match_parent"
+	    android:layout_height="0.5dp"
+	    android:background="@drawable/line_search_snd"
+	    />
+	<FrameLayout 
+	    android:id="@+id/frame_fav"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@android:color/white"
+	    >
+	     <TextView 
+	        android:id="@+id/emptyview_search_1"
+	        style="@style/Nodata_textview"
+	        android:text="没有收藏记录"
+	        />
+	</FrameLayout>
+</LinearLayout>

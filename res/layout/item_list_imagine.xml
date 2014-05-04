@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/v_height_titlebar_middle"
+    android:orientation="horizontal" 
+    android:background="@drawable/bg_grey"
+    android:padding="@dimen/common_margin"
+    android:layout_gravity="center_vertical"
+    >
+    <TextView 
+        android:id="@+id/tv_imagine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="@dimen/textsize_detail"
+        android:padding="@dimen/h_margin_side"
+        />
+    <TextView
+        android:id="@+id/tv_imagine_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/tab_indicator_text"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:textSize="@dimen/textsize_detail"
+        android:padding="@dimen/h_margin_side"
+        ></TextView>
+
+</LinearLayout>

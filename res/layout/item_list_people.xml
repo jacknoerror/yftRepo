@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:padding="@dimen/common_margin"
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    >
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <ImageView 
+	        android:id="@+id/img_item_people"
+	        android:contentDescription="@id/img_item_people"
+	        style="@style/Image_itemleft"
+	        android:padding="10dp"
+	        />
+    </RelativeLayout>
+    
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_margin"
+         android:layout_weight="1"
+        >
+ 		<TextView 
+ 		    android:id="@+id/tv_item_name"
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_weight="11"
+ 		     android:textColor="@android:color/black"
+ 		    android:textSize="20sp"
+ 		    android:gravity="center_vertical"
+ 		    android:lines="1"
+ 		    android:text="jack"
+ 		    />
+ 		<TextView 
+ 		    android:id="@+id/tv_item_desc"
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_weight="10"
+ 		    android:textColor="@android:color/black"
+ 		    android:textSize="16sp"
+ 		    android:singleLine="true"
+ 		    android:text="ok"
+ 		    android:gravity="center_vertical"
+ 		    />
+ 		<TextView 
+ 		    android:id="@+id/tv_item_comp"
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_weight="10"
+ 		    android:textSize="15sp"
+ 		    android:singleLine="true"
+ 		    android:text="not ok"
+ 		    />
+	
+	    
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/view_people_right"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        >
+        <View 
+	    android:layout_width="0.5dp"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/divider_v"
+	    android:layout_marginTop="@dimen/v_margin_side"
+	    android:layout_marginBottom="@dimen/v_margin_side"
+	    /> 
+    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/selector_contact"
+	        android:layout_gravity="center"
+	        android:layout_marginLeft="@dimen/common_margin"
+	        />
+        
+    </LinearLayout>
+    
+
+</LinearLayout>

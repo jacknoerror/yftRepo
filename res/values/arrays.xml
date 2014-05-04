@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="states">
+		<item>在线</item>
+		<item>忙碌</item>
+		<item>隐身</item>
+		<item>离开</item>
+	</string-array>
+	<string-array name="states_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+
+	<string-array name="select_dialog_items">
+		<item>发短信</item>
+		<item>预约呼叫</item>
+		<item>直接呼叫</item>
+		<item>跟踪</item>
+		<item>定时提醒</item>
+	</string-array>
+
+
+</resources>
