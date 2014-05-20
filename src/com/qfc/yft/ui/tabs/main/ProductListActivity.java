@@ -13,6 +13,7 @@ import com.qfc.yft.YftValues.RequestType;
 import com.qfc.yft.entity.listitem.LIIProduct;
 import com.qfc.yft.entity.page.QfcPageInfo;
 import com.qfc.yft.net.HttpRequestTask;
+import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.current.CurrentProductActivity;
 import com.qfc.yft.ui.custom.list.JackListView;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
@@ -29,7 +30,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-public class ProductListActivity extends Activity implements OnItemClickListener{
+public class ProductListActivity extends MyTitleActivity implements OnItemClickListener{
 	final String TAG  = ProductListActivity.class.getSimpleName();
 	
 	String keyword;
@@ -55,6 +56,7 @@ public class ProductListActivity extends Activity implements OnItemClickListener
 	private void init() {
 		keyword = getIntent().getStringExtra("keyword");
 		((TextView)findViewById(R.id.tv_title)).setText(keyword);
+		setBackBtnAlive();
 //		search(1);
 		
 		//

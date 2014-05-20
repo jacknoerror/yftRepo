@@ -5,9 +5,11 @@ import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.entity.User;
+import com.qfc.yft.ui.custom.JackTitle;
 import com.qfc.yft.ui.shop.pic.ShActivityPCC;
 import com.qfc.yft.ui.shop.pic.ShActivityPCP;
 import com.qfc.yft.ui.shop.pro.ShActivityPro;
+import com.qfc.yft.utils.JackUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.TabActivity;
@@ -53,10 +55,8 @@ public class ShopActivity extends TabActivity {
 		setContentView(R.layout.shop_layout);
 		getWindow().setBackgroundDrawableResource(R.drawable.bg_grey);
 		initExtras();
-//		shExit = true;
-		/*TabHost tabHost = (TabHost)findViewById(R.id.tabhost);
-		tabHost.setup();*/
-//		boolean hasMotion = InfoHouse.getInstance().getMe().getMemberType()>2;//自己是否够权限
+		((JackTitle)findViewById(R.id.jacktitle)).setBackBtnActivity(this);
+		
 		tabHost = getTabHost();
 		tabWidget = tabHost.getTabWidget();
 		resources = getResources();
@@ -98,6 +98,7 @@ public class ShopActivity extends TabActivity {
 		memberType = intent.getIntExtra(YftValues.EXTRAS_SHOP_MEMBER_TYPE,-1);
 		tabCount = intent.getIntExtra(YftValues.EXTRAS_SHOP_TAB, memberType==3?2:1);
 		if(null==title||title.isEmpty()) title = "我的商铺";
+		else if(title.length()>10) tv.setPadding(JackUtils.dip2px(this, 50), 0, 0, 0);
 		tv.setText(title);
 	}
 	private <T> void addTabSpec(Class<T> clazz , String tabString, Drawable tabDrawable){//1118

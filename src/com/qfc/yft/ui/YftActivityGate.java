@@ -84,7 +84,7 @@ public class YftActivityGate {
 	 * @param face
 	 */
 	public static void goChat(Context context,String userName, Long id, int type, String face){//taotao 0220
-		if(null==id) {
+		if(null==id||id==0) {
 			JackUtils.showToast(context, YftValues.HINT_NOCHAT);
 			return;
 		}

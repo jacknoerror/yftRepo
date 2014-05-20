@@ -71,6 +71,14 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			init();
 		}
 		mScrollView = (ScrollViewExtend )findViewById(R.id.scroll_cp);
+		findViewById(R.id.btn_cpback).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 
 	private void init() {
@@ -342,7 +350,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				lc.shopId=shopId;
 				lc.shopName=companyName;
 				lc.memberType=memberType;
-				YftData.data().storeShop(lc);
+				YftData.data().storeShopById(lc);
 			}
 			
 		}

@@ -29,7 +29,18 @@
         <item name="android:textSize">@dimen/textsize_title</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
     </style>
+    <!-- 0507 -->
+    <style name="TitleNotBlueTextView" >
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/v_height_titlebar_large</item>
+        <item name="android:textSize">@dimen/textsize_title</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
     
 	<style name="Information_content">
 	    <item name="android:layout_width">wrap_content</item>

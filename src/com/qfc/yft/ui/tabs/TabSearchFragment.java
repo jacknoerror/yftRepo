@@ -149,7 +149,7 @@ public class TabSearchFragment extends ContentAbstractFragment implements OnChec
 	 * 
 	 */
 	private void gosearch() {
-		if(edit==null||edit.getText().equals("")) return;
+		if(edit==null) return;//"" enabled 0505
 		keyword = edit.getText().toString();
 		View tag = (View)rGroup.getTag();
 		if(tag==null) return;
@@ -273,7 +273,7 @@ public class TabSearchFragment extends ContentAbstractFragment implements OnChec
 	}
 	@Override
 	public void afterTextChanged(Editable s) {
-		Log.i(TAG, s.toString());
+		Log.i(TAG, edit.hasFocus()+":focused edit");
 		if(s.length()==0) {
 			if(null!=btn_clear){
 				btn_clear.setVisibility(View.INVISIBLE);
@@ -291,16 +291,18 @@ public class TabSearchFragment extends ContentAbstractFragment implements OnChec
 		}else{
 			return;
 		}
-		
-		JackListView fraImagine = getJackListViewByType(ListItemImpl.ITEMTYPE_IMAGINE);//{keyword=h, pageSize=3, searchType=product}
-		if(null!=imagineTask){
-			imagineTask.cancel(true);
+		if(edit.hasFocus()){
+			
+			JackListView fraImagine = getJackListViewByType(ListItemImpl.ITEMTYPE_IMAGINE);//{keyword=h, pageSize=3, searchType=product}
+			if(null!=imagineTask){
+				imagineTask.cancel(true);
+			}
+			imagineTask = new HttpRequestTask(fraImagine);
+			imagineTask.execute(YftValues.getHTTPBodyString(
+					RequestType.SEARCH_IMAGINE, 
+					s.toString(),YftValues.DEFULAT_PAGESIZE+"",imagineType));
+			switchTabcontent(fraImagine);
 		}
-		imagineTask = new HttpRequestTask(fraImagine);
-		imagineTask.execute(YftValues.getHTTPBodyString(
-				RequestType.SEARCH_IMAGINE, 
-				s.toString(),YftValues.DEFULAT_PAGESIZE+"",imagineType));
-		switchTabcontent(fraImagine);
 	}
 
 	
@@ -333,6 +335,7 @@ public class TabSearchFragment extends ContentAbstractFragment implements OnChec
 			SearchHistoryItemInfo shi = (SearchHistoryItemInfo)currentJlv.getAdapter().getItem(position);
 			edit.setText(shi.history_str.trim());
 			gosearch();
+			break;
 		default:
 			break;
 		}

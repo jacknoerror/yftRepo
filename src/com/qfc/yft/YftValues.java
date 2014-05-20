@@ -3,7 +3,6 @@ package com.qfc.yft;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +23,7 @@ import com.qfc.yft.net.chat.GIMSocketServer;
 import com.qfc.yft.utils.APIDesUtils;
 import com.qfc.yft.utils.JackUtils;
 import com.qfc.yft.utils.OfflineUtill;
+import com.qfc.yft.vo.SystemParams;
 
 public class YftValues {
 	final static String TAG = "YFT_VALUES";
@@ -40,6 +40,7 @@ public class YftValues {
 	public static final long TIMEOUT_REQUEST = 1000*60*2;
 	public static final long TIMEOUT_REQUEST_10 = 1000*60*2;//
 	public static final String URL_FORGETPWD="http://member.qfc.cn/my/get-password.action";
+	
 	//kaifa环境
 //	public static final String _URL = "http://open.qfc.test.ctcn.com.cn/invoke/json"; 
 ////	public static final String _URL = "http://192.168.199.201:8091/invoke/json";
@@ -47,6 +48,7 @@ public class YftValues {
 //	public static final String OPEN_API_APP_KEY = "iPad_shop";
 //	public static final String URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
 	
+	public static final boolean DEBUG = true;//测试环境
 	//正式环境
 	public static final String _URL = "http://open.qfc.cn/invoke/json";
 	public static final String OPEN_API_APP_SECRET = "Can3ppGcPQDCYbRy";
@@ -125,7 +127,7 @@ public class YftValues {
 	
 	public static final String SHOWPIC_PATHS ="pics";
 	public static final String SHOWPIC_PAGE	 ="page";
-	public static final String EXTRA_REGISTER_URL = "url";
+	public static final String EXTRAS_REGISTER_URL = "url";
 	public static final String EXTRAS_HUB_TAB = "hubTab";
 	public static final String EXTRAS_HUB_KEYWORD = "hubKeyword";
 	public static final String EXTRAS_SHOP_NAME = "shopName";
@@ -143,6 +145,171 @@ public class YftValues {
 	
 	
 	
+	public enum RequestType{
+			NONE,POINT_VERIFY(REQUEST_PATH_LOGIN),MEMBER_INFO(REQUEST_PATH_MEMBER_INFO),
+			SHOP_INFO(REQUEST_PATH_COMPANY_INFO),SERIES_INFO(REQUEST_PATH_COMPANY_PRO),
+			PRODUCT_INFO(REQUEST_PATH_COMPANY_SUBPRO),SEARCH_RECOMMEND(REQUEST_PATH_RECOMMEND),
+			SEARCH(REQUEST_PATH_SEARCH),UPDATE(REQUEST_PATH_CHECKVERSION),
+			SYNC(REQUEST_PATH_SYNC),SM(REQUEST_PATH_SERIESFORMOTION),PM(REQUEST_PATH_PRODUCTFORMOTION),
+			CATEGORY_ALL(REQUEST_CATEGORY),CARDSEARCH(REQUEST_CARD_SEARCH),CARDMY(REQUEST_CARD_MY),
+			SEARCH_PRODUCT(REQUEST_SEARCH_PRODCUT),COLLECTION_SAVE(REQUEST_COLLECTION_SAVE),COLLECTION_DELETE(REQUEST_COLLECTION_DELETE),
+			FIND_COMPANY(REQUEST_FIND_COMPANY),FIND_PRODUCT(REQUEST_FIND_PRODUCT),
+			CARD_ADD(REQUEST_CARD_ADD),CARD_REMOVE(REQUEST_CARD_REMOVE),SEARCH_IMAGINE(REQUEST_SEARCH_IMAGINE),
+			ISCOLLECTEDSHOP(REQUEST_IS_COLLECTION_COMPANY),ISATTENTION(REQUEST_IS_ATTENTION),
+			ISCOLLECTEDPRODUCT(REQUEST_IS_COLLECTION_PRODUCT),USERSHOP(REQUEST_GETSHOPBYUID)
+			;
+			
+			
+			
+			private RequestType(String loc){
+				this.location = loc;
+			}
+			private RequestType(){
+				this("");
+			}
+			private String location;
+			@Override
+			public String toString() {
+				return location;
+			}
+			public Map<String, String> getParamMap(String... params){
+				Map<String, String> result = new HashMap<String, String>();
+				int size = params.length;
+				
+				switch (this) {
+				case POINT_VERIFY:
+					String pwdDesStr;
+					try {
+						pwdDesStr= new APIDesUtils().encrypt(params[1], DES_KEY);
+						result.put(URL_USERNAME, params[0]);
+						result.put(URL_PASSWORD, pwdDesStr);
+					} catch (Exception e) {
+						Log.e(TAG, "密码加密有问题");
+					}
+					break;
+				case MEMBER_INFO:
+					result.put(URL_USERCODE,params[0] );
+					break;
+				case SHOP_INFO:
+					result.put(URL_SHOPID, params[0] );
+					break;
+				case SERIES_INFO:
+					result.put(URL_SHOPID, params[0]	);
+					break;
+				case PRODUCT_INFO://shopId,proSeriesId(系列id),pageSize(每次请求的产品数量10),pageNo(每次请求索引从1开始)
+					if(size<4) break;
+					result.put(URL_SHOPID,params[0]	);
+					if(!params[1].isEmpty())result.put(URL_SERIESID,params[1]	);
+					result.put(URL_PAGESIZE,params[2]	);
+					result.put(URL_PAGENO,params[3]	);
+					break;
+				case SEARCH_RECOMMEND:
+					if(size<3) break;
+					result.put(URL_RECOMMEND, params[0]);
+					result.put(URL_PAGESIZE, params[1]);
+					result.put(URL_PAGENO,params[2]);
+					break;
+				case SEARCH:
+					if(size<3) break;
+					result.put(URL_SEARCH, params[0]);
+					result.put(URL_PAGESIZE, params[1]);
+					result.put(URL_PAGENO,params[2]);
+					break;
+				case UPDATE:
+					break;
+				case SYNC:
+					result.put(URL_SYNC, params[0]);
+					break;
+				case SM://1128
+					result.put(URL_SERIESID, params[0]);
+					break;
+				case PM://1128
+					result.put(URL_PRODUCTID, params[0]);
+					break;
+				case CATEGORY_ALL:
+					result.put("status","1");
+					break;
+				case CARDSEARCH://String keyword, Integer pageSize, Integer pageNo
+					result.put(URL_SEARCH, params[0]);
+					result.put(URL_PAGESIZE, params[1]);
+					result.put(URL_PAGENO, params[2]);
+					break;
+				case CARDMY://Long accountId, Integer pageSize, Integer pageNo
+					result.put(URL_ACCOUNT_ID,params[0]);
+					if(params.length>1)result.put(URL_PAGESIZE, params[1]);
+					if(params.length>2)result.put(URL_PAGENO, params[2]);
+					break;
+				case SEARCH_PRODUCT:
+					result.put(URL_SEARCH,params[0]);//1.	keyword(关键字)
+	//				result.put("cateCodes", "001");//2.	cateCodes(分类代码,多个用逗号分开.比如:“001,002”) //TODO
+					result.put(URL_PAGESIZE, params[1]);
+					result.put(URL_PAGENO, params[2]);
+					break;
+				case COLLECTION_SAVE:
+					result.put(URL_ACCOUNT_ID, params[0]+"");//36662
+	
+					result.put(URL_FROM_ID, params[1]+"");//14723
+	
+					result.put(URL_COLLECT_TYPE, params[2]+"");//0 产品 3 商铺
+	
+					result.put("collectTitle", params[3]);//? 
+					break;
+				case COLLECTION_DELETE:
+					 //Long accountId, Long fromId, Integer collectType 
+					result.put(URL_ACCOUNT_ID, params[0]);//36662
+	
+					result.put(URL_FROM_ID, params[1]);//14723
+	
+					result.put(URL_COLLECT_TYPE, params[2]);//0 产品 3 商铺
+					break;
+				case FIND_COMPANY://Long accountId, Integer pageNo, Integer pageSize
+					result.put(URL_ACCOUNT_ID,params[0]+"");
+					result.put(URL_PAGESIZE, "10");
+					result.put(URL_PAGENO, "1");
+					break;
+				case FIND_PRODUCT://Long accountId, Integer pageNo, Integer pageSize
+					result.put(URL_ACCOUNT_ID,params[0]+"");
+					result.put(URL_PAGESIZE, "10");
+					result.put(URL_PAGENO, "1");
+					break;
+				case CARD_ADD://Long fromMember,Long toMember,String fromIp
+					result.put(URL_FROM_MEMBER,params[0] );
+					result.put(URL_TO_MEMBER,params[1]);
+					result.put("fromIp","wtf");
+					break;
+				case CARD_REMOVE:
+					result.put(URL_FROM_MEMBER,params[0] );
+					result.put(URL_TO_MEMBER,params[1]);
+					break;
+				case SEARCH_IMAGINE://{keyword=h, pageSize=3, searchType=product}
+					result.put(URL_SEARCH, params[0]);
+					result.put(URL_PAGESIZE, params[1]);
+					result.put("searchType", params[2]);
+					break;
+				case ISCOLLECTEDPRODUCT://Integer productId, Long accountId
+					result.put(URL_PRODUCTID, params[0]);
+					result.put(URL_ACCOUNT_ID, params[1]);
+					break;
+				case ISCOLLECTEDSHOP://Long shopId, Long accountId
+					result.put(URL_SHOPID, params[0]);
+					result.put(URL_ACCOUNT_ID, params[1]);
+					break;
+					
+				case ISATTENTION://Long memberId, Long accountId
+					result.put(URL_MEMBER_ID, params[0]);
+					result.put(URL_ACCOUNT_ID, params[1]);
+					break;
+				case USERSHOP:
+					result.put(URL_MEMBER_ID,params[0]);
+					break;
+				default:
+					break;
+				}
+				
+				return result;
+			}
+		}
+
 	public static String getHTTPBodyString(RequestType type,String... params){
 		Map<String, String> paramKV = new HashMap<String, String>();
 		paramKV.put(URL_APPKEY,OPEN_API_APP_KEY);
@@ -184,178 +351,12 @@ public class YftValues {
 						.append("&");
 			}
 		valid.append(OPEN_API_APP_SECRET);
-		Log.i(TAG, "valid::"+valid);
+//		Log.i(TAG, "valid::"+valid);
 		Log.i(TAG, "url::"+url);
 		//拼接
 		url.append(URL_VALIDCODE).append("=").append(JackUtils.getMD5(valid.toString()));
 		return url.toString();
 	}
-	
-	public enum RequestType{
-		NONE,POINT_VERIFY(REQUEST_PATH_LOGIN),MEMBER_INFO(REQUEST_PATH_MEMBER_INFO),
-		SHOP_INFO(REQUEST_PATH_COMPANY_INFO),SERIES_INFO(REQUEST_PATH_COMPANY_PRO),
-		PRODUCT_INFO(REQUEST_PATH_COMPANY_SUBPRO),SEARCH_RECOMMEND(REQUEST_PATH_RECOMMEND),
-		SEARCH(REQUEST_PATH_SEARCH),UPDATE(REQUEST_PATH_CHECKVERSION),
-		SYNC(REQUEST_PATH_SYNC),SM(REQUEST_PATH_SERIESFORMOTION),PM(REQUEST_PATH_PRODUCTFORMOTION),
-		CATEGORY_ALL(REQUEST_CATEGORY),CARDSEARCH(REQUEST_CARD_SEARCH),CARDMY(REQUEST_CARD_MY),
-		SEARCH_PRODUCT(REQUEST_SEARCH_PRODCUT),COLLECTION_SAVE(REQUEST_COLLECTION_SAVE),COLLECTION_DELETE(REQUEST_COLLECTION_DELETE),
-		FIND_COMPANY(REQUEST_FIND_COMPANY),FIND_PRODUCT(REQUEST_FIND_PRODUCT),
-		CARD_ADD(REQUEST_CARD_ADD),CARD_REMOVE(REQUEST_CARD_REMOVE),SEARCH_IMAGINE(REQUEST_SEARCH_IMAGINE),
-		ISCOLLECTEDSHOP(REQUEST_IS_COLLECTION_COMPANY),ISATTENTION(REQUEST_IS_ATTENTION),
-		ISCOLLECTEDPRODUCT(REQUEST_IS_COLLECTION_PRODUCT),USERSHOP(REQUEST_GETSHOPBYUID)
-		;
-		
-		
-		
-		private RequestType(String loc){
-			this.location = loc;
-		}
-		private RequestType(){
-			this("");
-		}
-		private String location;
-		@Override
-		public String toString() {
-			return location;
-		}
-		public Map<String, String> getParamMap(String... params){
-			Map<String, String> result = new HashMap<String, String>();
-			int size = params.length;
-			
-			switch (this) {
-			case POINT_VERIFY:
-				String pwdDesStr;
-				try {
-					pwdDesStr= new APIDesUtils().encrypt(params[1], DES_KEY);
-					result.put(URL_USERNAME, params[0]);
-					result.put(URL_PASSWORD, pwdDesStr);
-				} catch (Exception e) {
-					Log.e(TAG, "密码加密有问题");
-				}
-				break;
-			case MEMBER_INFO:
-				result.put(URL_USERCODE,params[0] );
-				break;
-			case SHOP_INFO:
-				result.put(URL_SHOPID, params[0] );
-				break;
-			case SERIES_INFO:
-				result.put(URL_SHOPID, params[0]	);
-				break;
-			case PRODUCT_INFO://shopId,proSeriesId(系列id),pageSize(每次请求的产品数量10),pageNo(每次请求索引从1开始)
-				if(size<4) break;
-				result.put(URL_SHOPID,params[0]	);
-				if(!params[1].isEmpty())result.put(URL_SERIESID,params[1]	);
-				result.put(URL_PAGESIZE,params[2]	);
-				result.put(URL_PAGENO,params[3]	);
-				break;
-			case SEARCH_RECOMMEND:
-				if(size<3) break;
-				result.put(URL_RECOMMEND, params[0]);
-				result.put(URL_PAGESIZE, params[1]);
-				result.put(URL_PAGENO,params[2]);
-				break;
-			case SEARCH:
-				if(size<3) break;
-				result.put(URL_SEARCH, params[0]);
-				result.put(URL_PAGESIZE, params[1]);
-				result.put(URL_PAGENO,params[2]);
-				break;
-			case UPDATE:
-				break;
-			case SYNC:
-				result.put(URL_SYNC, params[0]);
-				break;
-			case SM://1128
-				result.put(URL_SERIESID, params[0]);
-				break;
-			case PM://1128
-				result.put(URL_PRODUCTID, params[0]);
-				break;
-			case CATEGORY_ALL:
-				result.put("status","1");
-				break;
-			case CARDSEARCH://String keyword, Integer pageSize, Integer pageNo
-				result.put(URL_SEARCH, params[0]);
-				result.put(URL_PAGESIZE, params[1]);
-				result.put(URL_PAGENO, params[2]);
-				break;
-			case CARDMY://Long accountId, Integer pageSize, Integer pageNo
-				result.put(URL_ACCOUNT_ID,params[0]);
-				result.put(URL_PAGESIZE, "10");
-				result.put(URL_PAGENO, "1");
-				break;
-			case SEARCH_PRODUCT:
-				result.put(URL_SEARCH,params[0]);//1.	keyword(关键字)
-//				result.put("cateCodes", "001");//2.	cateCodes(分类代码,多个用逗号分开.比如:“001,002”) //TODO
-				result.put(URL_PAGESIZE, params[1]);
-				result.put(URL_PAGENO, params[2]);
-				break;
-			case COLLECTION_SAVE:
-				result.put(URL_ACCOUNT_ID, params[0]+"");//36662
-
-				result.put(URL_FROM_ID, params[1]+"");//14723
-
-				result.put(URL_COLLECT_TYPE, params[2]+"");//0 产品 3 商铺
-
-				result.put("collectTitle", params[3]);//? 
-				break;
-			case COLLECTION_DELETE:
-				 //Long accountId, Long fromId, Integer collectType 
-				result.put(URL_ACCOUNT_ID, params[0]);//36662
-
-				result.put(URL_FROM_ID, params[1]);//14723
-
-				result.put(URL_COLLECT_TYPE, params[2]);//0 产品 3 商铺
-				break;
-			case FIND_COMPANY://Long accountId, Integer pageNo, Integer pageSize
-				result.put(URL_ACCOUNT_ID,params[0]+"");
-				result.put(URL_PAGESIZE, "10");
-				result.put(URL_PAGENO, "1");
-				break;
-			case FIND_PRODUCT://Long accountId, Integer pageNo, Integer pageSize
-				result.put(URL_ACCOUNT_ID,params[0]+"");
-				result.put(URL_PAGESIZE, "10");
-				result.put(URL_PAGENO, "1");
-				break;
-			case CARD_ADD://Long fromMember,Long toMember,String fromIp
-				result.put(URL_FROM_MEMBER,params[0] );
-				result.put(URL_TO_MEMBER,params[1]);
-				result.put("fromIp","wtf");
-				break;
-			case CARD_REMOVE:
-				result.put(URL_FROM_MEMBER,params[0] );
-				result.put(URL_TO_MEMBER,params[1]);
-				break;
-			case SEARCH_IMAGINE://{keyword=h, pageSize=3, searchType=product}
-				result.put(URL_SEARCH, params[0]);
-				result.put(URL_PAGESIZE, params[1]);
-				result.put("searchType", params[2]);
-				break;
-			case ISCOLLECTEDPRODUCT://Integer productId, Long accountId
-				result.put(URL_PRODUCTID, params[0]);
-				result.put(URL_ACCOUNT_ID, params[1]);
-				break;
-			case ISCOLLECTEDSHOP://Long shopId, Long accountId
-				result.put(URL_SHOPID, params[0]);
-				result.put(URL_ACCOUNT_ID, params[1]);
-				break;
-				
-			case ISATTENTION://Long memberId, Long accountId
-				result.put(URL_MEMBER_ID, params[0]);
-				result.put(URL_ACCOUNT_ID, params[1]);
-				break;
-			case USERSHOP:
-				result.put(URL_MEMBER_ID,params[0]);
-				break;
-			default:
-				break;
-			}
-			
-			return result;
-		}
-	}
-	
 	
 	public static void tryGetOfflineDataHere(HttpReceiver receiver){
    	 if(receiver==null)return;
@@ -406,12 +407,17 @@ public class YftValues {
 		}
 		CachMsg.getInstance().clear();//0319
 		YftData.data().destroy();
+		//fzl
+		SystemParams.getInstance().clear();
+		CachMsg.getInstance().clear();
 	}
 
 
 	public static final String EXTRAS_SINGLEBACK = "singleback";
 
 	public static final String HINT_NOCHAT = "该用户没有纺织聊账号，请考虑其他联系方式";
+
+	
 
 	//	private static NotificationManager nm;
 	public static int notification_id = 19172439;

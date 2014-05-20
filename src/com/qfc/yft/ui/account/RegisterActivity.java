@@ -32,10 +32,11 @@ import com.qfc.yft.YftValues.RequestType;
 import com.qfc.yft.entity.User;
 import com.qfc.yft.net.HttpReceiver;
 import com.qfc.yft.net.HttpRequestTask;
+import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.tabs.HubActivity;
 import com.qfc.yft.utils.JackUtils;
 
-public class RegisterActivity extends Activity implements HttpReceiver{
+public class RegisterActivity extends MyTitleActivity implements HttpReceiver{
 	String url ;
 	boolean isReg;
 	
@@ -45,7 +46,8 @@ public class RegisterActivity extends Activity implements HttpReceiver{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mypeople);
-		url = getIntent().getStringExtra(YftValues.EXTRA_REGISTER_URL);
+		setBackBtnAlive();
+		url = getIntent().getStringExtra(YftValues.EXTRAS_REGISTER_URL);
 		if(url==null ||url.isEmpty()) url=YftValues.URL_REGISTER;
 		isReg = url.equals(YftValues.URL_REGISTER);
 		

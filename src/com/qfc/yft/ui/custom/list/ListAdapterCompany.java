@@ -15,6 +15,7 @@ public class ListAdapterCompany extends ListAbsAdapter {
 		ImageView icimg;
 		TextView cname;
 		TextView major;
+		TextView purchase;
 		
 		@Override
 		public int getLayoutId() {
@@ -26,6 +27,7 @@ public class ListAdapterCompany extends ListAbsAdapter {
 			  icimg = (ImageView)getHolderView().findViewById(R.id.img_item_company);
 			  cname = (TextView)getHolderView().findViewById(R.id.tv_item_cname);
 			  major = (TextView)getHolderView().findViewById(R.id.tv_item_major);
+			  purchase = (TextView)getHolderView().findViewById(R.id.tv_item_purchase);
 
 		}
 
@@ -34,8 +36,8 @@ public class ListAdapterCompany extends ListAbsAdapter {
 			LIICompany ssi = getItem(position);
             JackImageLoader.justSetMeImage(ssi.getShopLogoImage(), icimg);
             cname.setText(ssi.getShopName());
-            if(!ssi.getMainProducts().isEmpty())major.setText("主营业务: "+ssi.getMainProducts());
-            
+            if(!ssi.getMainProducts().isEmpty())major.setText("主营业务/服务: "+ssi.getMainProducts());
+            if(!ssi.getCompPurchaseProduct().isEmpty())purchase.setText("采购信息: "+ssi.getCompPurchaseProduct());
 		}
 		
 	}

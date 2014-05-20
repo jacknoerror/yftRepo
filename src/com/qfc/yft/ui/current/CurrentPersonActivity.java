@@ -3,6 +3,7 @@ package com.qfc.yft.ui.current;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.qfc.yft.CimConsts;
 import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
@@ -31,6 +32,7 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 	CPerReceiver cpr;
 	
 	ImageView btn_coo;
+	private ImageView btn_shop;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,7 +73,9 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 		ImageView btn_fzl = (ImageView)findViewById(R.id.btn_c_fzl);
 		btn_fzl.setOnClickListener(this);
 		
-		((ImageView)findViewById(R.id.btn_shop)).setOnClickListener(this);
+		btn_shop = (ImageView)findViewById(R.id.btn_shop);
+		btn_shop.setOnClickListener(this);
+		((ImageView)findViewById(R.id.btn_back)).setOnClickListener(this);
 		
 		cpr = new CPerReceiver(CurrentPersonActivity.this);
 		new HttpRequestTask(cpr).execute(YftValues.getHTTPBodyString(RequestType.ISATTENTION, 
@@ -82,6 +86,7 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_c_coo:
+			if(YftData.data().getMe().getId()==cpPeople.accountId){JackUtils.showToast(this, "请不要关注自己");break;}//0508
 			new HttpRequestTask(CurrentPersonActivity.this).execute(
 					YftValues.getHTTPBodyString(v.isSelected()?RequestType.CARD_REMOVE:RequestType.CARD_ADD, 
 							YftData.data().getMe().getId()+"",
@@ -89,14 +94,16 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 			break;
 		case R.id.btn_c_fzl:
 			
-			YftActivityGate.goChat(this, cpPeople.userName, cpPeople.texTalk	, 0, cpPeople.headIcon);//type?
+			YftActivityGate.goChat(this, cpPeople.userName, cpPeople.texTalk	, CimConsts.ConnectUserType.FRIEND, cpPeople.headIcon);//type?
 			break;
 		case R.id.btn_shop:
 			if(null==cpr) return;//
 //			user.setId(cpPeople.accountId);
 			YftActivityGate.goShop(this, cpr.companyId, cpPeople.compName, cpr.memberType, -1);
 			break;
-
+		case R.id.btn_back:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -159,9 +166,9 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 		public void response(String result) throws JSONException {
 			JSONObject job = YftValues.getResultObject(result);
 			if(null!=job){
-				isAttention = job.getBoolean("isAttention");
-				companyId = job.getInt("companyId");
-				memberType= job.getInt("memberType");
+				if(job.has("isAttention"))isAttention = job.getBoolean("isAttention");
+				if(job.has("companyId")&&!job.isNull("companyId"))companyId = job.getInt("companyId");
+				if(job.has("memberType"))memberType= job.getInt("memberType");
 				
 				if(isAttention){
 					btn_coo.setSelected(true);
@@ -172,7 +179,10 @@ public class CurrentPersonActivity extends Activity implements HttpReceiver,View
 				lc.shopId=companyId;
 				lc.shopName=cpPeople.compName;
 				lc.memberType=memberType;
-				YftData.data().storeShop(lc);
+				if(memberType!=2&&memberType!=3){
+					if(null!=btn_shop) btn_shop.setVisibility(View.INVISIBLE);
+				}
+				YftData.data().storeShopById(lc);
 			}
 			
 		}

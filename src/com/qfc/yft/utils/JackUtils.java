@@ -59,6 +59,10 @@ import com.qfc.yft.YftApplication;
 import com.qfc.yft.utils.HanziToPingyin.Token;
 import com.qfc.yft.vo.SystemParams;
 
+/**
+ * @author taotao
+ *
+ */
 public class JackUtils {
 	public final static String file_path = "/sdcard/gim/";
 	public final static String log_path = "/sdcard/gim/log";
@@ -810,5 +814,44 @@ public class JackUtils {
 		}
 
 		return false;
+	}
+	
+	
+	/**
+	 * @param context 
+	 * @return
+	 */
+	public static NetworkInfo getNetworkInfo(Context context){
+		ConnectivityManager connManager = (ConnectivityManager) YftApplication
+				.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connManager.getActiveNetworkInfo();
+		return info;
+	}
+	
+	/**
+	 * @param context
+	 * @return 网络连接是否可用
+	 */
+	public static boolean isNetworkAvailable(Context context){
+		NetworkInfo info = getNetworkInfo(context);
+		return null!=info&&info.isAvailable();
+	}
+	
+	/**
+	 * @param context
+	 * @return 是否wifi
+	 */
+	public static boolean isNetworkWIFI(Context context){
+		NetworkInfo info = getNetworkInfo(context);
+		return isNetworkAvailable(context)&&info.getType()== ConnectivityManager.TYPE_WIFI;
+	}
+	
+	/**
+	 * @param context
+	 * @return 是否3g、2g网络
+	 */
+	public static boolean isNetworkPhone(Context context){
+		NetworkInfo info = getNetworkInfo(context);
+		return isNetworkAvailable(context)&&info.getType()== ConnectivityManager.TYPE_MOBILE;
 	}
 }

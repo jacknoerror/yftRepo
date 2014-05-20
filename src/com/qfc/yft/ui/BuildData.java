@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.qfc.yft.CimConsts;
 import com.qfc.yft.YftApplication;
@@ -308,7 +309,7 @@ public class BuildData {
 			if (cur != null) {
 				while (cur.moveToNext()) {
 					long id = cur.getLong(0);
-					System.out.println("builddata:fullconversation::"+id);
+					Log.i(getClass().getSimpleName(), "fullconversation:"+id);
 					int type = cur.getInt(1);
 					long time = cur.getLong(2);
 					if (type == CimConsts.ConnectUserType.FRIEND
@@ -372,6 +373,9 @@ public class BuildData {
 			}
 
 		}
+//		else if(type == CimConsts.ConnectUserType.SHOP){//taotao 0505
+//			CimShop cimShop = get
+//		}
 		return node;
 	}
 
@@ -399,6 +403,18 @@ public class BuildData {
 
 	}
 
+	/**
+	 * taotao 0505
+	 * @param id
+	 * @return
+	 */
+	public CimShop getCimShop(long id){
+		CimShop cimShop = null;
+		ShopList shopList = SystemParams.getInstance().getShops();
+		cimShop = (CimShop)shopList.getById(id);
+		return cimShop;
+	}
+	
 	public CimGuest getCimGuest(long id) {
 		CimGuest cimGuest = null;
 		GuestList guestList = SystemParams.getInstance().getGuestList();

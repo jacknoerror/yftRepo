@@ -1,33 +1,27 @@
 package com.qfc.yft.ui.tabs.main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.entity.Category;
+import com.qfc.yft.ui.MyTitleActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class CategoryActivity extends Activity {
+public class CategoryActivity extends MyTitleActivity {
 	private static final String STH_TO_DISTINCT = "jack";
 
 	final String TAG = CategoryActivity.class.getSimpleName();
@@ -46,6 +40,7 @@ public class CategoryActivity extends Activity {
 		setContentView(R.layout.activity_category);
 		initExtra();
 		initViews();
+		setBackBtnAlive();
 		
 	}
 

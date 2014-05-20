@@ -15,6 +15,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -24,6 +25,8 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView.ScaleType;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class ViewpagerActivity extends Activity implements ViewPager.OnPageChangeListener,OnTouchListener{
@@ -52,14 +55,14 @@ public class ViewpagerActivity extends Activity implements ViewPager.OnPageChang
 	private void initData() {
 		List<View> vList=new ArrayList<View>();
 		for(String p:vpaths){//±éÀúÂ·¾¶¼¯
-			LinearLayout view = new LinearLayout(this);
-			view.setGravity(Gravity.CENTER);
+			FrameLayout view = new FrameLayout(this);
+			ImageView beforeImg = new ImageView(this);
+			beforeImg.setImageResource(android.R.drawable.ic_menu_gallery);
+			view.addView(beforeImg);//0519
 			MyImageView img = new MyImageView(this);
 			img.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-//			img.setBackgroundResource(R.drawable.noimg);
-//			img.setImageResource(R.drawable.noimg);
-			img.setImageResource(android.R.drawable.ic_menu_gallery);
-			img.setScaleType(ScaleType.FIT_CENTER);
+//			img.setImageResource(android.R.drawable.ic_menu_gallery);
+			img.setScaleType(ScaleType.MATRIX);//0519
 			view.addView(img);
 			vImages.add(img);
 			vList.add(view);
@@ -146,7 +149,8 @@ public class ViewpagerActivity extends Activity implements ViewPager.OnPageChang
 			// mTweetShow = !mTweetShow;
 			// tweetLayout.setVisibility(mTweetShow ? View.VISIBLE
 			// : View.INVISIBLE);
-			return true;
+			finish();
+			return false;
 		}
 		
 		float baseValue;

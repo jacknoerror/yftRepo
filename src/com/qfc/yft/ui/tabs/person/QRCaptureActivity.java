@@ -34,12 +34,9 @@ import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.YftValues.RequestType;
-import com.qfc.yft.entity.Company;
 import com.qfc.yft.entity.User;
 import com.qfc.yft.net.HttpReceiver;
 import com.qfc.yft.net.HttpRequestTask;
-import com.qfc.yft.utils.FavUtil;
-import com.qfc.yft.utils.JackUtils;
 
 public class QRCaptureActivity extends Activity implements Callback,HttpReceiver{
 	private final String TAG = "QR_Capture";

@@ -21,6 +21,7 @@ import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.data.CachMsg;
 import com.qfc.yft.net.OfflineDownloadBuilder;
+import com.qfc.yft.ui.account.ChatLoginHelper;
 import com.qfc.yft.ui.tabs.chat.TabChatFragment;
 import com.qfc.yft.ui.tabs.main.TabMainFragment;
 import com.qfc.yft.ui.tabs.person.TabPersonFragment;
@@ -101,6 +102,8 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
         	OfflineDownloadBuilder.setContext(this);
         	OfflineDownloadBuilder.onClick();
         }
+        
+//        ChatLoginHelper.getInstance().setContext(this);
     }
     
     @Override

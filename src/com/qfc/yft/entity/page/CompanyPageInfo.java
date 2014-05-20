@@ -36,8 +36,9 @@ public class CompanyPageInfo extends QfcPageInfo {
 				if(job.has("shopType"))pp.setHasMotion(job.getInt("shopType"));
 				if(job.has("shopLevel"))pp.setHasMotion(job.getInt("shopLevel"));//0416
 				if(job.has("compLogoImg"))pp.setShopLogoImage(job.getString("compLogoImg"));
+				if(job.has("compPurchaseProduct"))pp.setCompPurchaseProduct(job.getString("compPurchaseProduct"));//0514
 				//compXxiangImg
-
+				
 				companyList.add(pp);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

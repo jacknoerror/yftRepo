@@ -4,16 +4,20 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.qfc.yft.CimConsts;
 import com.qfc.yft.R;
@@ -37,14 +41,21 @@ public class ChatLoginHelper implements IWSCallback {
 	private ChatLoginHelper(){}
 	public static ChatLoginHelper getInstance(){
 		if(null==helper) helper = new ChatLoginHelper();
-		helper.mContext = YftApplication.getApp();
+		if(helper.mContext==null)helper.mContext = YftApplication.getApp();
 		return helper;
 	}
 	
+	/**
+	 * test to solve broadcast exception
+	 * @param context
+	 */
+	public void setContext(Context context){
+		mContext = context;
+	}
 	
 	private Handler splashHandler = new Handler() {
 		public void handleMessage(Message msg) {
-
+//			Log.i("splashHandler", "--"+(YftData.data().getHostTab().getContext()==mContext));
 			switch (msg.what) {
 			case 0:
 				/*DataManager.getInstance(LoginActivity.this).setPassword(
@@ -181,8 +192,10 @@ public static PendingIntent pt;
 		YftData.data().getNotificationManager().notify(YftValues.notification_id, notification);
 
 	}
+	static AlertDialog ad ; 
 	public static class UIBadgeReceiver extends BroadcastReceiver {
 
+		
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
@@ -192,8 +205,8 @@ public static PendingIntent pt;
 				int BADGE = bundle.getInt("BADGE");
 				if (type == CimConsts.HandlerType.EPSERVER_OFFLONE) {
 //					showOfflong(TabChatFragment.this);
-					System.out.println("重新登录?");
-//					JackUtils.showDialog(context, "您的纺织聊账号从异地登陆了!", null);
+					createOfflineDialog();
+//					showReloginDialog();
 					YftValues.FZL_RELOGIN=true;//0416
 				} else if (type == 0) {
 					HubActivity.updateChatTabCount();//内部有循环 注意效率
@@ -221,5 +234,41 @@ public static PendingIntent pt;
 
 			}
 		}
+		/**
+		 * 
+		 */
+		private void createOfflineDialog() {
+			if(null==ad||!ad.isShowing()){
+				final Context context = YftData.data().getHostTab().getContext();
+				AlertDialog.Builder builder = new Builder(context);
+				builder.setMessage("您的纺织聊账号已在异地登陆，如要继续使用纺织聊功能，请重新登录易纺通账号");
+
+				builder.setTitle("提示");
+				DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent();
+						intent.setClass(context, StartLoginActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						context.startActivity(intent);
+						YftValues.logout();
+					}
+				};
+				if (null != positiveListener)
+					builder.setPositiveButton("重新登录", positiveListener);// 0408
+
+				builder.setNegativeButton("继续浏览", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				ad = builder.show();
+//				ad = JackUtils.showDialog(YftData.data().getHostTab().getContext(), "您的纺织聊账号从异地登陆了!", null);
+			}
+		}
+
 	}
 }

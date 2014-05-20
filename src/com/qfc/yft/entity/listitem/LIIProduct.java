@@ -165,6 +165,7 @@ public class LIIProduct extends JsonLii{
 		this.productRegion = productRegion;
 	}
 	public String getProductPrice() {
+		if(productPrice.equals("null")) productPrice = "面议";
 		return productPrice.equals("面议")||productPrice.contains("￥")||productPrice.isEmpty()?productPrice:"￥"+productPrice;
 	}
 	public void setProductPrice(String productPrice) {

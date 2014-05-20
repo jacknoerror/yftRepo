@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YFTsnd</string>
+    <string name="app_name">易纺通</string>
     <string name="action_settings">Settings</string>
     
     <string name="login_username">邮箱/手机/用户名</string>
@@ -69,6 +69,7 @@
     <string name="d_4">详细地址:</string>
     
     <string name="no_data_result">没有搜到关键词有关企业，请换关键词试试</string>
+    <string name="no_product">暂无产品</string>
     <string name="no_conversation">没有对话</string>
     <string name="no_people">暂无人脉</string>
     

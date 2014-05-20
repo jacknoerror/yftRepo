@@ -96,6 +96,13 @@ public class ChatActivity extends Activity implements OnClickListener {
 	public void initView() {
 		TextView topTilTextView = (TextView) this.findViewById(R.id.tv_chat);
 		topTilTextView.setText(userName);
+		this.findViewById(R.id.btn_titlebackk).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		/*
 		Button backButton = (Button) findViewById(R.id.back_button);
 		backButton.setVisibility(View.VISIBLE);*/
@@ -132,12 +139,12 @@ public class ChatActivity extends Activity implements OnClickListener {
 					JSONObject job = YftValues.getResultObject(result);
 					if(null!=job){
 						if(null==sc)sc = new SimpleCompany();
-						sc.shopId=job.getInt("shopId");
-						sc.shopName=job.getString("shopName"	);
-						sc.memberType=job.getInt("memberType");
+						sc.shopId=job.optInt("shopId");
+						sc.shopName=job.optString("shopName"	);
+						sc.memberType=job.optInt("memberType");
 						
 						if(sc.shopId>0){
-							YftData.data().storeShop(sc);
+							YftData.data().storeShopById(sc);
 							shopBtn.setVisibility(View.VISIBLE);
 						}
 					}
@@ -147,7 +154,7 @@ public class ChatActivity extends Activity implements OnClickListener {
 				public Context getReceiverContext() {
 					return null;//
 				}
-			}).execute(YftValues.getHTTPBodyString(RequestType.USERSHOP, "35850"));
+			}).execute(YftValues.getHTTPBodyString(RequestType.USERSHOP, "38316"));//texTalk indeed
 		}
 	}
 	
@@ -166,6 +173,11 @@ public class ChatActivity extends Activity implements OnClickListener {
 		}
 		super.onResume();
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
+	
 	private void loadChatMsgs(){//taotao 20131225 从create中移到onresume ，确保从后台返回时重新load数据，同时解决了拍完照不重新load的问题
 		if(mAdapter==null) return ;
 		List<ChatMsgEntity> coll = CachMsg.getInstance().getUserChatList(id);
@@ -406,8 +418,12 @@ public class ChatActivity extends Activity implements OnClickListener {
 		if (treeNode == null) {
 			ConversationListAdapter listAdapter = AllAdapterControl.getInstance()
 					.getConversationlistAdapter();
-			BuildData.getInstance().addConversationNode(listAdapter, id, type,
+			TreeNode tn = BuildData.getInstance().addConversationNode(listAdapter, id, type,
 					System.currentTimeMillis());
+			if(null==tn){//taotao 0505 不限制id身份地添加到conversation中
+				AllAdapterControl.getInstance().getFriendInfo(this, contString, id);
+//				listAdapter.getRoot().add(tn);
+			}
 
 		} else {
 			treeNode.setDescription(contString);

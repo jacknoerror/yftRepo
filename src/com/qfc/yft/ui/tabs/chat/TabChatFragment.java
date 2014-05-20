@@ -23,7 +23,9 @@ import com.qfc.yft.CimConsts;
 import com.qfc.yft.R;
 import com.qfc.yft.YftApplication;
 import com.qfc.yft.YftData;
+import com.qfc.yft.YftValues;
 import com.qfc.yft.data.DataManager;
+import com.qfc.yft.entity.User;
 import com.qfc.yft.net.chat.GIMSocketServer;
 import com.qfc.yft.ui.AllAdapterControl;
 import com.qfc.yft.ui.BuildData;
@@ -53,7 +55,12 @@ public class TabChatFragment extends ContentAbstractFragment  {
 	@Override
 	public void initView() {
 		mView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_chat, null);
-		
+		User mpUser = YftData.data().getMe();
+		if(mpUser.getMemberType()==0){//游客
+			YftValues.logout();
+			getActivity().finish();
+			return;
+		}
 		goConversation();//TODO 先判断是否成功登陆
 		/*registerBroadcastReceiver();//main
 		getActivity().startService(new Intent(getActivity(), GIMSocketServer.class));*/

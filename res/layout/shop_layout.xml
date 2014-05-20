@@ -10,10 +10,13 @@
         android:orientation="vertical"
         >
         
-        <include 
+        <!-- <include 
             layout="@layout/layout_titleblue"
-            />
-        
+            /> -->
+        <com.qfc.yft.ui.custom.JackTitle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
         <FrameLayout 
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"

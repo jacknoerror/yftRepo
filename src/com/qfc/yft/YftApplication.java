@@ -125,6 +125,7 @@ public class YftApplication extends Application {
         }
     }
     
+    //fzl
     UIBadgeReceiver receiver;
     public void setUIBadgeReceiver(UIBadgeReceiver receiver){
     	this.receiver = receiver;

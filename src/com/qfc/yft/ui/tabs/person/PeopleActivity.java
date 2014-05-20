@@ -68,7 +68,7 @@ public class PeopleActivity extends MyTitleActivity implements JackListView.OnGe
 		if(null!=peopleListView)new HttpRequestTask(peopleListView).execute(
 				YftValues.getHTTPBodyString(RequestType.CARDMY, 
 						YftData.data().getMe().getId()+"",
-						YftValues.DEFULAT_PAGESIZE+"",pageNo+""));
+						100+"",pageNo+""));//
 		
 	}
 

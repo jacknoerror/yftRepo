@@ -31,6 +31,8 @@ public class LIICompany implements ListItemImpl {
 	int hasMotion;
 	String mainProducts;
 	String shopLogoImage;
+String 	compPurchaseProduct ;
+
 	int shopType;
 	
 	public final int getShopType() {
@@ -47,6 +49,7 @@ public class LIICompany implements ListItemImpl {
 		compIntro="";
 		mainProducts="";
 		shopLogoImage="";
+		compPurchaseProduct="";
 	}
 
 	public int getShopId() {
@@ -55,6 +58,14 @@ public class LIICompany implements ListItemImpl {
 
 	public void setShopId(int shopId) {
 		this.shopId = shopId;
+	}
+
+	public final String getCompPurchaseProduct() {
+		return compPurchaseProduct;
+	}
+
+	public final void setCompPurchaseProduct(String compPurchaseProduct) {
+		this.compPurchaseProduct = compPurchaseProduct;
 	}
 
 	public String getShopName() {

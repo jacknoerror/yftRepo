@@ -51,6 +51,16 @@
 	             android:visibility="invisible"
 	             >
 	         </ImageView>
+	             <ImageView 
+				    android:id="@+id/btn_cpback"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:src="@drawable/backbtnbg"
+				    android:layout_alignParentLeft="true"
+				    android:layout_marginLeft="@dimen/v_margin_side"
+				    android:layout_marginTop="@dimen/v_margin_side"
+				    android:contentDescription="@id/btn_cpback"
+			    />
 	         <LinearLayout 
 	             android:id="@+id/layout_descncoo_cp"
 	             android:layout_width="match_parent"

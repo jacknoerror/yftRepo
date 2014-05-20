@@ -36,7 +36,7 @@
 	    <TextView 
 	        android:id="@+id/emptyview_series"
 	        style="@style/Nodata_textview"
-	        android:text="没有系列"
+	        android:text="@string/no_product"
 	        />
 </LinearLayout>
 

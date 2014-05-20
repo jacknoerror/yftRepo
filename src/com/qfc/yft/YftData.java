@@ -21,6 +21,7 @@ import com.qfc.yft.ui.AllAdapterControl;
 import com.qfc.yft.ui.BuildData;
 import com.qfc.yft.ui.ConversationListAdapter;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
+import com.qfc.yft.utils.JackUtils;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -165,7 +166,7 @@ public class YftData {
 	SparseArray<LIIProduct> productMap;
 	SparseArray<LIIPeople> peopleMap;
 	SparseArray<SimpleCompany> scMap;
-	public void storeShop(SimpleCompany lc) {//0318
+	public void storeShopById(SimpleCompany lc) {//0318
 		if(null==scMap) scMap = new SparseArray<SimpleCompany>();
 		scMap.put(lc.userId, lc);
 	}
@@ -274,4 +275,9 @@ public class YftData {
 		return myChatName!=null?myChatName:""	;
 	}
 	
+	
+	public boolean hasFZL(){
+		User user = getMe();
+		return null!=user&&user.getMemberType()>2;
+	}
 }

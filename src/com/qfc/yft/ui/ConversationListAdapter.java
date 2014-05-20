@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,10 +73,12 @@ public class ConversationListAdapter extends BaseAdapter {
 		holder.getTime().setVisibility(View.VISIBLE);
 		holder.getTime().setText(treeNode.getTime());
 		holder.getTitle().setText(treeNode.getTitle());
+		
+		String description = treeNode.getDescription();
+		if(description.length()>15) description = description.substring(0, 14);
 		holder.getInfo().setText(
-				Html.fromHtml(treeNode.getDescription(),
+				Html.fromHtml(description,
 						JackUtils.getImageGetter(context), null));
-
 		return convertView;
 	}
 

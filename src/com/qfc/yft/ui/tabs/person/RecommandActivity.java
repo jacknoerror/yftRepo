@@ -7,6 +7,7 @@ import com.qfc.yft.YftValues.RequestType;
 import com.qfc.yft.entity.User;
 import com.qfc.yft.entity.listitem.LIICompany;
 import com.qfc.yft.net.HttpRequestTask;
+import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.current.CurrentPersonActivity;
 import com.qfc.yft.ui.custom.list.JackListView;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
@@ -21,7 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class RecommandActivity extends Activity implements JackListView.OnGetPageListener,OnItemClickListener{
+public class RecommandActivity extends MyTitleActivity implements JackListView.OnGetPageListener,OnItemClickListener{
 final String TAG = RecommandActivity.class.getSimpleName();
 	
 	JackListView recommandListView;
@@ -33,6 +34,7 @@ final String TAG = RecommandActivity.class.getSimpleName();
 		setContentView(R.layout.activity_mypeople);
 //		TestDataTracker.simulateConnection(this, RequestType.CARDMY.toString());
 		initViews();
+		setBackBtnAlive();
 	}
 
 	private void initViews() {

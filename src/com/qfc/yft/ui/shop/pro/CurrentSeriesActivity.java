@@ -25,11 +25,12 @@ import com.qfc.yft.entity.listitem.LIIProduct;
 import com.qfc.yft.entity.offline.IOfflineConst;
 import com.qfc.yft.entity.page.ProductPageInfo;
 import com.qfc.yft.net.HttpRequestTask;
+import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.current.CurrentProductActivity;
 import com.qfc.yft.ui.custom.list.JackListView;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
 
-public class CurrentSeriesActivity extends Activity implements JackListView.OnGetPageListener,OnItemClickListener {
+public class CurrentSeriesActivity extends MyTitleActivity implements JackListView.OnGetPageListener,OnItemClickListener {
 	private final String TAG = CurrentSeriesActivity.this.getClass().getSimpleName();
 	
 	View moreView;
@@ -102,6 +103,7 @@ public class CurrentSeriesActivity extends Activity implements JackListView.OnGe
 		String name = intent.getStringExtra("sname");
 		seriesName = (TextView)findViewById(R.id.tv_title);
 		seriesName.setText(name);
+		setBackBtnAlive();
 	}
 	private void initListView() {
 		csJlv = new JackListView(this, ListItemImpl.ITEMTYPE_PRODUCT_SEARCH){
@@ -140,41 +142,6 @@ public class CurrentSeriesActivity extends Activity implements JackListView.OnGe
 			}
 		}*/
 		
-		/**
-		 * 
-		 * @param result
-		 * @throws JSONException
-		 *//*
-		private void initPageInfo(String result) throws JSONException {
-			final String RESULT="result",NEXTPAGE="nextPage",ORDERBY="orderBy",PAGESIZE="pageSize",
-					PREPAGE="prePage",HASPRE="hasPre",ORDER="order",
-					TOTALCOUNT="totalCount",HASNEXT="hasNext",PAGENO="pageNo",OFFSET="offset",
-					ORDERBYSETTED="orderBySetted",AUTOCOUNT="autoCount",FIRST="first",TOTALPAGES="totalPages";
-			
-			JSONObject job = YftValues.getResultObject(result);
-			if(job==null) return;
-			ProductPageInfo pInfo;
-	//		if(currentPageInfo==null)  //似乎每次都改new
-				currentPageInfo= new ProductPageInfo();
-			pInfo = currentPageInfo;
-	//		pInfo.productArray = job.getJSONArray(RESULT);//TODO
-			pInfo.nextPage 	= job.getInt(NEXTPAGE);
-			pInfo.orderBy 	= job.getString(ORDERBY);
-			pInfo.pageSize	= job.getInt(PAGESIZE);
-			pInfo.prePage	= job.getInt(PREPAGE);
-			pInfo.hasPre 	= job.getBoolean(HASPRE);
-			pInfo.order 	= job.getString(ORDER);
-			pInfo.totalCount = job.getInt(TOTALCOUNT);
-			pInfo.hasNext 	= job.getBoolean(HASNEXT);
-			pInfo.pageNo 	= job.getInt(PAGENO);
-			pInfo.offset 	= job.getInt(OFFSET);
-			pInfo.orderBySetted = job.getBoolean(ORDERBYSETTED);
-			pInfo.autoCount = job.getBoolean(AUTOCOUNT);
-			pInfo.first 	= job.getInt(FIRST);
-			pInfo.totalPages = job.getInt(TOTALPAGES);
-			
-	//		mHouse.addPageInfo(csUser.getShopId(), sid, requestingPage, pInfo);//TODO
-		}*/
 		
 		private void initPageInfoMyself() {
 			if(currentPageInfo==null){

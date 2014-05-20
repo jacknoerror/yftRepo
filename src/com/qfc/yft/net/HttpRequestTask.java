@@ -63,9 +63,13 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 		try {
 			
 			url = new URL(YftValues._URL);
-//			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(YftValues.PROXY_HOST, 80)); 
-//			connection = (HttpURLConnection) url.openConnection(proxy);
-			connection = (HttpURLConnection) url.openConnection();
+			if(YftValues.DEBUG){
+				
+				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(YftValues.PROXY_HOST, 80)); 
+				connection = (HttpURLConnection) url.openConnection(proxy);
+			}else{
+				connection = (HttpURLConnection) url.openConnection();
+			}
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
 			connection.setRequestMethod("POST");
