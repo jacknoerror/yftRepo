@@ -6,6 +6,7 @@ import com.qfc.yft.R;
 import com.qfc.yft.entity.listitem.LIIProduct;
 import com.qfc.yft.utils.JackImageLoader;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +53,6 @@ public class ListAdapterProduct extends ListAbsAdapter {
             }
             price.setText(ssi.getProductPrice());
             location.setText(ssi.getProductRegion());
-            
 		}
 		
 	}

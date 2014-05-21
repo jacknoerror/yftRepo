@@ -206,7 +206,7 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 	private boolean isValidResponse(String response){ 
 		return !response.isEmpty()&&response.contains(YftValues.RESULT_OBJECT);
 	}
-	private int downloadArrSrs(JSONArray array){//down nothing
+	private int downloadArrSrs(JSONArray array){//down nothing,load seriesInfo, save to pref
 		int sec = oError;
 		int shopId = ifYouHaveToGetShopIdStraightly();
 		if(shopId>0) {//用户正确
@@ -241,12 +241,16 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		for(String sid:productJob.getString(PSKey).split(",")){
 			if(sid.isEmpty()) continue;
 			JSONArray jArr = getJarBySid(sid);
-			productJob.put(IMGMain, op.getProductImage().getImgUrl());
-			productJob.put(IMGStrs, getArrFromOIArr(op.getProductPicsArray()));
-			productJob.put(IMG300, op.getProduct300XImage().getImgUrl());//0417
-			productJob.put(IMG800, op.getProductX800Image().getImgUrl());//0417
 			jArr.put(productJob);
-			prefPRDjo.put(sid, jArr);//要
+			try{
+				prefPRDjo.put(sid, jArr);//要
+				productJob.put(IMGMain, op.getProductImage().getImgUrl());
+				productJob.put(IMG300, op.getProduct300XImage().getImgUrl());//0417
+				productJob.put(IMG800, op.getProductX800Image().getImgUrl());//0417
+				productJob.put(IMGStrs, getArrFromOIArr(op.getProductPicsArray()));
+			}catch(Exception e){
+				continue;//0521
+			}
 		}
 		
 	}
@@ -313,6 +317,8 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		String response = doHttpRequest(YftValues.getHTTPBodyString(RequestType.PM, op.getProductId()+""));
 		if(isValidResponse(response)){
 			JSONObject productJob = new JSONObject(response).getJSONObject(YftValues.RESULT_OBJECT);
+//			if(response.contains("406063")) Log.i("NOW", productJob.toString());
+			if(response.contains("162219")) Log.i("NOW", productJob.toString());
 			addProdJobToPrefPrdsStr(productJob,op);
 			
 		}else{
@@ -375,8 +381,8 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		for(int i=0;i<array.length();i++){
 			try {
 				OffImage oi = new OffImage(array.getJSONObject(i));
+				array.put(i,oi.toJsonObj());//put ahead
 				downloadOfflineImage(oi);
-				array.put(i,oi.toJsonObj());
 			} catch (JSONException e) {
 				countError();
 				e.printStackTrace();

@@ -48,7 +48,7 @@ public class YftValues {
 //	public static final String OPEN_API_APP_KEY = "iPad_shop";
 //	public static final String URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
 	
-	public static final boolean DEBUG = true;//测试环境
+	public static final boolean DEBUG = false;//测试环境
 	//正式环境
 	public static final String _URL = "http://open.qfc.cn/invoke/json";
 	public static final String OPEN_API_APP_SECRET = "Can3ppGcPQDCYbRy";

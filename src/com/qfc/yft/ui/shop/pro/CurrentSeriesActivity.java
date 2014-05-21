@@ -245,7 +245,7 @@ public class CurrentSeriesActivity extends MyTitleActivity implements JackListVi
 		JSONArray result = null;
 		if(!matStr.isEmpty()){
 			try {
-				result = new JSONObject(matStr).getJSONArray(sid+"");
+				result = new JSONObject(matStr).getJSONArray(sid+"");//406063
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

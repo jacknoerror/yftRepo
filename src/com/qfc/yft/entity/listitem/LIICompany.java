@@ -1,5 +1,6 @@
 package com.qfc.yft.entity.listitem;
 
+import com.qfc.yft.YftValues;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
 
 public class LIICompany implements ListItemImpl {
@@ -61,6 +62,7 @@ String 	compPurchaseProduct ;
 	}
 
 	public final String getCompPurchaseProduct() {
+		if(null==compPurchaseProduct||compPurchaseProduct.isEmpty()||compPurchaseProduct.equals("null")) compPurchaseProduct = YftValues.NO_DATA;
 		return compPurchaseProduct;
 	}
 
