@@ -218,7 +218,7 @@ public class QRCaptureActivity extends Activity implements Callback,HttpReceiver
 		if(succeed){
 			hintText ="收藏成功！";
 		}else{
-			hintText ="收藏失败！";
+			hintText ="您已经收藏过了！";//TODO
 		}
 		AlertDialog.Builder builder = new Builder(getReceiverContext());
 		  builder.setMessage(hintText);

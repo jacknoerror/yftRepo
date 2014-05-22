@@ -183,6 +183,7 @@ public class YftData {
 		return productMap.get(pid);
 	}
 	public void storePerson(LIIPeople peop) {
+		if(null==peop) return;
 		if(null==peopleMap) peopleMap = new SparseArray<LIIPeople>();
 		peopleMap.put(peop.accountId, peop);
 	}

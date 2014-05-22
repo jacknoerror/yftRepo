@@ -45,6 +45,10 @@ import com.qfc.yft.utils.JackImageUtils;
 import com.qfc.yft.utils.JackUtils;
 import com.qfc.yft.utils.OfflineUtill;
 
+/**
+ * @author taotao
+ *
+ */
 public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void> implements IOfflineConst{
 	private static final String OFFLINETASK_STOP_OR_NOT = "离线数据正在下载，确认停止？";
 
@@ -148,6 +152,9 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		return false;
 	}
 	
+	/**
+	 * 
+	 */
 	private void handleThisShit(){
 		int sec=oError;
 		//shopinfo
@@ -238,17 +245,19 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 				IMGStrs = "imageString",
 				IMGMain = "mainPic",
 				IMG300= IOfflineConst.OFF_PRODUCT_X800_IMAGE,IMG800= IOfflineConst.OFF_PRODUCT_X800_IMAGE;
+		Log.i("NOW", productJob.getString(PSKey)+"))))))))line:248");
 		for(String sid:productJob.getString(PSKey).split(",")){
 			if(sid.isEmpty()) continue;
 			JSONArray jArr = getJarBySid(sid);
-			jArr.put(productJob);
 			try{
-				prefPRDjo.put(sid, jArr);//要
 				productJob.put(IMGMain, op.getProductImage().getImgUrl());
 				productJob.put(IMG300, op.getProduct300XImage().getImgUrl());//0417
 				productJob.put(IMG800, op.getProductX800Image().getImgUrl());//0417
 				productJob.put(IMGStrs, getArrFromOIArr(op.getProductPicsArray()));
+				jArr.put(productJob);
+				prefPRDjo.put(sid, jArr);//要
 			}catch(Exception e){
+				e.printStackTrace();
 				continue;//0521
 			}
 		}
@@ -314,11 +323,10 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 
 	private void addOpToJobToPref(OffProduct op) throws JSONException {
 		//add to pref-products-string
+
 		String response = doHttpRequest(YftValues.getHTTPBodyString(RequestType.PM, op.getProductId()+""));
 		if(isValidResponse(response)){
 			JSONObject productJob = new JSONObject(response).getJSONObject(YftValues.RESULT_OBJECT);
-//			if(response.contains("406063")) Log.i("NOW", productJob.toString());
-			if(response.contains("162219")) Log.i("NOW", productJob.toString());
 			addProdJobToPrefPrdsStr(productJob,op);
 			
 		}else{
@@ -381,8 +389,8 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		for(int i=0;i<array.length();i++){
 			try {
 				OffImage oi = new OffImage(array.getJSONObject(i));
-				array.put(i,oi.toJsonObj());//put ahead
 				downloadOfflineImage(oi);
+				array.put(i,oi.toJsonObj());//don't put ahead
 			} catch (JSONException e) {
 				countError();
 				e.printStackTrace();

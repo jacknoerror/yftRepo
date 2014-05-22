@@ -365,6 +365,13 @@ public class YftValues {
    		 
 	 		//try local
 	 		String param = YftValues.getOffdataAsParam(shopId);
+	 		try {
+				JSONObject job = new JSONObject(param);
+				if(null==job);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //	 		JackUtils.writeToSomeWhere(YftApplication.getApp(), param);
 	 		//do network
 	 		if(!param.isEmpty())JackRequestManager.getInstance().tryRequest(YftValues.getHTTPBodyString(RequestType.SYNC, param), receiver, 3000);
