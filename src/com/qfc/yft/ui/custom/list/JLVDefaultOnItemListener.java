@@ -36,7 +36,9 @@ public class JLVDefaultOnItemListener implements OnItemClickListener {
 			long id) {
 		switch (type) {
 		case ListItemImpl.ITEMTYPE_PRODUCT_SEARCH:
+
 			LIIProduct prod = (LIIProduct)parent.getAdapter().getItem(position);
+			if(null==prod) return;
 			if(prod.isPrivate()){
 				PrivateChecker.prod = prod;
 				PrivateChecker.context=parent.getContext();
@@ -47,8 +49,9 @@ public class JLVDefaultOnItemListener implements OnItemClickListener {
 			}
 			break;
 		case ListItemImpl.ITEMTYPE_COMPANY_SEARCH:
-			LIICompany comp = (LIICompany)parent.getAdapter().getItem(position);
 			
+			LIICompany comp = (LIICompany)parent.getAdapter().getItem(position);
+			if(null==comp) return;
 			YftActivityGate.goShop(parent.getContext(), comp.getShopId(), comp.getShopName(), comp.getHasMotion(), -1);
 			break;
 		case ListItemImpl.ITEMTYPE_PEOPLE_SEARCH:

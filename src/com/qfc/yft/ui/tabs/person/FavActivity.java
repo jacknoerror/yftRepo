@@ -87,7 +87,7 @@ public class FavActivity extends MyTitleActivity  {
 				if(null==fUser) return;
 				new HttpRequestTask(qListView).execute(YftValues.getHTTPBodyString(RequestType.FIND_PRODUCT, 
 						fUser.getId()+"",
-						"10",1+""));
+						"30",pageNo+""));
 			}
 		});
 		qList2.setOnGetPageListener(new JackListView.OnGetPageListener() {
@@ -97,7 +97,7 @@ public class FavActivity extends MyTitleActivity  {
 				if(null==fUser) return;
 				new HttpRequestTask(qListView).execute(YftValues.getHTTPBodyString(RequestType.FIND_COMPANY, 
 						fUser.getId()+"",
-						"10",1+""));
+						"20",pageNo+""));
 			}
 		});
 	}

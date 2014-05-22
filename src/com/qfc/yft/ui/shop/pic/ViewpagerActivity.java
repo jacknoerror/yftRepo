@@ -58,6 +58,7 @@ public class ViewpagerActivity extends Activity implements ViewPager.OnPageChang
 			FrameLayout view = new FrameLayout(this);
 			ImageView beforeImg = new ImageView(this);
 			beforeImg.setImageResource(android.R.drawable.ic_menu_gallery);
+			beforeImg.setScaleType(ScaleType.CENTER_INSIDE);
 			view.addView(beforeImg);//0519
 			MyImageView img = new MyImageView(this);
 			img.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));

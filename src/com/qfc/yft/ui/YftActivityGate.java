@@ -61,6 +61,7 @@ public class YftActivityGate {
 	 * @param prod
 	 */
 	public static void goProduct(Context context,LIIProduct prod) {
+		if(null==prod) return;
 		YftData.data().storeProduct(prod);
 		Intent intent = new Intent();
 		intent.setClass(context, CurrentProductActivity.class);
@@ -69,6 +70,7 @@ public class YftActivityGate {
 	}
 	
 	public static void goPeople(Context context,LIIPeople peop){
+		if(null==peop) return;
 		YftData.data().storePerson(peop);
 		Intent intent = new Intent();
 		intent.setClass(context, CurrentPersonActivity.class);
