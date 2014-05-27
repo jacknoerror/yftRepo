@@ -30,19 +30,17 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
-        <activity
-            android:name="com.qfc.yft.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >
         </activity>
         <activity android:name="com.qfc.yft.ui.common.CurProdActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name="com.qfc.yft.wxapi.WXEntryActivity"
+            android:exported="true"
+            ></activity>
     </application>
 
     <instrumentation
