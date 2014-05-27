@@ -42,14 +42,14 @@ public class YftValues {
 	public static final String URL_FORGETPWD = "http://member.qfc.cn/my/get-password.action";
 
 	// kaifa环境
-	// public static final String _URL =
-	// "http://open.qfc.test.ctcn.com.cn/invoke/json";
-	// // public static final String _URL =
-	// "http://192.168.199.201:8091/invoke/json";
-	// public static final String OPEN_API_APP_SECRET = "iPad_shop";
-	// public static final String OPEN_API_APP_KEY = "iPad_shop";
-	// public static final String
-	// URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
+//	 public static final String _URL =
+//	 "http://open.qfc.test.ctcn.com.cn/invoke/json";
+////	  public static final String _URL ="http://192.168.199.201:8091/invoke/json";
+	 
+//	 public static final String OPEN_API_APP_SECRET = "iPad_shop";
+//	 public static final String OPEN_API_APP_KEY = "iPad_shop";
+//	 public static final String
+//	 URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
 
 	public static final boolean DEBUG = false;// 测试环境
 	// 正式环境

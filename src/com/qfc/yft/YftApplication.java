@@ -33,7 +33,7 @@ public class YftApplication extends Application {
 	//测试用key
 //	public static final String strKey = "A228ee673a413a045b292d67593e791f";
 	//正式版本key
-//	public static final String strKey = "nAzNjjOTAtlmz5uYRdtISNzp";
+//	public static final String strKey = "nAzNjjOTAtlmz5uYRdtISNzp";//deprecated
 	public static final String strKey = "0mWqe22O9Iv4hojLFe1Azmtm";//v1.1正式版
 	
 	
