@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.qfc.yft.MyApplication;
 import com.qfc.yft.data.Const;
+import com.qfc.yft.util.JackUtils;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -22,10 +24,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 //        api = WXAPIFactory.createWXAPI(this, Const.AppID, false);
 //        api.handleIntent(getIntent(), this);
         super.onCreate(savedInstanceState);
+        finish();
     }
+    
     @Override
     public void onReq(BaseReq arg0) { 
-    	Log.i("WXEntryActivity", "req");
+    	Log.i("WXEntryActivity", "transaction"+arg0.transaction);
+    	 finish();
     }
  
     @Override
@@ -36,6 +41,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
         switch (resp.errCode) {
         case BaseResp.ErrCode.ERR_OK:
             //分享成功
+        	JackUtils.showToast(MyApplication.app(),"分享成功");
             break;
         case BaseResp.ErrCode.ERR_USER_CANCEL:
             //分享取消
@@ -44,5 +50,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
             //分享拒绝
             break;
         }
+        finish();
     }
 }
