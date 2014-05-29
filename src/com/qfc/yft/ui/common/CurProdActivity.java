@@ -2,21 +2,11 @@ package com.qfc.yft.ui.common;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.qfc.yft.R;
-import com.qfc.yft.data.Const;
-import com.qfc.yft.ui.custom.MyShareDialog;
-import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.util.ShareHelper;
 
 public class CurProdActivity extends Activity {
