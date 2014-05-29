@@ -27,12 +27,10 @@ public class User {
 	 * 初始化user各值
 	 * @return 是否成功init
 	 */
-	public boolean initWithJsonString(String json){
-//		JSONArray jArray;
-		JSONObject jObject;
+	public boolean initWithJsonString(JSONObject jObject){//String json){
+//		JSONObject jObject;
 		try {
-//			jArray = new JSONArray(json.replace('}', ']').replace('{', '['));
-			jObject =new JSONObject(json);
+//			jObject =new JSONObject(json);
 			int cur=0;
 			if(jObject.has(keys[cur++]))this.id = jObject.getInt(keys[cur-1]);
 			if(jObject.has(keys[cur++]))this.hall=(jObject.getInt(keys[cur-1])==1);

@@ -47,6 +47,7 @@ public interface NetConst  {
 	
 	public static final String RESULT_SIGN = "resultSign";
 	public static final String RESULT_OBJECT="resultObj";
+	public static final String RESULT_ERROR_MSG="errorMsg";//
 	
 	public static final String JSON_SERIES_NAME_PRODUCTSERIES = "productSeriesName";
 	public static final String JSON_SERIES_NAME_PARENTSERIES  =	"parentSeriesName";

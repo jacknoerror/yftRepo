@@ -1,5 +1,6 @@
 package com.qfc.yft.ui.account;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -23,17 +24,19 @@ import android.widget.TextView;
 import com.qfc.yft.R;
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.entity.offline.OfflineDataKeeper;
-import com.qfc.yft.net.HttpRequestTask;
+import com.qfc.yft.net.action.ActStringRcv;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionReceiverImpl;
 import com.qfc.yft.net.action.ActionRequestImpl;
+import com.qfc.yft.net.action.BareReceiver;
+import com.qfc.yft.net.action.member.MemberInfoReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.ui.custom.JackResizeLayout;
 import com.qfc.yft.util.JackButtonColorFilter;
 import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.User;
 
-public class StartLoginActivity extends Activity implements HttpReceiver,View.OnClickListener{
+public class StartLoginActivity extends Activity implements View.OnClickListener{
 	final String TAG = StartLoginActivity.class.getSimpleName();
 	
 	EditText et1,et2;
@@ -48,7 +51,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 	Handler mHandler;
 	SharedPreferences pref;
 	
-	int requestStep;
 	String username,password;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 				}
 			}
 		};
-		requestStep=0;
 //		TestDataTracker.simulateConnection(this, RequestType.MEMBER_INFO.toString());//miss '{'
 	}
 
@@ -86,7 +87,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 		sLayout = (LinearLayout)findViewById(R.id.layout_login);
 		sLayPadRect = new Rect(sLayout.getPaddingLeft(), sLayout.getPaddingTop(), sLayout.getPaddingRight(), sLayout.getPaddingBottom());
 		
-		if(resizeLayout!=null) {
 			resizeLayout.setOnResizeListener(new JackResizeLayout.OnResizeListener() {
 				
 				@Override
@@ -97,7 +97,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 					}
 				}
 			});
-		}
 		
 		sButton = (Button)findViewById(R.id.btn_log);
 		JackButtonColorFilter.setButtonFocusChanged(sButton);
@@ -116,6 +115,8 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 		if(!pref.contains(getString(R.string.pref_notfirsttime))){
 			goSlide();
 		}
+		
+		et2.setText("333333a");//FIXME delete
 	}
 	
 	private void initOfflinePref(User user) {
@@ -142,8 +143,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 	}
 	
 	private void goLogin(){
-//		hideSoftKeyboard();
-		if(requestStep>0) return;
 		username = et1.getText().toString();
 		password = et2.getText().toString();
 		if(username.equals("")) {
@@ -155,12 +154,39 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 			return;
 		}
 		else {
-//			new HttpRequestTask(this).execute(YftValues.getHTTPBodyString(RequestType.POINT_VERIFY, 
-//					username,password));
-			requestStep=1;
 			
 			ActionRequestImpl actReq = new PointVerifyReq(username, password);
-			ActionReceiverImpl actRcv = null;
+			ActStringRcv actRcv = new ActStringRcv(this){
+				@Override
+				public boolean response(String result) throws JSONException {
+					boolean response = super.response(result);
+					if(response){
+						ActionRequestImpl actReq0 = new MemberInfoReq(resultStr);
+						ActionReceiverImpl actRcv0 = new BareReceiver(StartLoginActivity.this){
+							@Override
+							public boolean response(String result) throws JSONException {
+								boolean response = super.response(result);
+								// 保存user信息
+								User user = new User();
+								boolean iReturn = user.initWithJsonString(resultJob.getJSONObject(RESULT_OBJECT));
+								if(!iReturn) Log.e(TAG, "user init failed!!");
+								MyData.data().setMe(user);//1029
+								MyData.data().setMeCurrentUser();
+								//跳转
+								enter(user.getMemberType()>2);
+								pref.edit().putString(getString(R.string.pref_username), username).commit();//成功则保存用户名
+								initOfflinePref(user);
+								
+								Log.i(TAG, "success");//delete me
+								return response&&iReturn;
+							};
+						}
+						;
+						ActionBuilder.getInstance().request(actReq0, actRcv0);
+					}
+					return response;
+				}
+			};
 			ActionBuilder.getInstance().request(actReq, actRcv);
 		}
 		hideSoftKeyboard();
@@ -185,57 +211,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.SHOW_FORCED);
 	}
 	
-	@Override
-	public void response(String result) {
-		String rSign="resultSign",rObj = "resultObj",rError="errorMsg";
-		try {
-			JSONObject job = new JSONObject(result);//if null?
-			if(job.has(rSign)){
-				if(job.getBoolean(rSign)){//success
-					
-					if(job.has(rObj)){
-						String ro = job.getString(rObj);
-						Log.i(TAG, ro+";::resultObj");
-						switch (requestStep) {
-						case 1:
-							new HttpRequestTask(this).execute(YftValues.getHTTPBodyString(RequestType.MEMBER_INFO, ro));
-							requestStep=2;
-							break;
-						case 2:
-							// 保存user信息
-							User user = new User();
-							boolean iReturn = user.initWithJsonString(ro);
-							if(!iReturn) Log.e(TAG, "user init failed!!");
-							MyData.data().setMe(user);//1029
-							MyData.data().setMeCurrentUser();
-									
-							
-							//跳转
-							enter(user.getMemberType()>2);
-							pref.edit().putString(getString(R.string.pref_username), username).commit();//成功则保存用户名
-							initOfflinePref(user);
-							requestStep=0;
-//							TestDataTracker.settleDataString(RequestType.MEMBER_INFO.toString(), result);//
-							break;
-						default:
-							break;
-						}
-					}
-				}else{//failed
-					if(job.has(rError)){
-						JackUtils.showToast(this, job.getString(rError));
-					}
-					requestStep=0;
-				}
-			}
-			
-			
-		} catch (Exception e) {
-			requestStep=0;
-			e.printStackTrace();
-		}
-		
-	}
 
 	
 
@@ -255,12 +230,6 @@ public class StartLoginActivity extends Activity implements HttpReceiver,View.On
 			break;
 		}
 		
-	}
-	
-	
-	@Override
-	public Context getReceiverContext() {
-		return this;
 	}
 	
 	

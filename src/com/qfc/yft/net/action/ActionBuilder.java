@@ -3,10 +3,9 @@ package com.qfc.yft.net.action;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
 
-import android.content.Context;
-import android.util.Log;
+import com.qfc.yft.net.HttpRequestTask;
+
 
 
 
@@ -27,7 +26,7 @@ public class ActionBuilder {
 	
 	public void request(ActionRequestImpl actReq, ActionReceiverImpl actRcv ){
 		//TODO map?
-//		new HttpRequestTask(actRcv).execute(actReq.toHttpBody());
+		new HttpRequestTask(actRcv).execute(actReq.toHttpBody());
 //		TestDataTracker.simulateConnection(actRcv, actReq.getApiName());
 	}
 	

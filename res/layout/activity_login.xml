@@ -24,7 +24,7 @@
 
         <EditText
             android:id="@+id/et_login_account"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/v_height_edit"
             android:layout_margin="@dimen/h_margin_side"
             android:background="@drawable/edittext_bg"
@@ -35,7 +35,7 @@
 
         <EditText
             android:id="@+id/et_login_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/v_height_edit"
             android:layout_margin="@dimen/h_margin_side"
             android:background="@drawable/edittext_bg"
@@ -83,7 +83,9 @@
                 android:gravity="right"
                 android:text="@string/login_guest"
                 android:textColor="#2f71b4"
-                android:textSize="@dimen/textsize_r_bigger" />
+                android:textSize="@dimen/textsize_r_bigger"
+                android:textColorHighlight="@android:color/black"
+                 />
         </LinearLayout>
     </LinearLayout>
 

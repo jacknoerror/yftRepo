@@ -10,7 +10,7 @@ import com.qfc.yft.data.NetConst;
 public interface ActionReceiverImpl extends NetConst{
 	/**
 	 * @param result
-	 * @return false if no error occurs
+	 * @return true if no error occurs
 	 * @throws JSONException
 	 */
 	public boolean response(String result) throws JSONException;

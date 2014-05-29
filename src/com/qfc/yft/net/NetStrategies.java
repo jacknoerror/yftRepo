@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -64,17 +62,7 @@ public class NetStrategies implements NetConst{
 	}
 	
 	
-	public static JSONObject getResultObject(String json) throws JSONException{
-		JSONObject job = new JSONObject(json);
-		if(job.has(RESULT_SIGN)){
-			if(job.getBoolean(RESULT_SIGN)){
-				return job.getJSONObject(RESULT_OBJECT);
-			}else{
-				//TODO «Î«Û ß∞‹
-			}
-		}
-		return null;
-	}
+	
 	
 	
 	/*public static void tryGetOfflineDataHere(HttpReceiver receiver){
