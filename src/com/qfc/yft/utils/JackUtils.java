@@ -808,7 +808,7 @@ public class JackUtils {
 	 */
 	public static boolean isOpenNetwork() {
 		ConnectivityManager connManager = (ConnectivityManager) YftApplication
-				.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+				.app().getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connManager.getActiveNetworkInfo() != null) {
 			return connManager.getActiveNetworkInfo().isAvailable();
 		}
@@ -823,7 +823,7 @@ public class JackUtils {
 	 */
 	public static NetworkInfo getNetworkInfo(Context context){
 		ConnectivityManager connManager = (ConnectivityManager) YftApplication
-				.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+				.app().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = connManager.getActiveNetworkInfo();
 		return info;
 	}

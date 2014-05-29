@@ -180,7 +180,7 @@ public class OfflineDownloadBuilder extends AsyncTask<OfflineData, Double, Void>
 		downloadArrPrd(opArr);
 		if(checkCancel()){return;}
 		if(oError-sec==0) data.getDownloadStatus().setStatus(OFFSTATUS_COMMON_STATUS);
-		JackUtils.writeToSomeWhere(YftApplication.getApp(), data.toJsonStr());
+		JackUtils.writeToSomeWhere(YftApplication.app(), data.toJsonStr());
 		finishCommit();
 	}
 	

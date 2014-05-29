@@ -247,17 +247,17 @@ public class YftData {
 	}
 	NotificationManager nm;
 	public NotificationManager getNotificationManager() {
-		if(null==nm)nm = (NotificationManager)YftApplication.getApp(). getSystemService(Context.NOTIFICATION_SERVICE);
+		if(null==nm)nm = (NotificationManager)YftApplication.app(). getSystemService(Context.NOTIFICATION_SERVICE);
 		return nm;
 	}
 	ConversationListAdapter convListAdapter;
 	public ConversationListAdapter getConvListAdapter() {
 		if(null==convListAdapter){
-			convListAdapter = new ConversationListAdapter(YftApplication.getApp());
+			convListAdapter = new ConversationListAdapter(YftApplication.app());
 			//2.AllAdapterControl
 			AllAdapterControl.getInstance().setConversationlistAdapter(convListAdapter);
 			//3.buildData
-			final List<Long> idArrs = BuildData.getInstance().fullConversation(YftApplication.getApp(), convListAdapter);
+			final List<Long> idArrs = BuildData.getInstance().fullConversation(YftApplication.app(), convListAdapter);
 			new Thread() {
 				public void run() {
 					SocketBuild.sendConversation(idArrs);

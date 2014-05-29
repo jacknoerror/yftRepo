@@ -37,7 +37,7 @@ public class TestDataTracker {
 		}
 	}
 	private static Context getContext(){
-		return YftApplication.getApp();
+		return YftApplication.app();
 	}
 	
 	public static void simulateConnection(HttpReceiver receiver,String dataKey){

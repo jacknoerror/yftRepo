@@ -49,7 +49,7 @@ public abstract class ListAbsAdapter extends BaseAdapter {
 	public ListAbsAdapter(List<ListItemImpl> contentList){
 		this.contentList = contentList;
 		viewMap = new SparseArray<View>();
-		this.context = YftApplication.getApp();
+		this.context = YftApplication.app();
 	}
 	
 

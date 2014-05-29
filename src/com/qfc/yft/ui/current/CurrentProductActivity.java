@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.RotateAnimation;
@@ -25,26 +24,25 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.YftValues.RequestType;
 import com.qfc.yft.entity.SimpleCompany;
-import com.qfc.yft.entity.User;
 import com.qfc.yft.entity.listitem.LIIProduct;
 import com.qfc.yft.net.HttpReceiver;
 import com.qfc.yft.net.HttpRequestTask;
 import com.qfc.yft.ui.MyPagerAdapater;
 import com.qfc.yft.ui.YftActivityGate;
 import com.qfc.yft.ui.custom.ScrollViewExtend;
-import com.qfc.yft.ui.shop.ShopActivity;
 import com.qfc.yft.ui.shop.pic.ViewpagerActivity;
 import com.qfc.yft.utils.JackImageLoader;
 import com.qfc.yft.utils.JackUtils;
+import com.qfc.yft.utils.ShareHelper;
 
 public class CurrentProductActivity extends Activity implements ViewPager.OnPageChangeListener,View.OnClickListener,HttpReceiver{
 	private final String TAG = CurrentProductActivity.class.getSimpleName();
@@ -60,6 +58,8 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 	
 	CPInfoReceiver cpir;
 	ScrollViewExtend mScrollView;
+
+	private ShareHelper shareHelper;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,7 +80,20 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			}
 		});
 	}
+	/**
+	 * 当 SSO 授权 Activity 退出时，该函数被调用。
+	 * 
+	 * @see {@link Activity#onActivityResult}
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
+		// SSO 授权回调
+		// 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResult
+		if (null != shareHelper)
+			shareHelper.callback(requestCode, resultCode, data);
+	}
 	private void init() {
 //		Log.i(TAG, cpProduct.getProductProps());
 		/*tv_prop = (TextView) findViewById(R.id.tv_name_cp);
@@ -166,6 +179,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				cpProduct.getProductId()+"",
 				YftData.data().getMe().getId()+""));
 		
+		findViewById(R.id.btn_share).setOnClickListener(this);//0529
 	}
 
 	private void setSpotSelected(int index){
@@ -270,14 +284,14 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				YftActivityGate.goShop(this, cpir.shopId, cpir.companyName, cpir.memberType, getShopTabId(v.getId(), cpir.memberType));//TODO
 				break;
 			case R.id.btn_share:
-				share();
+//				share();
+				showShareDialog();
 				break;
 			default:
 				break;
 			}
 			
 		}
-
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		//1.2.0
@@ -325,6 +339,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 		int memberType=-1;
 		String companyName;
 		Long textTalk;
+		String productUrl;
 
 		Context cpiContext;
 		public CPInfoReceiver(Context context){
@@ -344,6 +359,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				memberType = job.getInt("memberType");
 				companyName=job.optString("companyName");
 				textTalk=job.getLong("texTalk");//TODO 
+				productUrl = job.optString("productUrl");
 						
 				SimpleCompany lc = new SimpleCompany();//0319
 				lc.userId=userId;
@@ -354,13 +370,29 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			}
 			
 		}
-
+		
 		@Override
 		public Context getReceiverContext() {
 			return cpiContext;
 		}
+
 		
 	}
+	/**
+	 * 
+	 */
+	private void showShareDialog() {
+		if(null==shareHelper)shareHelper = new ShareHelper(this);
+		shareHelper.title = "向您推荐网上轻纺城的产品";
+		shareHelper.desc = cpProduct.getProductName();
+		shareHelper.shareUrl = null!=cpir?cpir.productUrl:null;
+		String[] neatProductImgArray = cpProduct.getNeatProductImgArray();
+		if(neatProductImgArray.length>0){
+			shareHelper.setThumb(JackImageLoader.findBitmap(neatProductImgArray[0]));
+		}
+		shareHelper.showShareDialog();
+	}
+	
 	
 	private void share(){
 		Intent intent=new Intent(Intent.ACTION_SEND); 

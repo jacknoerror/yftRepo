@@ -25,7 +25,7 @@ public class YftApplication extends Application {
 	public boolean m_bKeyRight = true;
     public BMapManager mBMapManager = null;
 	
-	public static YftApplication getApp(){
+	public static YftApplication app(){
 		return yApp;
 	}
 	
@@ -86,7 +86,7 @@ public class YftApplication extends Application {
         }
 
         if (!mBMapManager.init(strKey,new MyGeneralListener())) {
-            Toast.makeText(YftApplication.getApp().getApplicationContext(), 
+            Toast.makeText(YftApplication.app().getApplicationContext(), 
                     "BMapManager  初始化错误!", Toast.LENGTH_LONG).show();
         }
 	}
@@ -105,11 +105,11 @@ public class YftApplication extends Application {
         @Override
         public void onGetNetworkState(int iError) {
             if (iError == MKEvent.ERROR_NETWORK_CONNECT) {
-                Toast.makeText(YftApplication.getApp().getApplicationContext(), "您的网络出错啦！",
+                Toast.makeText(YftApplication.app().getApplicationContext(), "您的网络出错啦！",
                     Toast.LENGTH_LONG).show();
             }
             else if (iError == MKEvent.ERROR_NETWORK_DATA) {
-                Toast.makeText(YftApplication.getApp().getApplicationContext(), "输入正确的检索条件！",
+                Toast.makeText(YftApplication.app().getApplicationContext(), "输入正确的检索条件！",
                         Toast.LENGTH_LONG).show();
             }
             // ...
@@ -119,9 +119,9 @@ public class YftApplication extends Application {
         public void onGetPermissionState(int iError) {
                 //授权Key错误：
         	if (iError ==  MKEvent.ERROR_PERMISSION_DENIED) {
-                Toast.makeText(YftApplication.getApp().getApplicationContext(), 
+                Toast.makeText(YftApplication.app().getApplicationContext(), 
                         "百度地图授权Key有错误！", Toast.LENGTH_LONG).show();
-                YftApplication.getApp().m_bKeyRight = false;
+                YftApplication.app().m_bKeyRight = false;
             }
         }
     }

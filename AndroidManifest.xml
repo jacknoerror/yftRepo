@@ -79,6 +79,9 @@
         <activity
             android:name="com.qfc.yft.ui.tabs.person.QRCaptureActivity"
             android:launchMode="singleTop" />
+        <activity android:name="com.qfc.yft.wxapi.WXEntryActivity"
+            android:exported="true"
+            ></activity>
 
         <receiver
             android:name="com.qfc.yft.ui.account.ChatLoginHelper$UIBadgeReceiver"

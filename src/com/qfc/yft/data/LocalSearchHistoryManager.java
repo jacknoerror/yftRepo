@@ -15,7 +15,7 @@ import android.content.SharedPreferences.Editor;
 public class LocalSearchHistoryManager {
 	private static LocalSearchHistoryManager manager;
 	private LocalSearchHistoryManager(){
-		pref = YftApplication.getApp().getSharedPreferences(YftValues.PREF_LOCAL, Context.MODE_PRIVATE);
+		pref = YftApplication.app().getSharedPreferences(YftValues.PREF_LOCAL, Context.MODE_PRIVATE);
 		map = new HashMap<String, List<String>>();
 	};
 	public static LocalSearchHistoryManager getInstance(){

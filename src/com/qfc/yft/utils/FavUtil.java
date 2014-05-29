@@ -31,7 +31,7 @@ public class FavUtil {
 	
 	private static SharedPreferences fp(){
 		if(fPref==null){
-			fPref  = YftApplication.getApp().getSharedPreferences(PREF_HEART, Context.MODE_PRIVATE) ;
+			fPref  = YftApplication.app().getSharedPreferences(PREF_HEART, Context.MODE_PRIVATE) ;
 		}
 		return fPref;
 	}

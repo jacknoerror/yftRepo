@@ -41,7 +41,7 @@ public class ChatLoginHelper implements IWSCallback {
 	private ChatLoginHelper(){}
 	public static ChatLoginHelper getInstance(){
 		if(null==helper) helper = new ChatLoginHelper();
-		if(helper.mContext==null)helper.mContext = YftApplication.getApp();
+		if(helper.mContext==null)helper.mContext = YftApplication.app();
 		return helper;
 	}
 	
@@ -65,7 +65,7 @@ public class ChatLoginHelper implements IWSCallback {
 					YftData.data().setMyChatName(userName);
 					createUserExists(userName);
 				}
-				JackUtils.showToast(YftApplication.getApp(), "纺织聊登录成功");//TODO 标志位？
+				JackUtils.showToast(YftApplication.app(), "纺织聊登录成功");//TODO 标志位？
 				YftValues.FZL_RELOGIN=false;//0416
 				registerBroadcastReceiver();//main
 				mContext.startService(new Intent(mContext, GIMSocketServer.class));
@@ -93,7 +93,7 @@ public class ChatLoginHelper implements IWSCallback {
 	};
 	
 	public void logInChatGo(String loginId, String password) {
-		JackUtils.showToast(YftApplication.getApp(), "纺织聊正在登录...");
+		JackUtils.showToast(YftApplication.app(), "纺织聊正在登录...");
 		String encryptPassword = "";
 		String passwordParam = "password";
 //		if (Config.encryptType == 0) {
@@ -171,7 +171,7 @@ public class ChatLoginHelper implements IWSCallback {
 		UIBadgeReceiver receiver = new UIBadgeReceiver();
 		IntentFilter filter = new IntentFilter(BADGE_ACTION);
 		mContext.registerReceiver(receiver, filter);
-		YftApplication.getApp().setUIBadgeReceiver(receiver);
+		YftApplication.app().setUIBadgeReceiver(receiver);
 	}
 	
 	public static Notification notification;
@@ -182,9 +182,9 @@ public static PendingIntent pt;
 		notification = new Notification();
 		notification.icon = icon;
 		notification.tickerText = tickertext;
-		pt = PendingIntent.getActivity(YftApplication.getApp(), 0, new Intent(YftApplication.getApp(),
+		pt = PendingIntent.getActivity(YftApplication.app(), 0, new Intent(YftApplication.app(),
 				HubActivity.class), Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		notification.setLatestEventInfo(YftApplication.getApp(), title, content, pt);
+		notification.setLatestEventInfo(YftApplication.app(), title, content, pt);
 		notification.flags = Notification.FLAG_NO_CLEAR;
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.number = 1;

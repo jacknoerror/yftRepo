@@ -42,21 +42,20 @@ public class YftValues {
 	public static final String URL_FORGETPWD = "http://member.qfc.cn/my/get-password.action";
 
 	// kaifa环境
-//	 public static final String _URL =
-//	 "http://open.qfc.test.ctcn.com.cn/invoke/json";
-////	  public static final String _URL ="http://192.168.199.201:8091/invoke/json";
-	 
-//	 public static final String OPEN_API_APP_SECRET = "iPad_shop";
-//	 public static final String OPEN_API_APP_KEY = "iPad_shop";
-//	 public static final String
-//	 URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
+	 public static final String _URL =
+	 "http://open.qfc.test.ctcn.com.cn/invoke/json";
+//	  public static final String _URL ="http://192.168.199.201:8091/invoke/json";
+	 public static final String OPEN_API_APP_SECRET = "iPad_shop";
+	 public static final String OPEN_API_APP_KEY = "iPad_shop";
+	 public static final String
+	 URL_REGISTER="http://member.qfc.test.ctcn.com.cn/my/ipad/register.action?registType=android";
 
 	public static final boolean DEBUG = false;// 测试环境
 	// 正式环境
-	public static final String _URL = "http://open.qfc.cn/invoke/json";
-	public static final String OPEN_API_APP_SECRET = "Can3ppGcPQDCYbRy";
-	public static final String OPEN_API_APP_KEY = "iPad_MShop";
-	public static final String URL_REGISTER = "http://member.qfc.cn/my/ipad/register.action?registType=android";
+//	public static final String _URL = "http://open.qfc.cn/invoke/json";
+//	public static final String OPEN_API_APP_SECRET = "Can3ppGcPQDCYbRy";
+//	public static final String OPEN_API_APP_KEY = "iPad_MShop";
+//	public static final String URL_REGISTER = "http://member.qfc.cn/my/ipad/register.action?registType=android";
 
 	private static final String URL_APPKEY = "openApiAppKey";
 	private static final String URL_BUSICODE = "openApiBusiCode";
@@ -432,11 +431,11 @@ public class YftValues {
 
 	public static void logout() {
 		try {
-			YftApplication.getApp().unregisterReceiver(
-					YftApplication.getApp().getUIBadgeReceiver());// TODO tobe
+			YftApplication.app().unregisterReceiver(
+					YftApplication.app().getUIBadgeReceiver());// TODO tobe
 																	// test
-			YftApplication.getApp().stopService(
-					new Intent(YftApplication.getApp(), GIMSocketServer.class));
+			YftApplication.app().stopService(
+					new Intent(YftApplication.app(), GIMSocketServer.class));
 			if (!OfflineDownloadBuilder.shouldStart()) {
 				OfflineDownloadBuilder.cancel();// 0421
 			}

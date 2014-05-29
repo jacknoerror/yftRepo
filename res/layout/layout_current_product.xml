@@ -48,7 +48,6 @@
 	             android:src="@drawable/btn_share"
 	             android:layout_marginTop="@dimen/v_margin_side"
 	             android:layout_marginRight="@dimen/h_margin_side"
-	             android:visibility="invisible"
 	             >
 	         </ImageView>
 	             <ImageView 
