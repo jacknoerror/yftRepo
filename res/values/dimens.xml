@@ -6,4 +6,14 @@
 
     <dimen name="common_margin">4dp</dimen>
     
+    <dimen name="v_padding_login_up">35dp</dimen>
+    <dimen name="v_padding_login_down">90dp</dimen>
+    <dimen name="v_height_edit">44dp</dimen>
+    
+    
+    <dimen name="textsize_title">21sp</dimen>
+    <dimen name="textsize_r_bigger">18sp</dimen>
+    <dimen name="textsize_detail_normal">16sp</dimen>
+    <dimen name="textsize_alitlittle">14sp</dimen>
+    <dimen name="textsize_min">12sp</dimen>
 </resources>

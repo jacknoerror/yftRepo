@@ -5,4 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+     <string name="login_username">邮箱/手机/用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_guest">随便逛逛</string>
+    
+    <string name="preference">.tnc</string>
+	<string name="pref_notfirsttime">nft</string>
+	<string name="pref_username">username</string>
+    
 </resources>
