@@ -15,4 +15,7 @@
 	<string name="pref_notfirsttime">nft</string>
 	<string name="pref_username">username</string>
     
+	<string name="titlename_person">个人中心</string>
+	
+	<drawable name="divider_h_grey">#c8c8c8</drawable>
 </resources>

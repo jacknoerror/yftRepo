@@ -32,6 +32,8 @@
 
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >
         </activity>
+        <activity android:name="com.qfc.yft.ui.common.StartPagerActivity" >
+        </activity>
         <activity android:name="com.qfc.yft.ui.common.CurProdActivity" >
         </activity>
         <activity android:name="com.qfc.yft.wxapi.WXEntryActivity"
@@ -45,6 +47,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.qfc.yft.ui.tab.HubActivity" >
         </activity>
     </application>
 

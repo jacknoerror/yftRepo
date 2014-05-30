@@ -1,7 +1,6 @@
 package com.qfc.yft.ui.account;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,7 +30,9 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.BareReceiver;
 import com.qfc.yft.net.action.member.MemberInfoReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
+import com.qfc.yft.ui.common.StartPagerActivity;
 import com.qfc.yft.ui.custom.JackResizeLayout;
+import com.qfc.yft.ui.tab.HubActivity;
 import com.qfc.yft.util.JackButtonColorFilter;
 import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.User;
@@ -130,10 +131,10 @@ public class StartLoginActivity extends Activity implements View.OnClickListener
 	private void enter(boolean has){
 //		if(has)ChatLoginHelper.getInstance().logInChatGo(username, password);//TODO 纺织聊
 		
-		/*Intent intent = new Intent();
+		Intent intent = new Intent();
 		intent.setClass(this, HubActivity.class);
-		startActivity(intent);*/
-		//TODO 登录后切换界面
+		startActivity(intent);
+		//  登录后切换界面
 	}
 
 	private void goSlide() {

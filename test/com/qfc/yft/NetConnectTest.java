@@ -19,6 +19,7 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.collection.IsCollectByProductIdReq;
 import com.qfc.yft.net.action.member.SearchCardsByKeywordReq;
 import com.qfc.yft.net.action.product.GetProductForMotion1Req;
+import com.qfc.yft.net.action.product.GetProductReq;
 import com.qfc.yft.net.action.product.SearchProductByShopIdAndSeriesIdForIphoneReq;
 import com.qfc.yft.net.action.product.SearchProductReq;
 import com.qfc.yft.util.JackUtils;
@@ -38,8 +39,8 @@ public class NetConnectTest extends AndroidTestCase {
 
 		switch (apiId) {
 		case 0:
-			ari = new GetProductForMotion1Req(162153);
-//			ari = new GetProductForMotion1Req(162218);
+//			ari = new GetProductForMotion1Req(162153);
+			ari = new GetProductForMotion1Req(20056);
 			break;
 		case 1:
 			ari = new SearchProductByShopIdAndSeriesIdForIphoneReq(402746, 11, 1, 406063);
@@ -53,6 +54,9 @@ public class NetConnectTest extends AndroidTestCase {
 			break;
 		case 4://ËÑË÷ÈËÂö
 			ari = new SearchCardsByKeywordReq("¶¡", 5, 1);
+			break;
+		case 5://
+			ari = new GetProductReq(20056);
 			break;
 		default:
 			break;
@@ -74,7 +78,7 @@ public class NetConnectTest extends AndroidTestCase {
 		String result = "";
 
 		// login:26 ;
-		result = test(2);
+		result = test(0);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
 	}
@@ -97,6 +101,14 @@ public class NetConnectTest extends AndroidTestCase {
 				.app().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = connManager.getActiveNetworkInfo();
 		Log.i(TAG, info.getType() + "+" + info.getTypeName());
+	}
+	
+	public void calDpPx(){
+		int a = JackUtils.px2dip(mContext, 135);
+		Log.i(TAG, "p2d:"+a);
+		int b = JackUtils.dip2px(mContext, 20);
+		Log.i(TAG, "d2p:"+b);
+		assertNotSame(a*b, 0);
 	}
 
 }

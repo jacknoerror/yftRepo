@@ -1,5 +1,7 @@
 package com.qfc.yft.data;
 
+import android.widget.TabHost;
+
 import com.qfc.yft.vo.User;
 
 
@@ -34,6 +36,14 @@ public class MyData {
 	}
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
+	}
+	
+	TabHost tabHost;
+	public final TabHost getTabHost() {
+		return tabHost;
+	}
+	public final void setTabHost(TabHost tabHost) {
+		this.tabHost = tabHost;
 	}
 	
 	

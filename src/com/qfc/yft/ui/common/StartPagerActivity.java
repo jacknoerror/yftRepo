@@ -1,4 +1,4 @@
-package com.qfc.yft.ui.account;
+package com.qfc.yft.ui.common;
 
 import java.util.ArrayList;
 import java.util.List;
