@@ -141,7 +141,8 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 //				layoutWithImg.setLayoutParams(lp);
 				layoutWithImg.setPadding(5, 5, 5, 5);
 				ImageView im = new ImageView(this);//(ImageView)LayoutInflater.from(this).inflate(R.layout.image_spot, null);//@drawable/spot_selector
-				im.setImageResource(R.drawable.spot_selector);
+				im.setImageResource(R.drawable.spot_selector_big);
+//				im.setImageResource(R.drawable.spot_selector);
 				layoutWithImg.addView(im);
 				spotLayout.addView(layoutWithImg);
 				spotList.add(im);
@@ -354,12 +355,12 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				if(isSaved){
 					btn_coo.setSelected(true);
 				}
+				productUrl = job.optString("productUrl");
 				userId = job.getInt("memberId");
 				shopId = job.getInt("companyId");
 				memberType = job.getInt("memberType");
 				companyName=job.optString("companyName");
 				textTalk=job.getLong("texTalk");//TODO 
-				productUrl = job.optString("productUrl");
 						
 				SimpleCompany lc = new SimpleCompany();//0319
 				lc.userId=userId;

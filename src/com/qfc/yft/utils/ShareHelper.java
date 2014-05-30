@@ -299,6 +299,7 @@ public class ShareHelper implements View.OnClickListener {
 		}
 		
 		WXWebpageObject webpage = new WXWebpageObject();
+		if(null==shareUrl||shareUrl.isEmpty()) shareUrl = "http://qfc.cn";
 		webpage.webpageUrl = shareUrl;
 		WXMediaMessage msg = new WXMediaMessage(webpage);
 		msg.title = title;

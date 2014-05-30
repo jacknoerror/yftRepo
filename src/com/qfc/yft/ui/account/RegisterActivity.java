@@ -118,6 +118,8 @@ public class RegisterActivity extends MyTitleActivity implements HttpReceiver{
 					String result= url.substring(url.indexOf(USERCODE)+USERCODE.length());
 //					Log.i(TAG, "result:"+result);
 					new HttpRequestTask(RegisterActivity.this).execute(YftValues.getHTTPBodyString(RequestType.MEMBER_INFO, result));
+				}else{
+					return false;
 				}
 				return true;
 			}

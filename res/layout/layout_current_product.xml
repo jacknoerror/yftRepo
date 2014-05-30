@@ -54,7 +54,7 @@
 				    android:id="@+id/btn_cpback"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
-				    android:src="@drawable/backbtnbg"
+				    android:src="@drawable/btn_bk"
 				    android:layout_alignParentLeft="true"
 				    android:layout_marginLeft="@dimen/v_margin_side"
 				    android:layout_marginTop="@dimen/v_margin_side"
