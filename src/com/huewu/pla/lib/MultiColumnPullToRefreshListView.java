@@ -278,7 +278,7 @@ public class MultiColumnPullToRefreshListView extends MultiColumnListView {
 		return enablePulling;
 	}
 	
-	@Override
+	/*@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
 		if(lockScrollWhileRefreshing
 				&& (state == State.REFRESHING || getAnimation() != null && !getAnimation().hasEnded())){
@@ -305,9 +305,9 @@ public class MultiColumnPullToRefreshListView extends MultiColumnListView {
 		}
 		
 		return super.onInterceptTouchEvent(event);
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public boolean onTouchEvent(MotionEvent event){
 		if(lockScrollWhileRefreshing
 				&& (state == State.REFRESHING || getAnimation() != null && !getAnimation().hasEnded())){
@@ -362,7 +362,7 @@ public class MultiColumnPullToRefreshListView extends MultiColumnListView {
 		}
 
 		return super.onTouchEvent(event);
-	}
+	}*///0603 ×¢ÊÍ
 
 	private void bounceBackHeader(){
 		int yTranslate = state == State.REFRESHING ?

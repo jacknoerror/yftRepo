@@ -54,6 +54,8 @@ public class ShareHelper implements View.OnClickListener {
 	Context context;
 
 	private SsoHandler mSsoHandler;// 微博授权handler
+	private boolean wbInstallCanceled;
+	private boolean wbRegisted;
 
 	public ShareHelper(Context context) {
 		this(context, "易纺通", "向您推荐", null, "www.qfc.cn");
@@ -83,23 +85,7 @@ public class ShareHelper implements View.OnClickListener {
 		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(context,
 				WeiboConstants.APP_KEY);
 
-		// 获取微博客户端相关信息，如是否安装、支持 SDK 的版本
-		boolean isInstalledWeibo = mWeiboShareAPI.isWeiboAppInstalled();
-		// int supportApiLevel = mWeiboShareAPI.getWeiboAppSupportAPI();
-
-		// 如果未安装微博客户端，设置下载微博对应的回调
-		if (!isInstalledWeibo) {
-			mWeiboShareAPI
-					.registerWeiboDownloadListener(new IWeiboDownloadListener() {
-						@Override
-						public void onCancel() {
-							Toast.makeText(context, "\t取消下载",
-									Toast.LENGTH_SHORT).show();
-						}
-					});
-		}
-		// 注册到新浪微博
-		mWeiboShareAPI.registerApp();
+		
 	}
 
 	@Override
@@ -130,6 +116,28 @@ public class ShareHelper implements View.OnClickListener {
 	}
 
 	private void weiboShare() {
+		
+		// 获取微博客户端相关信息，如是否安装、支持 SDK 的版本
+				boolean isInstalledWeibo = mWeiboShareAPI.isWeiboAppInstalled();
+				// int supportApiLevel = mWeiboShareAPI.getWeiboAppSupportAPI();
+
+				// 如果未安装微博客户端，设置下载微博对应的回调
+				if (!isInstalledWeibo) {
+					mWeiboShareAPI
+							.registerWeiboDownloadListener(new IWeiboDownloadListener() {
+								@Override
+								public void onCancel() {
+									Toast.makeText(context, "\t取消下载",
+											Toast.LENGTH_SHORT).show();
+									wbInstallCanceled = true;
+								}
+							});
+				}
+				// 注册到新浪微博
+				if(!wbRegisted&&!wbInstallCanceled)wbRegisted=mWeiboShareAPI.registerApp();
+		if(!isInstalledWeibo&&!wbInstallCanceled) return;
+		
+		//授权
 		mAccessToken = AccessTokenKeeper.readAccessToken(context);
 		if (mAccessToken != null && mAccessToken.isSessionValid()) {// 已经授权
 			// 去分享

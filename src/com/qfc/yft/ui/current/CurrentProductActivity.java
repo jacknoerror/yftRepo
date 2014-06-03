@@ -75,7 +75,6 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});
@@ -219,7 +218,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			mWebView.setVisibility(View.VISIBLE);
 //			mWebView.loadData(cpProduct.getProductDesc(),  "text/html","gbk");
 			mWebView.getSettings().setDefaultTextEncodingName("UTF-8");//设置默认为utf-8
-			mWebView.loadData(cpProduct.getProductDesc(), "text/html; charset=UTF-8", null);//这种写法可以正确解码 TODO
+			mWebView.loadData(cpProduct.getProductDesc(), "text/html; charset=UTF-8", null);//这种写法可以正确解码 
 			WebSettings ws = mWebView.getSettings();
 
 //	        ws.setJavaScriptEnabled(true);
