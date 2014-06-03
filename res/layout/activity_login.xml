@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qfc.yft.ui.custom.JackResizeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/img_login_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@id/img_login_bg"
+        android:scaleType="fitStart"
+        android:src="@drawable/loginbgtop" />
+
+    <LinearLayout
+        android:id="@+id/layout_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/loginbgbottom"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/v_padding_login_down"
+        android:paddingTop="@dimen/v_padding_login_up" >
+
+        <EditText
+            android:id="@+id/et_login_account"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v_height_edit"
+            android:layout_margin="@dimen/h_margin_side"
+            android:background="@drawable/edittext_bg"
+            android:digits="qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM!@#$%^*()_+-=[];&apos;/\{}|?"
+            android:hint="@string/login_username"
+            android:paddingLeft="10dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v_height_edit"
+            android:layout_margin="@dimen/h_margin_side"
+            android:background="@drawable/edittext_bg"
+            android:hint="@string/login_password"
+            android:imeOptions="actionSend"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_log"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v_height_edit"
+            android:layout_margin="@dimen/h_margin_side"
+            android:background="@drawable/btn_login_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/login_login"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/h_margin_side"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/h_margin_side"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/login_register"
+                android:textColor="#2f71b4"
+                android:textSize="@dimen/textsize_r_bigger" />
+
+            <TextView
+                android:id="@+id/tv_guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/h_margin_side"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/login_guest"
+                android:textColor="#2f71b4"
+                android:textSize="@dimen/textsize_r_bigger"
+                android:textColorHighlight="@android:color/black"
+                 />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_login"
+        android:layout_alignTop="@id/img_login_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/logo_margin"
+        android:contentDescription="@drawable/loginlogo"
+        android:src="@drawable/loginlogo" />
+
+</com.qfc.yft.ui.custom.JackResizeLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitStart"
+        android:src="@drawable/loginbgtop" />
+
+    <LinearLayout
+        android:id="@+id/layout_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/h_margin_side"
+        android:paddingRight="@dimen/h_margin_side" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_weight="11"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:paddingRight="@dimen/common_margin"
+            android:scaleType="fitCenter"
+            android:src="@drawable/homelogo" />
+
+        <EditText
+            android:id="@+id/et_home"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v_height_titlebar_small"
+            android:layout_margin="@dimen/common_margin"
+            android:layout_weight="3"
+            android:background="@drawable/edittext_search_trans"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="2dp"
+            android:hint="搜索产品/企业/人脉"
+            android:inputType="none"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/layout_home_top"
+        android:background="@drawable/loginbgbottom"
+        android:overScrollMode="never"
+        android:scrollbars="none" >
+        <!-- android:layout_marginTop="@dimen/v_main_top_margin" -->
+
+        <!--
+            <TableLayout 
+	    	    android:id="@+id/table_home"
+	    	    android:layout_width="match_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:padding="@dimen/h_margin_side"
+	    	    >
+	    	</TableLayout>
+        -->
+
+        <include
+            android:id="@+id/layout_content_main"
+            layout="@layout/merge_content_main" />
+    </ScrollView>
+
+</RelativeLayout>

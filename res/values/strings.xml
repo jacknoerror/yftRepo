@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">易纺通</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+     <string name="login_username">邮箱/手机/用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_guest">随便逛逛</string>
+    
+    <string name="preference">.tnc</string>
+	<string name="pref_notfirsttime">nft</string>
+	<string name="pref_username">username</string>
+    
+	<string name="titlename_person">个人中心</string>
+	<string name="titlename_myshop">我的商铺</string>
+	<string name="titlename_myfave">我的收藏</string>
+	<string name="titlename_mypeop">我的人脉</string>
+	
+	<string name="subname_main_a1">产品类目</string>
+	<string name="subname_main_a2">找产品</string>
+	<string name="subname_main_a3">找企业</string>
+	<string name="title_b1">一步到位</string>
+	<string name="title_b2">批捕市场</string>
+	<string name="title_b3">家纺市场</string>
+	<string name="title_b4">虚拟市场</string>
+	<string name="title_b5">童装市场</string>
+	<string name="title_b6">面料市场</string>
+	
+	
+	<drawable name="divider_h_grey">#c8c8c8</drawable>
+</resources>
