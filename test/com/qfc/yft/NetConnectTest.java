@@ -4,16 +4,12 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.qfc.yft.data.Const;
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;

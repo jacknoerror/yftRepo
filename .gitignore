@@ -2,4 +2,8 @@ bin/
 .classpath
 gen/
 .svn
+<<<<<<< HEAD
 .project
+=======
+
+>>>>>>> 660ffde2e18d779804d10e1fca5fc842665bb302
