@@ -11,10 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.text.TextPaint;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,11 +20,10 @@ import com.qfc.yft.R;
 import com.qfc.yft.YftData;
 import com.qfc.yft.YftValues;
 import com.qfc.yft.YftValues.RequestType;
-import com.qfc.yft.data.CompanyHttpHelper;
 import com.qfc.yft.entity.SimpleShopInfo;
 import com.qfc.yft.net.HttpReceiver;
 import com.qfc.yft.net.HttpRequestTask;
-import com.qfc.yft.utils.FavUtil;
+import com.qfc.yft.ui.account.StartLoginActivity;
 import com.qfc.yft.utils.JackUtils;
 
 public class ShActivityInfo extends ShopTabAbsActivity {
@@ -116,7 +112,7 @@ public class ShActivityInfo extends ShopTabAbsActivity {
 	
 	private void initFavBtn(){
 		btn_fav				= (ImageView)findViewById(R.id.btn_info_heart);
-		if(noMe()||isMe()||!YftValues.isopen(this)) {//1113 0429无网络
+		if(isMe()||!YftValues.isopen(this)) {//1113 0429无网络  0604noMe()||
 			btn_fav.setVisibility(View.INVISIBLE);
 			return;
 		}
@@ -124,6 +120,14 @@ public class ShActivityInfo extends ShopTabAbsActivity {
 			
 			@Override
 			public void onClick(View v) {
+				if(noMe()) {//0604
+					Intent intent = new Intent();
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.setClass(ShActivityInfo.this, StartLoginActivity.class);
+					startActivity(intent);
+					YftValues.logout();
+					return;
+				}
 				new HttpRequestTask(new HttpReceiver() {
 					
 					@Override
@@ -173,8 +177,8 @@ public class ShActivityInfo extends ShopTabAbsActivity {
 		  
 		  builder.show();
 	}
-	private boolean noMe(){//TODO 这个版本是否还有这种情况？考虑删除
-		return YftData.data().getMe()==null;
+	private boolean noMe(){// 通常为id=0
+		return YftData.data().getMe()==null||YftData.data().getMe().getId()<=0;
 	}
 	private boolean isMe(){
 		return !noMe()&&YftData.data().isMe();//shHelper.dfCompany.getMemberId()==YftData.data().getMe().getId();

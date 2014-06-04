@@ -120,7 +120,12 @@ public class LIIProduct extends JsonLii{
 				if(result[i].contains(DIVIDER1))result[i]= result[i].split(DIVIDER1)[1]; 
 			}
 			return result;
-		}else{
+		}else if(productImgs.startsWith("[")&&productImgs.endsWith("]")&&productImgs.contains(",")){//ugly,temp
+			productImgs = productImgs.replace("[", "").replace("]", "");
+			String[] result = productImgs.split(",");
+			return result;
+		}
+		else{
 			String[] result=new String[1];
 			result[0]=productImgs.contains(DIVIDER1)?productImgs.split(DIVIDER1)[1]:productImgs;
 			return result;

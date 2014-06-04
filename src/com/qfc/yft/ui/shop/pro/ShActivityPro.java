@@ -80,7 +80,7 @@ public class ShActivityPro extends Activity implements HttpReceiver{
 					new HttpRequestTask(qListView).execute(//RequestType.PRODUCT_INFO, csUser.getShopId()+"",sid+"",YftValues.DEFULAT_PAGESIZE+"",page+""));
 							YftValues.getHTTPBodyString(RequestType.PRODUCT_INFO, 
 									saUser.getShopId()+"","",
-									YftValues.DEFULAT_PAGESIZE+"",1+""));
+									YftValues.DEFULAT_PAGESIZE*2+"",pageNo+""));
 				}
 			});
 			
@@ -293,92 +293,6 @@ public class ShActivityPro extends Activity implements HttpReceiver{
 	}
 	
 	
-	/*class ProItem{
-		String imgToken="";
-		String title="";
-		String anotherTitle="";
-	}*/
-	/*static class ViewHolder{
-		TextView tv_title;
-		ImageView img_pro;
-		TextView tv_anothertitle;
-	}*/
-	/*class MyGridAdapter extends BaseAdapter
-	{
-		List<ProItem> contentList;
-		SparseArray<View> viewArray;
-		Context context;
-		
-		public MyGridAdapter(List<ProItem> list, Context context)
-		{
-			if(list==null) throw new IllegalStateException("list should not be null");
-			this.context = context;
-			contentList = list;
-			viewArray = new SparseArray<View>();
-		}
-
-		// 获取图片的个数
-		@Override
-		public int getCount()
-		{
-			return contentList.size();
-		}
-
-		// 获取图片在库中的位置
-		@Override
-		public Object getItem(int position)
-		{
-			return contentList.get(position);
-		}
-
-
-		// 获取图片ID
-		@Override
-		public long getItemId(int position)
-		{
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
-			View view;
-            ViewHolder holder = null;
-  
-            if (viewArray.get(position) == null) {
-            	final int ww=JackUtils.dip2px(getContext(), 155), hh=JackUtils.dip2px(getContext(), 175);
-                view = LayoutInflater.from(context).inflate(R.layout.replaceme_product_cell, null);
-                view.setLayoutParams(new LayoutParams(ww,hh));
-                holder = new ViewHolder();
-                holder.tv_title = (TextView)view.findViewById(R.id.tv_product);
-                holder.img_pro = (ImageView)view.findViewById(R.id.img_product);
-                holder.tv_anothertitle=(TextView)view.findViewById(R.id.tv_cell_child);
-                
-                viewArray.put(position, view);
-   
-                view.setTag(holder);
-                
-                //1217
-                ProItem proItem = contentList.get(position);
-                String imgUrl=proItem.imgToken;
-                if(!imgUrl.isEmpty())JackImageLoader.justSetMeImage(imgUrl, holder.img_pro);
-                holder.tv_title.setText(addEndStr(proItem.title, END_SERIES) );
-                if(!proItem.anotherTitle.isEmpty()){
-                	holder.tv_anothertitle.setText(addEndStr(proItem.anotherTitle, END_SERIES_SON));
-                	holder.tv_anothertitle.setVisibility(View.VISIBLE);
-                }else{
-                	holder.tv_anothertitle.setVisibility(View.GONE);
-                }
-            }else{
-//                Log.d(TAG,"position2 = "+position);
-                view = viewArray.get(position);
-                holder = (ViewHolder)view.getTag();
-            }
-            
-            return view;
-}
-
-	}*/
 
 	public class MyAdapter extends BaseAdapter{
 		List<FallItem> contentList;

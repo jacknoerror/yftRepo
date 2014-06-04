@@ -29,6 +29,7 @@ import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.current.CurrentProductActivity;
 import com.qfc.yft.ui.custom.list.JackListView;
 import com.qfc.yft.ui.custom.list.ListAbsAdapter.ListItemImpl;
+import com.qfc.yft.utils.JackUtils;
 
 public class CurrentSeriesActivity extends MyTitleActivity implements JackListView.OnGetPageListener,OnItemClickListener {
 	private final String TAG = CurrentSeriesActivity.this.getClass().getSimpleName();
@@ -55,7 +56,7 @@ public class CurrentSeriesActivity extends MyTitleActivity implements JackListVi
 				new HttpRequestTask(qListView).execute(//RequestType.PRODUCT_INFO, csUser.getShopId()+"",sid+"",YftValues.DEFULAT_PAGESIZE+"",page+""));
 					YftValues.getHTTPBodyString(RequestType.PRODUCT_INFO, 
 							csUser.getShopId()+"",sid+"",
-							YftValues.DEFULAT_PAGESIZE+"",pageNo+""));
+							YftValues.DEFULAT_PAGESIZE*2+"",pageNo+""));
 				
 			}else{
 				currentPageInfo = ppi;
@@ -102,6 +103,7 @@ public class CurrentSeriesActivity extends MyTitleActivity implements JackListVi
 		
 		String name = intent.getStringExtra("sname");
 		seriesName = (TextView)findViewById(R.id.tv_title);
+		if(name.length()>10) seriesName.setPadding(JackUtils.dip2px(this, 50), 0, 0, 0);
 		seriesName.setText(name);
 		setBackBtnAlive();
 	}

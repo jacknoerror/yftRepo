@@ -42,14 +42,15 @@
 	        android:background="@drawable/bg_fall_sub"
 	        android:layout_marginBottom="@dimen/common_margin"
 	        android:layout_marginRight="@dimen/common_margin"
-	        android:layout_marginLeft="@dimen/common_margin"
+	        android:layout_marginLeft="15dp"
 	        android:layout_alignRight="@id/relativelayout_that_to_figure_out_a_perfect_performance_of_image"
 	        android:layout_alignBottom="@id/relativelayout_that_to_figure_out_a_perfect_performance_of_image"
 	        android:textColor="@android:color/black"
 	        android:textSize="@dimen/textsize_alitlittle"
 	        android:paddingLeft="@dimen/common_margin"
 	        android:paddingRight="@dimen/common_margin"
-	        android:lines="1"
+	        android:singleLine="true"
+	        android:text="jack is a genius is a genius 陶陶帅哥 大大 CONNTOOONN SSOSOSO UUDPPD/ IENONV"
 	        />
     </RelativeLayout>
     <TextView 

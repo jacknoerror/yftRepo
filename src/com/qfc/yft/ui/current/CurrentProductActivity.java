@@ -115,7 +115,8 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 			List<View> vList = new ArrayList<View>();
 			spotList = new ArrayList<ImageView>();
 			LinearLayout spotLayout = (LinearLayout)findViewById(R.id.layout_spots_cp);
-			for(String s:cpProduct.getNeatProductImgArray()){//cpProduct.getProductImg()
+			final String[] neatProductImgArray = cpProduct.getNeatProductImgArray();//0604
+			for(String s:neatProductImgArray){//cpProduct.getProductImg()
 				ImageView img = new ImageView(this);
 				img.setImageDrawable(getResources().getDrawable(R.drawable.load_default));
 				img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -129,7 +130,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 					public void onClick(View v) {
 						Intent intent = new Intent();
 						intent.setClass(CurrentProductActivity.this, ViewpagerActivity.class);
-						intent.putExtra(YftValues.SHOWPIC_PATHS, cpProduct.getNeatProductImgArray());
+						intent.putExtra(YftValues.SHOWPIC_PATHS, neatProductImgArray);
 						startActivity(intent);
 					}
 				});
@@ -240,7 +241,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 	}
 	private int getShopTabId(int vid,int mt){
 		int result;
-		if(mt<0||mt>=3){
+		if(mt<0||mt==3){
 			result = vid==R.id.btn_cp_2?1:2;
 		}else{
 			result = vid==R.id.btn_cp_3?1:2;
@@ -359,7 +360,7 @@ public class CurrentProductActivity extends Activity implements ViewPager.OnPage
 				shopId = job.getInt("companyId");
 				memberType = job.getInt("memberType");
 				companyName=job.optString("companyName");
-				textTalk=job.getLong("texTalk");//TODO 
+				if(job.has("texTalk")&&!job.isNull("texTalk"))textTalk=job.getLong("texTalk");//TODO 
 						
 				SimpleCompany lc = new SimpleCompany();//0319
 				lc.userId=userId;
