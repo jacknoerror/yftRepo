@@ -4,16 +4,14 @@ import org.json.JSONException;
 
 import android.content.Context;
 
-public class ActStringRcv implements ActionReceiverImpl {
+public class ActStringRcv extends ActAbsSthRcv{
+
+	public ActStringRcv(Context context) {
+		super(context);
+	}
 
 	public String resultStr;
-	Context context;
 	
-	
-	public ActStringRcv(Context context) {
-		super();
-		this.context = context;
-	}
 
 	@Override
 	public boolean response(String result) throws JSONException {
@@ -21,9 +19,5 @@ public class ActStringRcv implements ActionReceiverImpl {
 		return null!=resultStr&&!resultStr.isEmpty();
 	}
 
-	@Override
-	public Context getReceiverContext() {
-		return context;
-	}
 
 }

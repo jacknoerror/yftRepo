@@ -29,7 +29,7 @@ public class SearchAlbumReq implements ActionRequestImpl {
 	@Override
 	public String toHttpBody() {
 		return NetStrategies.finishTheURL(halfwayParamMap(NetStrategies
-				.getBasicParamMapInstance(getApiName(),1)));
+				.getBasicParamMapInstance(getApiName(),2)));
 	}
 
 	@Override

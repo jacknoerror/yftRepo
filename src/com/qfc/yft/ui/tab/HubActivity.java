@@ -34,8 +34,8 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 	final String[] TITLES= new String[]{"首页","纺织聊","工作台","个人中心"};
 	final Class[] CLAZZZ=new Class[]{
 			TabMainFragment.class,
-			TabWorkFragment.class,
 			TabChatFragment.class,
+			TabWorkFragment.class,
 			TabPersonFragment.class
 	};
 	/*public static TextView staticTvChatCount;

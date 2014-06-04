@@ -28,7 +28,10 @@ import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionReceiverImpl;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.BareReceiver;
+import com.qfc.yft.net.action.NextActionRcv;
 import com.qfc.yft.net.action.member.MemberInfoReq;
+import com.qfc.yft.net.action.member.PointVerifyForIMRcv;
+import com.qfc.yft.net.action.member.PointVerifyForIMReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.ui.common.StartPagerActivity;
 import com.qfc.yft.ui.custom.JackResizeLayout;
@@ -155,42 +158,72 @@ public class StartLoginActivity extends Activity implements View.OnClickListener
 			return;
 		}
 		else {
-			
-			ActionRequestImpl actReq = new PointVerifyReq(username, password);
-			ActStringRcv actRcv = new ActStringRcv(this){
+			ActionRequestImpl actReq = new PointVerifyForIMReq(username, password);
+			ActionReceiverImpl rcv0 = new PointVerifyForIMRcv(this);
+			ActionRequestImpl nReq =new MemberInfoReq();
+			ActionReceiverImpl nRcv= new BareReceiver(StartLoginActivity.this){
 				@Override
 				public boolean response(String result) throws JSONException {
 					boolean response = super.response(result);
-					if(response){
-						MyData.data().setUserCode(resultStr);//0603
-						ActionRequestImpl actReq0 = new MemberInfoReq(resultStr);
-						ActionReceiverImpl actRcv0 = new BareReceiver(StartLoginActivity.this){
-							@Override
-							public boolean response(String result) throws JSONException {
-								boolean response = super.response(result);
-								// 保存user信息
-								User user = new User();
-								boolean iReturn = user.initWithJsonString(resultJob.getJSONObject(RESULT_OBJECT));
-								if(!iReturn) Log.e(TAG, "user init failed!!");
-								MyData.data().setMe(user);//1029
-								MyData.data().setMeCurrentUser();
-								//跳转
-								enter(user.getMemberType()>2);
-								pref.edit().putString(getString(R.string.pref_username), username).commit();//成功则保存用户名
-								initOfflinePref(user);
-								
-								return response&&iReturn;
-							};
-						}
-						;
-						ActionBuilder.getInstance().request(actReq0, actRcv0);
-					}
-					return response;
-				}
-			};
-			ActionBuilder.getInstance().request(actReq, actRcv);
+					// 保存user信息
+					User user = new User();
+					boolean iReturn = user.initWithJsonString(resultJob.getJSONObject(RESULT_OBJECT));
+					if(!iReturn) Log.e(TAG, "user init failed!!");
+					MyData.data().setMe(user);//1029
+					MyData.data().setMeCurrentUser();
+					//跳转
+					enter(user.getMemberType()>2);
+					pref.edit().putString(getString(R.string.pref_username), username).commit();//成功则保存用户名
+					initOfflinePref(user);
+					
+					return response&&iReturn;
+				};
+			}
+			;
+			ActionReceiverImpl actRcv = new NextActionRcv(rcv0, nReq, nRcv);
+			ActionBuilder.getInstance().request(actReq, actRcv );
+//			startLoginRequest();
 		}
 		hideSoftKeyboard();
+	}
+
+	/**
+	 * 
+	 */
+	private void startLoginRequest() {
+		ActionRequestImpl actReq = new PointVerifyReq(username, password);
+		ActStringRcv actRcv = new ActStringRcv(this){
+			@Override
+			public boolean response(String result) throws JSONException {
+				boolean response = super.response(result);
+				if(response){
+					MyData.data().setUserCode(resultStr);//0603
+					ActionRequestImpl actReq0 = new MemberInfoReq(resultStr);
+					ActionReceiverImpl actRcv0 = new BareReceiver(StartLoginActivity.this){
+						@Override
+						public boolean response(String result) throws JSONException {
+							boolean response = super.response(result);
+							// 保存user信息
+							User user = new User();
+							boolean iReturn = user.initWithJsonString(resultJob.getJSONObject(RESULT_OBJECT));
+							if(!iReturn) Log.e(TAG, "user init failed!!");
+							MyData.data().setMe(user);//1029
+							MyData.data().setMeCurrentUser();
+							//跳转
+							enter(user.getMemberType()>2);
+							pref.edit().putString(getString(R.string.pref_username), username).commit();//成功则保存用户名
+							initOfflinePref(user);
+							
+							return response&&iReturn;
+						};
+					}
+					;
+					ActionBuilder.getInstance().request(actReq0, actRcv0);
+				}
+				return response;
+			}
+		};
+		ActionBuilder.getInstance().request(actReq, actRcv);
 	}
 	private void goRegister(){
 		//TODO 改成新注册界面

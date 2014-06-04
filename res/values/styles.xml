@@ -55,6 +55,11 @@
     <style name="TextView_inMain_top" parent="TextView_inMain">
         <item name="android:drawablePadding">@dimen/common_margin_bigger</item>
     </style>
+    <style name="TextView_inWork_top" parent="TextView_inMain">
+        <item name="android:drawablePadding">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginTop">@dimen/common_margin_bigger</item>
+        
+    </style>
     <style name="TextView_inMain_left" parent="TextView_inMain">
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/selector_main_c_bg</item>

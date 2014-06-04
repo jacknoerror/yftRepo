@@ -23,7 +23,8 @@ public interface NetConst  {
 	public static final String URL_OPENAPI_BUSICODE = "openApiBusiCode";
 	public static final String URL_OPENAPI_TIMESTAMP = "openApiTimestamp";
 	public static final String URL_OPENAPI_VALIDCODE = "openApiValidCode";
-	public static final String URL_OPENAPI_USERCODE = "userCode";
+	public static final String URL_OPENAPI_USERCODE = "openApiUserCode";
+	public static final String URL_OPENAPI_SESSIONKEY = "openApiSessionKey";
 	
 	public static final String URL_USERNAME = "userName";
 	public static final String URL_PASSWORD = "password";
@@ -90,6 +91,7 @@ public interface NetConst  {
 	public static final String REQUEST_PATH_SEARCH ="open.api.shop.searchShopForIphone"; //企业搜索接口
 	public static final String REQUEST_PATH_CHECKVERSION ="cn.shop.getIOSVersionConfig"; //检查最新客户端版本
 	public static final String REQUEST_PATH_LOGIN ="cn.member.sso.pointVerify"; //验证登录
+	public static final String REQUEST_PATH_LOGIN_IM ="cn.member.sso.pointVerifyForIm"; //验证登录(移动端)
 	public static final String REQUEST_PATH_MEMBER_INFO ="cn.member.getMemberByUserCode";//获取用户信息
 	public static final String REQUEST_PATH_COMPANY_INFO ="cn.shop.getShopAndCompanyById";//获取公司信息
 	public static final String REQUEST_PATH_SYNC = "cn.motion.basic.parseOffLineDataForAndriod";//1122

@@ -15,6 +15,8 @@ import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
 import com.qfc.yft.net.action.collection.IsCollectByProductIdReq;
+import com.qfc.yft.net.action.member.PointVerifyForIMReq;
+import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.net.action.member.SearchCardsByKeywordReq;
 import com.qfc.yft.net.action.product.GetProductForMotion1Req;
 import com.qfc.yft.net.action.product.GetProductReq;
@@ -59,10 +61,13 @@ public class NetConnectTest extends AndroidTestCase {
 			ari = new GetProductReq(20056);
 			break;
 		case 6://Ïà²áÁÐ±í
+//			test(-1);
 			MyData.data().setUserCode(usercode);
+//			MyData.data().setSessionId("e2619fc3af334d6da6db3c089f9e5def");
 			ari = new SearchAlbumReq(14843, 1, 10);
 			break;
-		default:
+		default://login
+			ari = new PointVerifyForIMReq("ydspipad1", "333333a");
 			break;
 		}
 		result = NetStrategies.doHttpRequest(ari.toHttpBody());
@@ -85,6 +90,7 @@ public class NetConnectTest extends AndroidTestCase {
 		result = test(6);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
+		assertTrue(result.contains("true"));
 	}
 
 	public void testSayNo() {

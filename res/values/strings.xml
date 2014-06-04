@@ -15,6 +15,8 @@
 	<string name="pref_notfirsttime">nft</string>
 	<string name="pref_username">username</string>
     
+	<string name="titlename_chat">纺织聊</string>
+	<string name="titlename_work">工作台</string>
 	<string name="titlename_person">个人中心</string>
 	<string name="titlename_myshop">我的商铺</string>
 	<string name="titlename_myfave">我的收藏</string>
@@ -29,6 +31,12 @@
 	<string name="title_b4">虚拟市场</string>
 	<string name="title_b5">童装市场</string>
 	<string name="title_b6">面料市场</string>
+	<string name="title_x1">公司相册</string>
+	<string name="title_x2">\t拍照\t</string>
+	<string name="title_x3">图片上传</string>
+	<string name="title_y1">产品管理</string>
+	<string name="title_y2">销售订单</string>
+	<string name="title_y3">采购订单</string>
 	
 	
 	<drawable name="divider_h_grey">#c8c8c8</drawable>

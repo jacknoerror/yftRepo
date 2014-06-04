@@ -30,6 +30,9 @@ public class NetStrategies implements NetConst{
 	public static String getCurrentUserCode(){
 		return MyData.data().getUserCode();
 	}
+	public static String getSessionKey(){
+		return MyData.data().getSessionId();
+	}
 	
 	public static Map<String, String> getBasicParamMapInstance(String apiName,int paramAdd){
 		Map<String, String> paramKV = new HashMap<String, String>();
@@ -38,6 +41,9 @@ public class NetStrategies implements NetConst{
 		paramKV.put(URL_OPENAPI_TIMESTAMP, JackUtils.getTimeStamp());//TODO Ê±Çø
 		if(paramAdd>0){//
 			paramKV.put(URL_OPENAPI_USERCODE, getCurrentUserCode());
+		}
+		if(paramAdd>1&&!getSessionKey().isEmpty()){
+			paramKV.put(URL_OPENAPI_SESSIONKEY, getSessionKey());
 		}
 		return paramKV;
 	}

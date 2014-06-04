@@ -5,13 +5,17 @@ import java.util.Map;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.util.APIDesUtils;
-@Deprecated
-public class PointVerifyReq implements ActionRequestImpl {
+
+/**
+ *ÒÆ¶¯¶ËµÇÂ¼ÑéÖ¤
+ * @author taotao
+ */
+public class PointVerifyForIMReq implements ActionRequestImpl {
 
 	String username;
 	String password;
 	
-	public PointVerifyReq(String username, String password) {
+	public PointVerifyForIMReq(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -19,7 +23,7 @@ public class PointVerifyReq implements ActionRequestImpl {
 
 	@Override
 	public String getApiName() {
-		return REQUEST_PATH_LOGIN;
+		return REQUEST_PATH_LOGIN_IM;
 	}
 
 	@Override
