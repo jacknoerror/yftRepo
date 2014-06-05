@@ -30,21 +30,25 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
+        <activity android:name="com.qfc.yft.ui.gallery.AlbumListLcActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.AlbumListShActivity" />
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >
         </activity>
         <activity android:name="com.qfc.yft.ui.common.StartPagerActivity" >
         </activity>
         <activity android:name="com.qfc.yft.ui.common.CurProdActivity" >
         </activity>
-        <activity android:name="com.qfc.yft.wxapi.WXEntryActivity"
-            android:exported="true"
-            ></activity>
-        <activity android:name=".ui.account.StartLoginActivity"
+        <activity
+            android:name="com.qfc.yft.wxapi.WXEntryActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".ui.account.StartLoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            >
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

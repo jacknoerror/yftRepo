@@ -68,4 +68,21 @@
         <item name="android:paddingRight">@dimen/common_margin_bigger</item>
         <item name="android:lines">1</item>
     </style>
+    <style name="RadioButton_sub" parent="WrapAll">
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_radio_bg</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_margin</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:textColor">@color/selector_radio_textcolor</item>
+    </style>
+    <style name="RadioButton_subleft" parent="RadioButton_sub">
+        <item name="android:background">@drawable/selector_radio_bg_left</item>
+        </style>
+    <style name="RadioButton_subright" parent="RadioButton_sub">
+        <item name="android:background">@drawable/selector_radio_bg_right</item>
+        </style>
+        
+    
 </resources>

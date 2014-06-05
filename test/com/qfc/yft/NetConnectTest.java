@@ -11,6 +11,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.qfc.yft.data.MyData;
+import com.qfc.yft.data.TestConst;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
@@ -37,7 +38,6 @@ public class NetConnectTest extends AndroidTestCase {
 		ActionRequestImpl ari = null;
 		String result = null;
 
-		final String usercode = "de63e674ab5c4204988f01a89714efe2";//ydspipad1
 		
 		switch (apiId) {
 		case 0:
@@ -62,9 +62,9 @@ public class NetConnectTest extends AndroidTestCase {
 			break;
 		case 6://œ‡≤·¡–±Ì
 //			test(-1);
-			MyData.data().setUserCode(usercode);
+			MyData.data().setUserCode(TestConst.usercode);
 //			MyData.data().setSessionId("e2619fc3af334d6da6db3c089f9e5def");
-			ari = new SearchAlbumReq(14843, 1, 10);
+			ari = new SearchAlbumReq(TestConst.compId, 1, 10);
 			break;
 		default://login
 			ari = new PointVerifyForIMReq("ydspipad1", "333333a");

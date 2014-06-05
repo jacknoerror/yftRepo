@@ -3,6 +3,8 @@ package com.qfc.yft.net.action;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.qfc.yft.MyApplication;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.util.JackUtils;
@@ -35,6 +37,7 @@ public class ActionStrategies implements NetConst {
 		if(null!=obj){
 			if(obj instanceof JSONObject) return (JSONObject)obj;
 		}
+		Log.e("ACTTAG", "resultJob nil");
 		return null;
 	}
 	public static String getResultString(String result) throws JSONException {

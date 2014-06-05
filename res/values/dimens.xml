@@ -15,8 +15,11 @@
     <dimen name="v_height_edit">44dp</dimen>
     <dimen name="v_height_titlebar_small">36dp</dimen>
     <dimen name="v_height_titlebar_middle">42dp</dimen>
+    <dimen name="v_height_titlebar_large">55dp</dimen>
     <dimen name="v_height_bar">36dp</dimen>
     <dimen name="v_height_bottombar">50dp</dimen>
+    
+    <dimen name="corner_radio">8dp</dimen>
     
     <dimen name="textsize_title">21sp</dimen>
     <dimen name="textsize_r_bigger">18sp</dimen>
