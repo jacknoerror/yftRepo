@@ -1,6 +1,6 @@
 package com.qfc.yft.ui;
 
-import com.qfc.yft.ui.gallery.AlbumListShActivity;
+import com.qfc.yft.ui.gallery.AlbumListActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ public class MyPortal {
 	}
 	
 	public static void goAlbumShList(Context context){
-		justGo(context, AlbumListShActivity.class);
+		justGo(context, AlbumListActivity.class);
 	}
 	
 }

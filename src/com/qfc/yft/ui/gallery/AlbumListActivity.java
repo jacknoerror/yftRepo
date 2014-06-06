@@ -1,18 +1,21 @@
 package com.qfc.yft.ui.gallery;
 
-import com.qfc.yft.R;
-import com.qfc.yft.ui.MyTitleActivity;
-import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
-import com.qfc.yft.ui.custom.list.MyJackListView;
-
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class AlbumListShActivity extends MyTitleActivity implements OnCheckedChangeListener {
+import com.qfc.yft.R;
+import com.qfc.yft.ui.MyTitleActivity;
+import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
+import com.qfc.yft.ui.custom.list.MyJackListView;
+
+public class AlbumListActivity extends MyTitleActivity implements OnCheckedChangeListener {
 	
+	private static final int REQ_CODE_CAMERA = 0;
 	private RadioGroup mRadioGroup;
 
 	@Override
@@ -66,6 +69,9 @@ public class AlbumListShActivity extends MyTitleActivity implements OnCheckedCha
 		switch (checkedId) {
 		case R.id.radio1:
 			//go photo
+			Intent i = new Intent(
+					MediaStore.ACTION_IMAGE_CAPTURE);
+			startActivityForResult(i, REQ_CODE_CAMERA);//
 			break;
 		case R.id.radio2:
 			//go local

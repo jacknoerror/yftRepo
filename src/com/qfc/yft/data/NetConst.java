@@ -14,8 +14,8 @@ public interface NetConst  {
 	public static final long TIMEOUT_REQUEST_10 = 1000*60*2;//
 	public static final String URL_FORGETPWD="http://member.qfc.cn/my/get-password.action";
 	
-	public static final boolean DEBUG = false;//测试环境
-	public static final boolean FORMAL = false;//正式环境
+	public static final boolean DEBUG = true;//测试环境
+	public static final boolean FORMAL = true;//正式环境
 	
 	public static final URLFactory _UF = new URLFactory(FORMAL);
 	
@@ -44,7 +44,9 @@ public interface NetConst  {
 	public static final String URL_FROM_ID = "fromId";
 	public static final String URL_COLLECT_TYPE = "collectType";
 	
-	
+	public static final String URL_SEARCH_TYPE = "searchType";
+	public static final String URL_COMP_ID = "compId";
+
 	public static final String DES_KEY = "88211711";//"ipad_motion_key";
 	
 	public static final String RESULT_SIGN = "resultSign";
@@ -76,6 +78,8 @@ public interface NetConst  {
 	public static final String EXTRAS_SHOP_TAB = "shopTab";
 	public static final String EXTRAS_SHOP_MEMBER_TYPE = "shopMemberType";
 	public static final String EXTRAS_ACCOUNT_ID = "accountId";
+	public static final String EXTRAS_ALBUM_TYPE = "uploadtype";//
+
 	public static final String EXTRA_CATEGORY_ID = "secondCategoryId";
 	
 	public static final String PREF_LOCAL = ".local";
@@ -83,8 +87,6 @@ public interface NetConst  {
 	public static final int DEFULAT_PAGESIZE = 10;
 	
 
-	public static final String URL_SEARCH_TYPE = "searchType";
-	
 	public static final String REQUEST_PATH_COMPANY_PRO ="open.api.product.findSeriesByShopIdForIphone"; //获取产品系列
 	public static final String REQUEST_PATH_COMPANY_SUBPRO ="open.api.product.searchProductByShopIdAndSeriesIdForIphone"; //系列下所有产品
 	public static final String REQUEST_PATH_RECOMMEND ="open.api.shop.searchShopForIphone"; //企业推荐
@@ -114,8 +116,6 @@ public interface NetConst  {
 	public static final String REQUEST_GETSHOPBYUID = "cn.attention.getShopByMemberId";//
 
 	public static final String REQUEST_PATH_SEARCHBYCOMPID = "open.api.album.searchbycompid";
-
-	public static final String URL_COMP_ID = "compId";
 	
 
 }

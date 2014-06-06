@@ -30,8 +30,11 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="com.qfc.yft.ui.gallery.AlbumListLcActivity" />
-        <activity android:name="com.qfc.yft.ui.gallery.AlbumListShActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.UploadActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.PicListActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.CreateAlbumActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.AlbumListSimpleActivity" />
+        <activity android:name="com.qfc.yft.ui.gallery.AlbumListActivity" />
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >
         </activity>
         <activity android:name="com.qfc.yft.ui.common.StartPagerActivity" >

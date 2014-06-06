@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.qfc.yft.data.Const;
 import com.qfc.yft.data.NetConst;
-import com.qfc.yft.data.UrlConst;
+import com.qfc.yft.data.OpenApiConst;
 import com.qfc.yft.net.action.ActionReceiverImpl;
 import com.qfc.yft.util.JackUtils;
 

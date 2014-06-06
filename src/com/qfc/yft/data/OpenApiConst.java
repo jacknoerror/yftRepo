@@ -1,6 +1,6 @@
 package com.qfc.yft.data;
 
-public interface UrlConst {
+public interface OpenApiConst {
 
 	//kaifa»·¾³
 	public static final String _URL0 = "http://open.qfc.test.ctcn.com.cn/invoke/json";

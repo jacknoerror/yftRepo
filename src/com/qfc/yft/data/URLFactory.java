@@ -1,6 +1,6 @@
 package com.qfc.yft.data;
 
-public class URLFactory implements UrlConst {
+public class URLFactory implements OpenApiConst {
 	
 	private String url;
 	private String app_secret;

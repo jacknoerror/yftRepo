@@ -7,13 +7,13 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.data.TestConst;
-import com.qfc.yft.ui.gallery.AlbumListShActivity;
+import com.qfc.yft.ui.gallery.AlbumListActivity;
 import com.qfc.yft.vo.User;
 
-public class AlbumShActivityTest extends ActivityInstrumentationTestCase2<AlbumListShActivity> {
+public class AlbumShActivityTest extends ActivityInstrumentationTestCase2<AlbumListActivity> {
 
 	public AlbumShActivityTest(){
-		super(AlbumListShActivity.class);
+		super(AlbumListActivity.class);
 	}
 	
 	@Override

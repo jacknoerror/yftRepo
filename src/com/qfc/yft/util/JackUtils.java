@@ -851,4 +851,12 @@ public class JackUtils {
 		NetworkInfo info = getNetworkInfo(context);
 		return isNetworkAvailable(context)&&info.getType()== ConnectivityManager.TYPE_MOBILE;
 	}
+	
+	
+	//获取图片所在文件夹名称
+    public static String getDir(String path)
+    {
+        String subString = path.substring(0, path.lastIndexOf('/'));
+        return subString.substring(subString.lastIndexOf('/') + 1, subString.length());
+    }
 }
