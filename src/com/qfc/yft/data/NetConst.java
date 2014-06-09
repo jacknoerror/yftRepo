@@ -14,8 +14,8 @@ public interface NetConst  {
 	public static final long TIMEOUT_REQUEST_10 = 1000*60*2;//
 	public static final String URL_FORGETPWD="http://member.qfc.cn/my/get-password.action";
 	
-	public static final boolean DEBUG = true;//测试环境
-	public static final boolean FORMAL = true;//正式环境
+	public static final boolean DEBUG = false;//测试环境
+	public static final boolean FORMAL = false;//正式环境
 	
 	public static final URLFactory _UF = new URLFactory(FORMAL);
 	
@@ -85,7 +85,6 @@ public interface NetConst  {
 	public static final String PREF_LOCAL = ".local";
 	
 	public static final int DEFULAT_PAGESIZE = 10;
-	
 
 	public static final String REQUEST_PATH_COMPANY_PRO ="open.api.product.findSeriesByShopIdForIphone"; //获取产品系列
 	public static final String REQUEST_PATH_COMPANY_SUBPRO ="open.api.product.searchProductByShopIdAndSeriesIdForIphone"; //系列下所有产品

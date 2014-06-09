@@ -7,11 +7,11 @@ import android.util.Log;
 
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.data.NetConst;
-import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumSh;
 import com.qfc.yft.ui.custom.list.MyJackListView.OnGetPageListener;
+import com.qfc.yft.util.TestDataTracker;
 import com.qfc.yft.vo.AlbumInShop;
 import com.qfc.yft.vo.User;
 
@@ -83,8 +83,8 @@ public class MspFactory implements MspFactoryImpl {
 						return;
 					ActionRequestImpl req = new SearchAlbumReq(me.getShopId(),
 							pageNo, NetConst.DEFULAT_PAGESIZE);
-					ActionBuilder.getInstance().request(req, qListView);
-					// TestDataTracker.simulateConnection(qListView,req.getApiName());
+//					ActionBuilder.getInstance().request(req, qListView);
+					 TestDataTracker.simulateConnection(qListView,req.getApiName());// delete me
 				}
 			};
 			break;

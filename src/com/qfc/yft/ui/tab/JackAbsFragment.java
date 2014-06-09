@@ -4,6 +4,7 @@ import com.qfc.yft.ui.JackInitViewImpl;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
  * @author taotao
  */
 public abstract class JackAbsFragment extends Fragment implements JackInitViewImpl{
+	protected final String TAG 	= getClass().getSimpleName();
 	protected LayoutInflater mInflator;
 	protected View mView;
 

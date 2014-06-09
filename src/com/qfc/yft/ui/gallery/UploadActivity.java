@@ -1,9 +1,11 @@
 package com.qfc.yft.ui.gallery;
 
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.widget.GridView;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.ARConst;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.MyTitleActivity;
 
@@ -14,9 +16,6 @@ import com.qfc.yft.ui.MyTitleActivity;
  */
 public class UploadActivity extends MyTitleActivity {
 
-	private static final int UP_LOCAL = 0x011;
-	private static final int UP_PHOTO = 0x010;
-
 	@Override
 	public int getLayoutRid() {
 		return R.layout.activity_upload;
@@ -26,6 +25,12 @@ public class UploadActivity extends MyTitleActivity {
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_work));
 		int a = getIntent().getIntExtra(NetConst.EXTRAS_ALBUM_TYPE, 0);
+		if(a==ARConst.UP_PHOTO){
+			
+			Intent i = new Intent(
+					MediaStore.ACTION_IMAGE_CAPTURE);
+			startActivityForResult(i, ARConst.UP_PHOTO);//
+		}
 
 	}
 
@@ -33,10 +38,10 @@ public class UploadActivity extends MyTitleActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == RESULT_OK){
 			switch (requestCode) {
-			case UP_PHOTO:
-				
+			case ARConst.UP_PHOTO:
+				//
 				break;
-			case UP_LOCAL:
+			case ARConst.UP_LOCAL:
 				
 				break;
 			default:

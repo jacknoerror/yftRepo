@@ -9,13 +9,13 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.qfc.yft.R;
+import com.qfc.yft.ui.MyPortal;
 import com.qfc.yft.ui.MyTitleActivity;
 import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
 import com.qfc.yft.ui.custom.list.MyJackListView;
 
 public class AlbumListActivity extends MyTitleActivity implements OnCheckedChangeListener {
 	
-	private static final int REQ_CODE_CAMERA = 0;
 	private RadioGroup mRadioGroup;
 
 	@Override
@@ -69,9 +69,7 @@ public class AlbumListActivity extends MyTitleActivity implements OnCheckedChang
 		switch (checkedId) {
 		case R.id.radio1:
 			//go photo
-			Intent i = new Intent(
-					MediaStore.ACTION_IMAGE_CAPTURE);
-			startActivityForResult(i, REQ_CODE_CAMERA);//
+			MyPortal.goUploadPicByCamera(this);
 			break;
 		case R.id.radio2:
 			//go local
