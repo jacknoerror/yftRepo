@@ -4,18 +4,24 @@ import java.util.ArrayList;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.qfc.yft.ui.custom.list.MyJackListView;
-import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
+import com.qfc.yft.R;
+import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumLc;
+import com.qfc.yft.ui.custom.list.ListItemImpl;
 import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.AlbumInShop;
 
-public class GFSecond extends JackAbsCompoundFragment {
+public class GFSecondLocal extends JackAbsCompoundFragment {
 
 	ListView mListView;
+	private ListAdapterAlbumLc mAdapter;
+	private ArrayList<AlbumInShop> albums;
 	
 	@Override
 	public int getLayoutRid() {
@@ -24,9 +30,34 @@ public class GFSecond extends JackAbsCompoundFragment {
 
 	@Override
 	public void initView() {
+		super.initView();
+		mCompoundTitleManager.setTitleName(getString(R.string.titlename_album_lc));
+		mCompoundTitleManager.setRightText("È¡Ïû", new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getActivity().finish();//
+			}
+		});
+		
 		mView = mListView = new ListView(getActivity());
-//		mListView.setAdapter(adapter);
+		if(null==albums)albums = getAlbums();
+		mAdapter = new ListAdapterAlbumLc(albums);
+		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				GFGrids gfGrids = new GFGrids();
+				Bundle arguments = new Bundle();
+				AlbumInShop item = (AlbumInShop) mAdapter.getItem(position);
+				arguments.putString(GFGrids.EXTRAS_GRIDALBUMNAME, item.getAlbumName()	);
+				gfGrids.setArguments(arguments);
+				mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, gfGrids).addToBackStack(getClass().getSimpleName()).commit();;
+			}
+		});
 	}
 
 	
@@ -64,7 +95,7 @@ public class GFSecond extends JackAbsCompoundFragment {
                 AlbumInShop album = new AlbumInShop();
                 album.setAlbumName( JackUtils.getDir(path));
                 album.setAlbumCapacity( getPicNum(album.getAlbumName()) );
-//                album.mCoverUrl = path;
+                album.setAlbumBgImgUrl(path);
                 albums.add(album);
             }
             cursor.moveToNext();

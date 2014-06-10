@@ -6,6 +6,7 @@ package com.qfc.yft;
 import java.io.File;
 
 import com.qfc.yft.data.Const;
+import com.qfc.yft.ui.ImageLoaderHelper;
 
 
 import android.app.Activity;
@@ -35,7 +36,7 @@ public class MyApplication extends Application {
 		super.onCreate();
 		yApp = this;
 		initScreenData();
-		
+		ImageLoaderHelper.initImageLoader(this);//0610
 	}
 
 	public static MyApplication app() {

@@ -24,6 +24,7 @@ public class AlbumFATest extends ActivityInstrumentationTestCase2<AlbumFragmentA
 	@Override
 	public void setActivityIntent(Intent i) {
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		i.putExtra(AlbumFragmentActivity.EXTRAS_ALBUMFIRSTTYPE, 1);//
 		User user = new User();
 		user.setId(TestConst.userId);
 		user.setShopId(TestConst.compId);

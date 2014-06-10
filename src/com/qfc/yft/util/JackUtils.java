@@ -853,7 +853,11 @@ public class JackUtils {
 	}
 	
 	
-	//获取图片所在文件夹名称
+    /**
+     * 获取图片所在文件夹名称
+     * @param path
+     * @return
+     */
     public static String getDir(String path)
     {
         String subString = path.substring(0, path.lastIndexOf('/'));

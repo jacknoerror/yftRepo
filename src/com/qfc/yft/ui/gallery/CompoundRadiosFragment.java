@@ -56,8 +56,8 @@ public abstract class CompoundRadiosFragment extends JackAbsCompoundFragment imp
 			break;
 		case R.id.radio2:
 			//go local
-			if(null==(fragment= mCompoundFragmentManager.findFragmentByTag(GFSecond.class.getSimpleName()))) fragment = new GFSecond();
-			mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, fragment, GFSecond.class.getSimpleName()).addToBackStack(GFFirst.class.getSimpleName()).commit();
+			if(null==(fragment= mCompoundFragmentManager.findFragmentByTag(GFSecondLocal.class.getSimpleName()))) fragment = new GFSecondLocal();
+			mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, fragment, GFSecondLocal.class.getSimpleName()).addToBackStack(GFFirst.class.getSimpleName()).commit();
 			mRadioGroup.clearCheck();
 			break;
 		default:

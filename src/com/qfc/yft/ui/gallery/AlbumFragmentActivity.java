@@ -12,6 +12,8 @@ import com.qfc.yft.ui.TitleManager;
 public class AlbumFragmentActivity extends FragmentActivity implements
 		JackInitViewImpl {
 
+	public static final String EXTRAS_ALBUMFIRSTTYPE = "albumfirsttype";
+
 	protected final String TAG = getClass().getSimpleName();
 
 //	protected TitleManager titleManager;
@@ -36,8 +38,19 @@ public class AlbumFragmentActivity extends FragmentActivity implements
 	@Override
 	public void initView() {
 		mSupportFragmentManager = getSupportFragmentManager();
-		JackAbsCompoundFragment fFirst = new GFFirst();
-		mSupportFragmentManager.beginTransaction().add(R.id.frame_common,fFirst,GFFirst.class.getSimpleName() ).commit();
+		JackAbsCompoundFragment fragment ;
+		Bundle bundle = getIntent().getExtras();
+		int a = null==bundle?0:bundle.getInt(EXTRAS_ALBUMFIRSTTYPE);
+		switch (a) {
+		case 1:
+			fragment = new GFSecondLocal();
+			break;
+
+		default:
+			fragment= new GFFirst();
+			break;
+		}
+		mSupportFragmentManager.beginTransaction().add(R.id.frame_common,fragment,fragment.getClass().getSimpleName() ).commit();//
 		
 //		mSupportFragmentManager.beginTransaction().hide(arg0)
 		
