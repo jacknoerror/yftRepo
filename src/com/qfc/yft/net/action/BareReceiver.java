@@ -33,5 +33,4 @@ public class BareReceiver implements ActionReceiverImpl {
 		return context;
 	}
 
-
 }

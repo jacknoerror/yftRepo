@@ -3,9 +3,7 @@ package com.qfc.yft.ui.gallery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,13 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.Const;
@@ -35,7 +32,12 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 	public static final String EXTRAS_GRIDALBUMNAME = "gridalbumname";
 	public static final String EXTRAS_GRIDALBUMID = "gridalbumid";
 	private GridView mGridView;
-
+	GfgAdapter gAdapter;
+	
+	SparseArray<String> selectedUrl;
+//	Set<String> selectedUrl;
+	private int albumId;
+	
 	@Override
 	public int getLayoutRid() {
 		return R.layout.fragment_gf_grids;
@@ -47,7 +49,7 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 		Bundle arguments = getArguments();
 		if (null == arguments)
 			return;//
-		int a = arguments.getInt(EXTRAS_GRIDALBUMID);
+		albumId = arguments.getInt(EXTRAS_GRIDALBUMID);
 		String b = arguments.getString(EXTRAS_GRIDALBUMNAME);
 		mCompoundTitleManager.setTitleName(b);
 
@@ -56,16 +58,36 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 		View bottomView = mView.findViewById(R.id.layout_gf_grid_bottom);
 		Button btnConfirm = (Button) mView.findViewById(R.id.btn_gf_grid);
 
-		if (a == 0) {
-			bottomView.setVisibility(View.GONE);
+		if (albumId == 0) {//本地，仅选择
+			mRadioGroup.setVisibility(View.GONE);
 			mCompoundTitleManager.setRightText("删除", null);
 			mCompoundTitleManager.initTitleBack();// FIXME
 
 			ArrayList<String> photos = getPhotos(b);
-			GfgAdapter adapter = new GfgAdapter(photos);
-			mGridView.setAdapter(adapter);
+			gAdapter = new GfgAdapter(photos);
+			mGridView.setAdapter(gAdapter);
+			
+			mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+//					view.setSelected(!view.isSelected);
+					boolean selected = selectedUrl.get(position)==null;
+					view.findViewById(R.id.layout_item_grids).setVisibility(selected?View.VISIBLE:View.INVISIBLE);
+//					mGridView.setItemChecked(position, !mGridView.isItemChecked(position));//min 11
+					String url = gAdapter.contentList.get(position);
+					if(selected){
+						selectedUrl.put(position,url);
+					}else{
+						selectedUrl.remove(position);
+					}
+				}
+				
+			});
+			selectedUrl = new SparseArray<String>();
 		} else {
+			bottomView.setVisibility(View.GONE);
 
 		}
 
@@ -118,8 +140,10 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 							ImageLoaderHelper
 									.getDisplayOpts(DisplayOptionType.DEFAULT));
 			int side = Const.SCREEN_WIDTH/3-JackUtils.dip2px(getActivity(), 5);
-			viewHolder.img.setLayoutParams(new RelativeLayout.LayoutParams(
+			view.setLayoutParams(new AbsListView.LayoutParams(
 					side, side));
+//			viewHolder.img.setLayoutParams(new RelativeLayout.LayoutParams(
+//					side, side));
 			return view;
 		}
 
@@ -143,8 +167,7 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		// TODO Auto-generated method stub
-		if (null != mRadioGroup) {
+		if (null != mRadioGroup&&albumId>0) {
 
 			if (firstVisibleItem > 1) {
 				mRadioGroup.setVisibility(View.GONE);

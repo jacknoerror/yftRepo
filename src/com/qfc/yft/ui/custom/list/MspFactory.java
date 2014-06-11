@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.data.NetConst;
+import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumSh;
@@ -83,8 +84,8 @@ public class MspFactory implements MspFactoryImpl {
 						return;
 					ActionRequestImpl req = new SearchAlbumReq(me.getShopId(),
 							pageNo, NetConst.DEFULAT_PAGESIZE);
-//					ActionBuilder.getInstance().request(req, qListView);
-					 TestDataTracker.simulateConnection(qListView,req.getApiName());// delete me
+					ActionBuilder.getInstance().request(req, qListView);
+//					 TestDataTracker.simulateConnection(qListView,req.getApiName());// delete me
 				}
 			};
 			break;

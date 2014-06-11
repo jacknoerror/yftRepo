@@ -91,7 +91,7 @@ public class NetConnectTest extends AndroidTestCase {
 		String result = "";
 
 		// login:26 ;
-		result = test(7);
+		result = test(6);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
 		assertTrue(result.contains("true"));

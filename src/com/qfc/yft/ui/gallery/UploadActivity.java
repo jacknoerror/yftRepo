@@ -5,7 +5,7 @@ import android.provider.MediaStore;
 import android.widget.GridView;
 
 import com.qfc.yft.R;
-import com.qfc.yft.data.ARConst;
+import com.qfc.yft.data.ParamConst;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.MyTitleActivity;
 
@@ -25,11 +25,11 @@ public class UploadActivity extends MyTitleActivity {
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_work));
 		int a = getIntent().getIntExtra(NetConst.EXTRAS_ALBUM_TYPE, 0);
-		if(a==ARConst.UP_PHOTO){
+		if(a==ParamConst.AR_UP_PHOTO){
 			
 			Intent i = new Intent(
 					MediaStore.ACTION_IMAGE_CAPTURE);
-			startActivityForResult(i, ARConst.UP_PHOTO);//
+			startActivityForResult(i, ParamConst.AR_UP_PHOTO);//
 		}
 
 	}
@@ -38,10 +38,10 @@ public class UploadActivity extends MyTitleActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == RESULT_OK){
 			switch (requestCode) {
-			case ARConst.UP_PHOTO:
+			case ParamConst.AR_UP_PHOTO:
 				//
 				break;
-			case ARConst.UP_LOCAL:
+			case ParamConst.AR_UP_LOCAL:
 				
 				break;
 			default:

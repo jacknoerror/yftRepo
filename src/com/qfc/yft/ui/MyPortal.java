@@ -1,6 +1,6 @@
 package com.qfc.yft.ui;
 
-import com.qfc.yft.data.ARConst;
+import com.qfc.yft.data.ParamConst;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.gallery.AlbumFragmentActivity;
 import com.qfc.yft.ui.gallery.AlbumListActivity;
@@ -19,9 +19,12 @@ public class MyPortal {
 		context.startActivity(intent);
 	}
 
-	public static void goAlbumShList(Context context) {
-		justGo(context, AlbumFragmentActivity.class);
-//		justGo(context, AlbumListActivity.class);
+	public static void goAlbumShList(Context context, int type) {
+//		justGo(context, AlbumFragmentActivity.class);
+		Intent intent = new Intent();
+		intent.putExtra(NetConst.EXTRAS_ALBUMFIRSTTYPE, type);
+		intent.setClass(context,  AlbumFragmentActivity.class);
+		context.startActivity(intent);
 	}
 
 	/**
@@ -33,13 +36,13 @@ public class MyPortal {
 			return;
 		Intent intent = new Intent();
 		intent.setClass(context, UploadActivity.class);
-		intent.putExtra(NetConst.EXTRAS_ALBUM_TYPE, ARConst.UP_PHOTO);
+		intent.putExtra(NetConst.EXTRAS_ALBUM_TYPE, ParamConst.AR_UP_PHOTO);
 		context.startActivity(intent);
 	}
 	
 	public static void goCamera(Activity activity){
 		Intent i = new Intent(
 				MediaStore.ACTION_IMAGE_CAPTURE);
-		activity.startActivityForResult(i,ARConst. UP_PHOTO);//
+		activity.startActivityForResult(i,ParamConst.AR_UP_PHOTO);//
 	}
 }

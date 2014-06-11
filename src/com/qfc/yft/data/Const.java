@@ -1,7 +1,7 @@
 package com.qfc.yft.data;
 
 
-public class Const implements NetConst{
+public class Const implements NetConst,ParamConst{
 
 	public static int SCREEN_WIDTH;
 	public static int SCREEN_HEIGHT;

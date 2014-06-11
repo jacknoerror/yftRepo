@@ -1,10 +1,14 @@
 package com.qfc.yft.ui.gallery;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.MyPortal;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
@@ -44,25 +48,38 @@ public abstract class CompoundRadiosFragment extends JackAbsCompoundFragment imp
 	}
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		Fragment fragment=null;
 		switch (checkedId) {
 		case R.id.radio1:
 			//go photo
-//			MyPortal.goUploadPicByCamera(getActivity());
-			if(null==(fragment= mCompoundFragmentManager.findFragmentByTag(GFUpload.class.getSimpleName()))) fragment = new GFUpload();
-			mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, fragment, GFUpload.class.getSimpleName()).addToBackStack(GFFirst.class.getSimpleName()).commit();
-			MyPortal.goCamera(getActivity());
-			mRadioGroup.clearCheck();
+			HowToPutIt(Const.BS_GO_PHOTO);
 			break;
 		case R.id.radio2:
 			//go local
-			if(null==(fragment= mCompoundFragmentManager.findFragmentByTag(GFSecondLocal.class.getSimpleName()))) fragment = new GFSecondLocal();
-			mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, fragment, GFSecondLocal.class.getSimpleName()).addToBackStack(GFFirst.class.getSimpleName()).commit();
-			mRadioGroup.clearCheck();
+			HowToPutIt(Const.BS_GO_LOCAL);
 			break;
 		default:
 			break;
 		}
 		//-1
+	}
+
+	/**
+	 * @param bsgo
+	 */
+	protected void HowToPutIt(int bsgo) {
+		Fragment fragment;
+		Bundle bundle;
+		String simpleName = getClass().getSimpleName();
+		if(null==(fragment= mCompoundFragmentManager.findFragmentByTag(GFSecondLocal.class.getSimpleName()))) fragment = new GFUpload();
+		bundle = new Bundle();
+		bundle.putInt(NetConst.EXTRAS_UPLOADACTION, bsgo);
+		fragment.setArguments(bundle);
+		FragmentTransaction beginTransaction1 = mCompoundFragmentManager.beginTransaction();
+		if(fragment.isAdded()) beginTransaction1.show(fragment);
+		else beginTransaction1.add(R.id.frame_common, fragment, fragment.getClass().getSimpleName());
+		if(simpleName.equals(GFFirst.class.getSimpleName()))beginTransaction1.hide(this).addToBackStack(simpleName);
+		else if(simpleName.equals(GFGrids.class.getSimpleName()))beginTransaction1.detach(this);
+		beginTransaction1.commit();
+		mRadioGroup.clearCheck();
 	}
 }

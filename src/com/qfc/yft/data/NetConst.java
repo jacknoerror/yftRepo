@@ -115,6 +115,11 @@ public interface NetConst  {
 	public static final String REQUEST_GETSHOPBYUID = "cn.attention.getShopByMemberId";//
 
 	public static final String REQUEST_PATH_SEARCHBYCOMPID = "open.api.album.searchbycompid";
+
+	public static final String EXTRAS_UPLOADACTION = "uploadaction";
+
+	public static final String EXTRAS_ALBUMFIRSTTYPE = "albumfirsttype";
+
 	
 
 }

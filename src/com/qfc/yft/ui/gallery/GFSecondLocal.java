@@ -6,12 +6,15 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumLc;
 import com.qfc.yft.ui.custom.list.ListItemImpl;
 import com.qfc.yft.util.JackUtils;
@@ -31,14 +34,6 @@ public class GFSecondLocal extends JackAbsCompoundFragment {
 	@Override
 	public void initView() {
 		super.initView();
-		mCompoundTitleManager.setTitleName(getString(R.string.titlename_album_lc));
-		mCompoundTitleManager.setRightText("取消", new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				getActivity().finish();//
-			}
-		});
 		
 		mView = mListView = new ListView(getActivity());
 		if(null==albums)albums = getAlbums();
@@ -49,13 +44,28 @@ public class GFSecondLocal extends JackAbsCompoundFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				AlbumInShop item = (AlbumInShop) mAdapter.getItem(position);
 				GFGrids gfGrids = new GFGrids();
 				Bundle arguments = new Bundle();
-				AlbumInShop item = (AlbumInShop) mAdapter.getItem(position);
 				arguments.putString(GFGrids.EXTRAS_GRIDALBUMNAME, item.getAlbumName()	);
+//				arguments.putInt(NetConst.EXTRAS_ALBUMFUNCTION, Const.BS_FUN_LOCAL);
 				gfGrids.setArguments(arguments);
-				mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, gfGrids).addToBackStack(getClass().getSimpleName()).commit();;
+				mCompoundFragmentManager.beginTransaction().hide(GFSecondLocal.this).add(R.id.frame_common, gfGrids).addToBackStack(getClass().getSimpleName()).commit();;
+			}
+		});
+	}
+
+	/**
+	 * 
+	 */
+	protected void handleTitle() {
+		super.handleTitle();
+		mCompoundTitleManager.setTitleName(getString(R.string.titlename_album_lc));
+		mCompoundTitleManager.setRightText("取消", new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mCompoundFragmentManager.popBackStack();//
 			}
 		});
 	}

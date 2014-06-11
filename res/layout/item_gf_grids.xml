@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="100dp" 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
     android:gravity="center"
     >
     
@@ -15,8 +15,17 @@
         android:id="@+id/layout_item_grids"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/selector_field_white_grey"
-        android:visibility="gone"
-        ></RelativeLayout>
+        android:background="#a000"
+        android:visibility="invisible"
+        >
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/common_margin"
+            android:src="@drawable/ok_green"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

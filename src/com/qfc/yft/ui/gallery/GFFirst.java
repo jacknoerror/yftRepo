@@ -1,5 +1,6 @@
 package com.qfc.yft.ui.gallery;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -10,12 +11,26 @@ import com.qfc.yft.ui.custom.list.MyJackListView;
 public class GFFirst extends CompoundRadiosFragment {
 
 
-	
+	@Override
+	protected void handleTitle() {
+		super.handleTitle();
+		mCompoundTitleManager.setTitleName(getString(R.string.titlename_album_sh));
+		final View.OnClickListener listener = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, "init listener");
+			}
+		};
+		mCompoundTitleManager.setRightText("+", listener);
+		mCompoundTitleManager.initTitleBack();
+	}
 
 	@Override
 	public void initView() {
 		super.initView();
-		mCompoundTitleManager.setTitleName("…Ã∆Ãœ‡≤·2");
+		
 		
 		MyJackListView mListView = new MyJackListView(getActivity(), Type.ALBUM);
 		mFrame.addView(mListView);

@@ -8,6 +8,7 @@
     <dimen name="common_margin_bigger">8dp</dimen>
     
     <dimen name="logo_margin">40dp</dimen>
+    <dimen name="sidelong_a">100dp</dimen>
     
     <dimen name="h_margin_side">9dp</dimen>
     <dimen name="v_padding_login_up">35dp</dimen>

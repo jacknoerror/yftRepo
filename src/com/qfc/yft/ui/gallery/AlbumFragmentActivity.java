@@ -6,13 +6,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.JackInitViewImpl;
 import com.qfc.yft.ui.TitleManager;
 
 public class AlbumFragmentActivity extends FragmentActivity implements
 		JackInitViewImpl {
-
-	public static final String EXTRAS_ALBUMFIRSTTYPE = "albumfirsttype";
 
 	protected final String TAG = getClass().getSimpleName();
 
@@ -40,19 +40,21 @@ public class AlbumFragmentActivity extends FragmentActivity implements
 		mSupportFragmentManager = getSupportFragmentManager();
 		JackAbsCompoundFragment fragment ;
 		Bundle bundle = getIntent().getExtras();
-		int a = null==bundle?0:bundle.getInt(EXTRAS_ALBUMFIRSTTYPE);
+		int a = null==bundle?0:bundle.getInt(NetConst.EXTRAS_ALBUMFIRSTTYPE);
 		switch (a) {
-		case 1:
-			fragment = new GFSecondLocal();
+		case Const.BS_GO_PHOTO:
+		case Const.BS_GO_LOCAL:
+//			fragment = new GFSecondLocal(); //实际先去上传界面
+			fragment = new GFUpload();
+			bundle.putInt(NetConst.EXTRAS_UPLOADACTION, a);
+			fragment.setArguments(bundle);
 			break;
-
 		default:
 			fragment= new GFFirst();
 			break;
 		}
 		mSupportFragmentManager.beginTransaction().add(R.id.frame_common,fragment,fragment.getClass().getSimpleName() ).commit();//
 		
-//		mSupportFragmentManager.beginTransaction().hide(arg0)
 		
 	}
 

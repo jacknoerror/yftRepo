@@ -43,4 +43,5 @@
 	
 	
 	<drawable name="divider_h_grey">#c8c8c8</drawable>
+	<drawable name="transparent_half">#a000</drawable>
 </resources>
