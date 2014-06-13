@@ -64,7 +64,7 @@ public class ImageLoaderHelper {
 //                .memoryCacheSize(2 * 1024 * 1024)
                 .discCacheSize(50 * 1024 * 1024)
                 .discCacheFileCount(100)
-                .writeDebugLogs() // Remove for release app
+//                .writeDebugLogs() // Remove for release app
 				.build();
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);

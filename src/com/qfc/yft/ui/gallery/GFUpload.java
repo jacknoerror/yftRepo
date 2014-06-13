@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,8 +14,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -26,9 +30,9 @@ import com.qfc.yft.data.Const;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.ImageLoaderHelper;
 import com.qfc.yft.ui.MyPortal;
+import com.qfc.yft.util.JackUtils;
 
 public class GFUpload extends JackAbsCompoundFragment implements View.OnClickListener{
-	private static final String EXTRAS_LOCAL2UPLOAD = "local2upload";
 	List<UploadPic> contentList;
 	private UploadPicAdapter mAdapter;
 	private TextView tv_toAlbum;
@@ -47,17 +51,18 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 		if(!hidden){
 			Bundle arguments = getArguments();
 			//新加图片
-			String[] selectedLocPicPaths = arguments.getStringArray(EXTRAS_LOCAL2UPLOAD);
+			String[] selectedLocPicPaths = arguments.getStringArray(NetConst.EXTRAS_LOCAL2UPLOAD);
 			if(null!=selectedLocPicPaths&&selectedLocPicPaths.length>0){
 				for(String p:selectedLocPicPaths){
 					contentList.add(new UploadPic(p));
 				}
 				mAdapter.notifyDataSetChanged();
+				arguments.remove(NetConst.EXTRAS_LOCAL2UPLOAD);
 			}
 			
 			//上传到
-			int toAlbumId = arguments.getInt("toalbumid");
-			String toAlbumName=arguments.getString("toalbumname");
+			int toAlbumId = arguments.getInt(NetConst.EXTRAS_TOALBUMID);
+			String toAlbumName=arguments.getString(NetConst.EXTRAS_TOALBUMNAME);
 			if(toAlbumId>0&&toAlbumName!=null){
 				tv_toAlbum.setText(toAlbumName);
 				id_toAlbum = toAlbumId;
@@ -87,7 +92,7 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				mCompoundFragmentManager.beginTransaction().hide(GFUpload.this).add(R.id.frame_common, new GFSecondShop()).addToBackStack(GFUpload.class.getName()).commit();
 				
 			}
 		});
@@ -104,12 +109,31 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				final String[] items = new String[] {"拍照","本地相册"};
+				new AlertDialog.Builder(getActivity()).setItems(items , new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						switch (which) {
+						case 0:
+							MyPortal.goCamera(getActivity());
+							break;
+						case 1:
+							goLocal();
+							break;
+						default:
+							break;
+						}
+						
+					}
+				}).show();
 			}
 		});
 		listview_up.addFooterView(footer);
 		mAdapter = new UploadPicAdapter();
 		listview_up.setAdapter(mAdapter);
+//		listview_up.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
 	}
 
 	/**
@@ -123,21 +147,26 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 			MyPortal.goCamera(getActivity());
 			break;
 		case Const.BS_GO_LOCAL:
-			fragment = mCompoundFragmentManager.findFragmentByTag(GFSecondLocal.class.getSimpleName());
-//			if(null==fragment) fragment = new GFSecondLocal();
-//			mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, fragment).addToBackStack(getClass().getSimpleName()).commit();
-			FragmentTransaction beginTransaction = mCompoundFragmentManager.beginTransaction();
-			beginTransaction.hide(this);
-			if(null==fragment) 
-				beginTransaction.add(R.id.frame_common,fragment = new GFSecondLocal());
-			else	
-				beginTransaction.show(fragment);
-			beginTransaction.addToBackStack(getClass().getSimpleName()).commit();
-//			replaceFragment(fragment, false, getClass().getSimpleName());
+			goLocal();
 			break;
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 
+	 */
+	protected void goLocal() {
+		Fragment fragment;
+		fragment = mCompoundFragmentManager.findFragmentByTag(GFSecondLocal.class.getSimpleName());
+		FragmentTransaction beginTransaction = mCompoundFragmentManager.beginTransaction();
+		beginTransaction.hide(this);
+		if(null==fragment) 
+			beginTransaction.add(R.id.frame_common,fragment = new GFSecondLocal(), GFSecondLocal.class.getSimpleName());
+		else	
+			beginTransaction.show(fragment);
+		beginTransaction.addToBackStack(getClass().getSimpleName()).commit();
 	}
 	
 	class UploadPic{
@@ -156,7 +185,7 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 		
 		
 	}
-	class ViewHolder{
+	static class ViewHolder{
 		ImageView img;
 		EditText edit;
 	}
@@ -182,6 +211,7 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 			return position;
 		}
 
+		View editUsing;
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = viewMap.get(position);
@@ -205,20 +235,28 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
             
 
             //哟啊不要换地方？
-			UploadPic ssi = contentList.get(position);
+			final UploadPic ssi = contentList.get(position);
 //            JackImageLoader.justSetMeImage(ssi.shopLogoImage, holder.icimg);
 //			Bitmap bm = JackUtils.getbmFromAssetsFile(getResources(), ssi.imgPath);
 			if(null!=ssi.bitmap)holder.img.setImageBitmap(ssi.bitmap);
 			else ImageLoaderHelper.imageLoader.displayImage(ssi.uri, holder.img);
 //            holder.edit.setText(ssi.desc);
-            
+			view.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					JackUtils.showToast(getActivity(), ssi.uri+"__"+v.hasFocus());
+//					v.clearFocus();
+				}
+			});
 			return view;
 		}
 		
 	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode==Activity.RESULT_OK){
+		if(resultCode==Activity.RESULT_OK&&requestCode==Const.AR_UP_PHOTO){
 			
 			Bundle bundle = data.getExtras();
 			// Uri camareUri = (Uri) bundle.get(MediaStore.EXTRA_OUTPUT);
@@ -234,9 +272,16 @@ public class GFUpload extends JackAbsCompoundFragment implements View.OnClickLis
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-			mCompoundFragmentManager.popBackStack();
+			int backStackEntryCount = mCompoundFragmentManager.getBackStackEntryCount();
+			if(backStackEntryCount>0){
+				mCompoundFragmentManager.popBackStack();
+			}else{
+				getActivity().finish();
+			}
 			break;
-
+		case R.id.tv_title_left:
+			//TODO
+			break;
 		default:
 			break;
 		}

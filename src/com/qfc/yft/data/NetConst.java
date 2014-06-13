@@ -120,6 +120,30 @@ public interface NetConst  {
 
 	public static final String EXTRAS_ALBUMFIRSTTYPE = "albumfirsttype";
 
+	public static final String EXTRAS_GRIDALBUMNAME = "gridalbumname";
+
+	public static final String EXTRAS_GRIDALBUMID = "gridalbumid";
+
+	public static final String EXTRAS_ALBUM_ID = "albumId";
+
+	public static final String EXTRAS_COMP_ID = "compId";
+
+	public static final String EXTRAS_LOCAL2UPLOAD = "local2upload";
+
+	public static final String EXTRAS_TOALBUMNAME = "toalbumname";
+
+	public static final String EXTRAS_TOALBUMID = "toalbumid";
+
+	public static final String EXTRAS_ALBUM_DESC = "albumDesc";
+
+	public static final String REQUEST_OPEN_API_ALBUM_ADD = "open.api.album.add";
+
+	public static final String EXTRAS_ALBUM_NAME = "albumName";
+
+	public static final String REQUEST_OPEN_API_PICTURE_DELETE = "open.api.picture.delete";
+
+	public static final String EXTRAS_PIC_ID = "picId";
+
 	
 
 }

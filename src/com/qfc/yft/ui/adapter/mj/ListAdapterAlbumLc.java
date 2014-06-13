@@ -10,7 +10,7 @@ import com.qfc.yft.ui.ImageLoaderHelper;
 import com.qfc.yft.ui.custom.list.ListItemImpl;
 import com.qfc.yft.ui.custom.list.MspAdapter;
 import com.qfc.yft.util.JackImageLoader;
-import com.qfc.yft.vo.AlbumInShop;
+import com.qfc.yft.vo.Album;
 
 /**
  * 
@@ -32,24 +32,24 @@ public class ListAdapterAlbumLc extends MspAdapter {
 
 	class AlbumLcViewHolder extends ViewHolderImpl{
 		ImageView icon;
-		TextView tv_name,tv_capi;
+		TextView tv_name,tv_count;
 
 		@Override
 		public void init() {
 			icon = (ImageView)getHolderView().findViewById(R.id.img_item_lc);
 			tv_name = (TextView)getHolderView().findViewById(R.id.tv_item_lc_name);
-			tv_capi = (TextView)getHolderView().findViewById(R.id.tv_item_lc_cap);
+			tv_count = (TextView)getHolderView().findViewById(R.id.tv_item_lc_cap);
 			
 		}
 
 		@Override
 		public void setup(int position) {
-			AlbumInShop itm = (AlbumInShop)getItem(position);
+			Album itm = (Album)getItem(position);
 			tv_name.setText(itm.getAlbumName());
-			tv_capi.setText("("+itm.getAlbumCapacity()+")");
+			tv_count.setText("("+itm.getPictureNum()+")");
 //			JackImageLoader.justSetMeImage(itm.getAlbumBgImgUrl(), icon);
 			String albumBgImgUrl = itm.getAlbumBgImgUrl();
-			if(!albumBgImgUrl.startsWith("file://")) albumBgImgUrl = "file://"+albumBgImgUrl;//XXX 
+			if(!albumBgImgUrl.startsWith("http")&&!albumBgImgUrl.startsWith("file://")) albumBgImgUrl = "file://"+albumBgImgUrl;//XXX 
 			ImageLoaderHelper.imageLoader.displayImage(albumBgImgUrl, icon);
 		}
 

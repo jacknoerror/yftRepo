@@ -1,10 +1,10 @@
 package com.qfc.yft.ui;
 
+import com.qfc.yft.data.Const;
 import com.qfc.yft.data.ParamConst;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.gallery.AlbumFragmentActivity;
-import com.qfc.yft.ui.gallery.AlbumListActivity;
-import com.qfc.yft.ui.gallery.UploadActivity;
+import com.qfc.yft.ui.gallery.CreateAlbumActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,22 +27,20 @@ public class MyPortal {
 		context.startActivity(intent);
 	}
 
-	/**
-	 * @param context
-	 */
-	@Deprecated
-	public static void goUploadPicByCamera(Context context) {
-		if (null == context)
-			return;
-		Intent intent = new Intent();
-		intent.setClass(context, UploadActivity.class);
-		intent.putExtra(NetConst.EXTRAS_ALBUM_TYPE, ParamConst.AR_UP_PHOTO);
-		context.startActivity(intent);
-	}
 	
 	public static void goCamera(Activity activity){
 		Intent i = new Intent(
 				MediaStore.ACTION_IMAGE_CAPTURE);
 		activity.startActivityForResult(i,ParamConst.AR_UP_PHOTO);//
+	}
+	
+	/**
+	 * @param activity  
+	 * 
+	 */
+	public static void goCreateAlbum(Activity activity) {
+		Intent intent = new Intent();
+		intent.setClass(activity, CreateAlbumActivity.class);
+		activity.startActivityForResult(intent, Const.AR_UP_CREATE);
 	}
 }

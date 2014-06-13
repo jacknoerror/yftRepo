@@ -1,15 +1,24 @@
 package com.qfc.yft.ui.gallery;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
+import com.qfc.yft.ui.MyPortal;
 import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
 import com.qfc.yft.ui.custom.list.MyJackListView;
+import com.qfc.yft.vo.Album;
 
 public class GFFirst extends CompoundRadiosFragment {
 
+
+	private MyJackListView mListView;
 
 	@Override
 	protected void handleTitle() {
@@ -19,8 +28,7 @@ public class GFFirst extends CompoundRadiosFragment {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.e(TAG, "init listener");
+				MyPortal.goCreateAlbum(getActivity());
 			}
 		};
 		mCompoundTitleManager.setRightText("+", listener);
@@ -32,14 +40,21 @@ public class GFFirst extends CompoundRadiosFragment {
 		super.initView();
 		
 		
-		MyJackListView mListView = new MyJackListView(getActivity(), Type.ALBUM);
+		mListView = new MyJackListView(getActivity(), Type.ALBUM);
 		mFrame.addView(mListView);
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, new GFGrids()).addToBackStack(GFFirst.class.getSimpleName()).commit();
+				GFGrids gfGrids = new GFGrids();
+				Bundle bundle = new Bundle();
+				Album album = (Album) parent.getItemAtPosition(position);
+				bundle.putInt(NetConst.EXTRAS_GRIDALBUMID, (int)album.getAlbumId());
+				bundle.putString(NetConst.EXTRAS_GRIDALBUMNAME, album.getAlbumName());
+				gfGrids.setArguments(bundle);
+				mCompoundFragmentManager.beginTransaction().hide(GFFirst.this).add(R.id.frame_common, gfGrids).addToBackStack(GFFirst.class.getSimpleName()).commit();
+//				mCompoundFragmentManager.beginTransaction().replace(R.id.frame_common, new GFGrids()).addToBackStack(GFFirst.class.getSimpleName()).commit();
 				//?addtobackstack?
 			}
 			
@@ -49,7 +64,13 @@ public class GFFirst extends CompoundRadiosFragment {
 		
 	}
 
-	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == Activity.RESULT_OK&&requestCode == Const.AR_UP_CREATE){
+			mListView.setup();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 	
 

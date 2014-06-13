@@ -31,11 +31,7 @@
         <uses-library android:name="android.test.runner" />
 
         <activity android:name="com.qfc.yft.ui.gallery.AlbumFragmentActivity" />
-        <activity android:name="com.qfc.yft.ui.gallery.UploadActivity" />
-        <activity android:name="com.qfc.yft.ui.gallery.PicListActivity" />
         <activity android:name="com.qfc.yft.ui.gallery.CreateAlbumActivity" />
-        <activity android:name="com.qfc.yft.ui.gallery.AlbumListSimpleActivity" />
-        <activity android:name="com.qfc.yft.ui.gallery.AlbumListActivity" />
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >
         </activity>
         <activity android:name="com.qfc.yft.ui.common.StartPagerActivity" >

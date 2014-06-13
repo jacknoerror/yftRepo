@@ -10,10 +10,12 @@ import com.qfc.yft.data.NetConst;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
+import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumLc;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumSh;
 import com.qfc.yft.ui.custom.list.MyJackListView.OnGetPageListener;
 import com.qfc.yft.util.TestDataTracker;
-import com.qfc.yft.vo.AlbumInShop;
+import com.qfc.yft.vo.Album;
+import com.qfc.yft.vo.AlbumPic;
 import com.qfc.yft.vo.User;
 
 public class MspFactory implements MspFactoryImpl {
@@ -30,6 +32,9 @@ public class MspFactory implements MspFactoryImpl {
 		switch (type) {
 		case ALBUM:
 			 adapter = new ListAdapterAlbumSh();
+			break;
+		case CHOOSE:
+			adapter = new ListAdapterAlbumLc();
 			break;
 		default:
 			break;
@@ -58,7 +63,11 @@ public class MspFactory implements MspFactoryImpl {
 		MspJsonItem mji = null;
 		switch (type) {
 		case ALBUM:
-			mji = new AlbumInShop();
+		case CHOOSE:
+			mji = new Album();
+			break;
+		case APIC:
+			mji = new AlbumPic();
 			break;
 		default:
 			break;
@@ -75,6 +84,7 @@ public class MspFactory implements MspFactoryImpl {
 		OnGetPageListener listener = null;
 		switch (type) {
 		case ALBUM:
+		case CHOOSE:
 			listener = new OnGetPageListener() {
 
 				@Override

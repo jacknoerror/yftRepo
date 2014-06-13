@@ -83,6 +83,12 @@
     <style name="RadioButton_subright" parent="RadioButton_sub">
         <item name="android:background">@drawable/selector_radio_bg_right</item>
         </style>
+   <style name="TextView_ItemTitle" parent = "WrapAll">
         
+        
+        <item name="android:textColor">@color/textcolor_dark</item>
+        <item name="android:textSize">@dimen/textsize_r_bigger</item>
+        <item name="android:padding">@dimen/common_margin_bigger</item>
+   </style>
     
 </resources>

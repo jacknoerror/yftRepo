@@ -10,13 +10,14 @@ import com.qfc.yft.ui.custom.list.MspJsonItem;
  * 
  * @author taotao
  */
-public class AlbumInShop extends MspJsonItem {
+public class Album extends MspJsonItem {
 	private String albumName;
 	private long albumCompId;
 	private long albumId;
 	private int albumCapacity;
 	private String albumBgImgUrl;
 	private int albumCategory;
+	private int pictureNum;
 
 	private int albumOrder;
 	private String albumDesc;
@@ -85,6 +86,14 @@ public class AlbumInShop extends MspJsonItem {
 		this.albumDesc = albumDesc;
 	}
 
+	public final int getPictureNum() {
+		return pictureNum;
+	}
+
+	public final void setPictureNum(int pictureNum) {
+		this.pictureNum = pictureNum;
+	}
+
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if (job.has("albumName"))
@@ -103,6 +112,7 @@ public class AlbumInShop extends MspJsonItem {
 			albumOrder = job.getInt("albumOrder");
 		if (job.has("albumDesc"))
 			albumDesc = job.getString("albumDesc");
+		pictureNum = job.optInt("pictureNum");
 	}
 
 }

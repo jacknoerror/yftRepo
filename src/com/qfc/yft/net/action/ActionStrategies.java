@@ -47,5 +47,7 @@ public class ActionStrategies implements NetConst {
 		}
 		return null;
 	}
-	
+	public static boolean getResultBoolean(String result) throws JSONException {
+		return new JSONObject(result).optBoolean(RESULT_OBJECT);
+	}
 }

@@ -62,7 +62,7 @@ public class AlbumFragmentActivity extends FragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		for(Fragment f: mSupportFragmentManager.getFragments()){
-			f.onActivityResult(requestCode, resultCode, data);
+			if(null!=f)f.onActivityResult(requestCode, resultCode, data);
 		}
 	};
 	@Override

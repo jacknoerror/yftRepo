@@ -42,10 +42,27 @@
              android:layout_width="match_parent"
              android:layout_height="@dimen/v_height_edit"
              android:background="@drawable/btn_login_bg"
-             android:text="确 定"
+             android:text="确  定"
              android:textColor="@android:color/white"
-             android:textSize="@dimen/textsize_r_bigger"
+             android:textSize="@dimen/textsize_title"
+             android:shadowColor="@android:color/black"
+             android:shadowDx="1"
+             android:shadowDy="1"
+             android:shadowRadius="1"
              />
-	    
+	    <TextView 
+	        android:id="@+id/tv_gf_grid_count"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginRight="75dp"
+	        android:background="@drawable/shape_bg_green_counter"
+	        android:textColor="@android:color/white"
+	        android:textSize="@dimen/textsize_detail_normal"
+	        android:paddingLeft="@dimen/common_margin_bigger"
+	        android:paddingRight="@dimen/common_margin_bigger"
+	        android:text="10/12"
+	        />
 	</RelativeLayout>
 </LinearLayout>

@@ -9,7 +9,7 @@ import com.qfc.yft.R;
 import com.qfc.yft.ui.custom.list.ListItemImpl;
 import com.qfc.yft.ui.custom.list.MspAdapter;
 import com.qfc.yft.util.JackImageLoader;
-import com.qfc.yft.vo.AlbumInShop;
+import com.qfc.yft.vo.Album;
 
 public class ListAdapterAlbumSh extends MspAdapter {
 
@@ -32,7 +32,7 @@ public class ListAdapterAlbumSh extends MspAdapter {
 
 		@Override
 		public void setup(int position) {
-			AlbumInShop itm = (AlbumInShop)getItem(position);
+			Album itm = (Album)getItem(position);
 			tv_name.setText(itm.getAlbumName());
 			tv_desc.setText(itm.getAlbumDesc());
 			JackImageLoader.justSetMeImage(itm.getAlbumBgImgUrl(), icon);
@@ -49,5 +49,5 @@ public class ListAdapterAlbumSh extends MspAdapter {
 	public ViewHolderImpl getHolderInstance() {
 		return new AlbumShViewHolder();
 	}
-
+	
 }

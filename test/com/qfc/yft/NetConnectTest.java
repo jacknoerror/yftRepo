@@ -15,6 +15,7 @@ import com.qfc.yft.data.TestConst;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
+import com.qfc.yft.net.action.album.SearchPicsByAlbumIdReq;
 import com.qfc.yft.net.action.collection.IsCollectByProductIdReq;
 import com.qfc.yft.net.action.member.PointVerifyForIMReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
@@ -69,6 +70,10 @@ public class NetConnectTest extends AndroidTestCase {
 			break;
 		case 7:
 			ari = new FindSeriesByShopIdForIphoneReq(402746);//wanyu..
+			break;
+		case 8://pics in album
+			MyData.data().setUserCode(TestConst.usercode);
+			ari = new SearchPicsByAlbumIdReq(14843, 5070, 1);
 			break;
 		default://login
 			ari = new PointVerifyForIMReq("ydspipad1", "333333a");
