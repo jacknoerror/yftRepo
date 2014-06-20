@@ -26,26 +26,26 @@ public interface NetConst  {
 	public static final String URL_OPENAPI_USERCODE = "openApiUserCode";
 	public static final String URL_OPENAPI_SESSIONKEY = "openApiSessionKey";
 	
-	public static final String URL_USERNAME = "userName";
-	public static final String URL_PASSWORD = "password";
-	public static final String URL_USERCODE = "userCode";
-	public static final String URL_SHOPID = "shopId";
-	public static final String URL_SERIESID = "proSeriesId";
-	public static final String URL_PRODUCTID= "productId";//1128
-	public static final String URL_RECOMMEND="isRecommend";
-	public static final String URL_SEARCH	="keyword";
-	public static final String URL_PAGESIZE="pageSize";
-	public static final String URL_PAGENO	="pageNo";
-	public static final String URL_SYNC 	="jsonString";//="xmlString";
-	public static final String URL_ACCOUNT_ID = "accountId";
-	public static final String URL_TO_MEMBER = "toMember";
-	public static final String URL_FROM_MEMBER = "fromMember";
-	public static final String URL_MEMBER_ID = "memberId";
-	public static final String URL_FROM_ID = "fromId";
-	public static final String URL_COLLECT_TYPE = "collectType";
-	
-	public static final String URL_SEARCH_TYPE = "searchType";
-	public static final String URL_COMP_ID = "compId";
+	public static final String PARAMS_USERNAME = "userName";
+	public static final String PARAMS_PASSWORD = "password";
+	public static final String PARAMS_USERCODE = "userCode";
+	public static final String PARAMS_SHOPID = "shopId";
+	public static final String PARAMS_SERIESID = "proSeriesId";
+	public static final String PARAMS_PRODUCTID= "productId";//1128
+	public static final String PARAMS_RECOMMEND="isRecommend";
+	public static final String PARAMS_SEARCH	="keyword";
+	public static final String PARAMS_PAGESIZE="pageSize";
+	public static final String PARAMS_PAGENO	="pageNo";
+	public static final String PARAMS_SYNC 	="jsonString";//="xmlString";
+	public static final String PARAMS_ACCOUNT_ID = "accountId";
+	public static final String PARAMS_TO_MEMBER = "toMember";
+	public static final String PARAMS_FROM_MEMBER = "fromMember";
+	public static final String PARAMS_MEMBER_ID = "memberId";
+	public static final String PARAMS_FROM_ID = "fromId";
+	public static final String PARAMS_COLLECT_TYPE = "collectType";
+	public static final String PARAMS_SEARCH_TYPE = "searchType";
+	public static final String PARAMS_COMP_ID = "compId";
+	public static final String PARAMS_COMPANY_ID = "companyId";
 
 	public static final String DES_KEY = "88211711";//"ipad_motion_key";
 	
@@ -115,6 +115,9 @@ public interface NetConst  {
 	public static final String REQUEST_GETSHOPBYUID = "cn.attention.getShopByMemberId";//
 
 	public static final String REQUEST_PATH_SEARCHBYCOMPID = "open.api.album.searchbycompid";
+	public static final String REQUEST_OPEN_API_ALBUM_ADD = "open.api.album.add";
+	public static final String REQUEST_OPEN_API_PICTURE_DELETE = "open.api.picture.delete";
+	public static final String REQUEST_OPEN_API_PRODUCT_SERISE_FINDALL = "open.api.product.serise.findall";
 
 	public static final String EXTRAS_UPLOADACTION = "uploadaction";
 
@@ -136,13 +139,30 @@ public interface NetConst  {
 
 	public static final String EXTRAS_ALBUM_DESC = "albumDesc";
 
-	public static final String REQUEST_OPEN_API_ALBUM_ADD = "open.api.album.add";
-
 	public static final String EXTRAS_ALBUM_NAME = "albumName";
 
-	public static final String REQUEST_OPEN_API_PICTURE_DELETE = "open.api.picture.delete";
-
 	public static final String EXTRAS_PIC_ID = "picId";
+
+	public static final String EXTRAS_MARKETNAME = "marketname";
+
+	public static final String EXTRAS_MARKETURL = "marketurl";
+
+	public static final String PARAMS_PRODUCT_SERIES = "productSeries";
+
+	public static final String PARAMS_PRODUCT_STATUS = "productStatus";
+
+	public static final String PARAMS_IS_PRIVATE = "isPrivate";
+
+	public static final String PARAMS_AUDIT_STATUS = "auditStatus";
+
+	public static final String REQUEST_OPEN_API_PRODUCT_MEMBER_SEARCH = "open.api.product.member.search";
+
+	public static final String REQUEST_OPEN_API_PRODUCT_ONLINE = "open.api.product.online";
+	public static final String REQUEST_OPEN_API_PRODUCT_OFFLINE = "open.api.product.offline";
+	public static final String REQUEST_OPEN_API_PRODUCT_REPUBLISH = "open.api.product.republish";
+
+	public static final String PARAMS_PRODUCT_IDS = "productId";
+
 
 	
 

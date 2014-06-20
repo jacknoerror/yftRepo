@@ -28,9 +28,9 @@ public class DeleteForOpenAPIReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_ACCOUNT_ID, accountId + "");// 36662
-		halfway.put(URL_FROM_ID, fromId + "");// 14723
-		halfway.put(URL_COLLECT_TYPE, collectType + "");// 0 产品 3 商铺
+		halfway.put(PARAMS_ACCOUNT_ID, accountId + "");// 36662
+		halfway.put(PARAMS_FROM_ID, fromId + "");// 14723
+		halfway.put(PARAMS_COLLECT_TYPE, collectType + "");// 0 产品 3 商铺
 		return halfway;
 	}
 

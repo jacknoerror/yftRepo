@@ -7,6 +7,7 @@
     <color name="textcolor_dark">#070707</color>
     <color name="textcolor_light">#bebebe</color>
     <color name="bg_grey">#f1f1f4</color>
-
+    <color name="bg_grey_darker">#DFDFDF</color>
+	
     <color name="green_counter">#70DA65</color>
 </resources>

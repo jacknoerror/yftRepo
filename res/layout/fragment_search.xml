@@ -2,12 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="vertical" 
     android:background="@color/bg_grey"
-     >
-     <include layout="@layout/merge_jacktitle"/>
-     <RadioGroup 
-         android:id="@+id/radiogroup_al_sh"
+    >
+    <RadioGroup 
+         android:id="@+id/radiogroup_cmn"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:orientation="horizontal"
@@ -15,26 +14,32 @@
          android:background="@drawable/shape_btn_bg_blue_stroke"
          android:gravity="center"
          >
-         <RadioButton 
+         <!-- <RadioButton 
              android:id="@+id/radio1"
              style="@style/RadioButton_subleft"
-             android:text="\t拍照\t"
+             android:text="/t/t照片/t/t"
              android:layout_weight="1"
              
              />
          <RadioButton 
              android:id="@+id/radio2"
-             style="@style/RadioButton_subright"
+             style="@style/RadioButton_sub"
              android:text="本地照片"
              android:layout_weight="1"
              />
+         <RadioButton 
+             android:id="@+id/radio3"
+             style="@style/RadioButton_subright"
+             android:text="本地照片"
+             android:layout_weight="1"
+             /> -->
      </RadioGroup>
      <FrameLayout 
-         android:id="@+id/frame_al_sh"
+         android:id="@+id/frame_searchlist"
          android:layout_width="match_parent"
          android:layout_height="0dp"
          android:layout_weight="1"
          android:background="@android:color/white"
          ></FrameLayout>
-	
+
 </LinearLayout>

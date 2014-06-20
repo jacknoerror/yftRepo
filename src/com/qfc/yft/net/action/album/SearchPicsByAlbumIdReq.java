@@ -39,8 +39,8 @@ public class SearchPicsByAlbumIdReq implements ActionRequestImpl {
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
 		halfway.put(NetConst.EXTRAS_COMP_ID,compId+"");
 		halfway.put(NetConst.EXTRAS_ALBUM_ID,albumId+"");
-		halfway.put(NetConst.URL_PAGENO,pageNo+"");
-		halfway.put(NetConst.URL_PAGESIZE,pageSize+"");
+		halfway.put(NetConst.PARAMS_PAGENO,pageNo+"");
+		halfway.put(NetConst.PARAMS_PAGESIZE,pageSize+"");
 		return halfway;
 	}
 

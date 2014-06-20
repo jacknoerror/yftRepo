@@ -32,7 +32,7 @@ import com.qfc.yft.ui.ImageLoaderHelper;
 import com.qfc.yft.ui.MyPortal;
 import com.qfc.yft.util.JackUtils;
 
-public class GFUpload extends JackAbsCompoundFragment implements View.OnClickListener{
+public class GFUpload extends JackAbsCompTitleFragment implements View.OnClickListener{
 	List<UploadPic> contentList;
 	private UploadPicAdapter mAdapter;
 	private TextView tv_toAlbum;

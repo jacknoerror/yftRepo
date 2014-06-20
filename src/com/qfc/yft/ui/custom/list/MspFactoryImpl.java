@@ -10,9 +10,6 @@ public interface MspFactoryImpl {
 	public  MspJsonItem getMjiInstance();
 	public MyJackListView.OnGetPageListener getDefaultOnPageChangeListener();
 	
-	public String getPageName();
+//	public String getPageName();
 	
-	/*public  int getLayoutId();
-	public  void init();
-	public  void setup(int position);*/
 }

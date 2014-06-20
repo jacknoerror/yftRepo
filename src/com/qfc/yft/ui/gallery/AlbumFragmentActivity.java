@@ -10,6 +10,7 @@ import com.qfc.yft.data.Const;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.JackInitViewImpl;
 import com.qfc.yft.ui.TitleManager;
+import com.qfc.yft.ui.tab.JackAbsFragment;
 
 public class AlbumFragmentActivity extends FragmentActivity implements
 		JackInitViewImpl {
@@ -38,7 +39,7 @@ public class AlbumFragmentActivity extends FragmentActivity implements
 	@Override
 	public void initView() {
 		mSupportFragmentManager = getSupportFragmentManager();
-		JackAbsCompoundFragment fragment ;
+		JackAbsFragment fragment ;
 		Bundle bundle = getIntent().getExtras();
 		int a = null==bundle?0:bundle.getInt(NetConst.EXTRAS_ALBUMFIRSTTYPE);
 		switch (a) {

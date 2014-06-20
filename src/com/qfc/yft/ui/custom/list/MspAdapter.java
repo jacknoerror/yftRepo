@@ -113,5 +113,9 @@ public abstract class MspAdapter extends BaseAdapter {
 		this.myScrollPageListView = myScrollPageListView;
 
 	}
-
+	
+	@Override
+	public boolean hasStableIds() {
+		return true;
+	}
 }

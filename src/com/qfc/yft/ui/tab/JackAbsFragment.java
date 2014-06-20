@@ -2,6 +2,8 @@ package com.qfc.yft.ui.tab;
 
 import com.qfc.yft.ui.JackInitViewImpl;
 
+import de.greenrobot.event.EventBus;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +19,7 @@ public abstract class JackAbsFragment extends Fragment implements JackInitViewIm
 	protected final String TAG 	= getClass().getSimpleName();
 	protected LayoutInflater mInflator;
 	protected View mView;
+	protected boolean eventBusRegisted;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +37,31 @@ public abstract class JackAbsFragment extends Fragment implements JackInitViewIm
 			mView =  mInflator.inflate(getLayoutRid(), null);
 		}
 		return rid>0;
+	}
+
+	@Override
+	public void onStop() {
+		unregistEventBus();
+		super.onStop();
+	}
+
+	/**
+	 * 
+	 */
+	protected void registEventBus() {
+		eventBusRegisted = true;
+		EventBus.getDefault().register(this);
+//		Log.i(TAG, "registEventBus");
+	}
+
+	/**
+	 * 
+	 */
+	protected void unregistEventBus() {
+		if(eventBusRegisted){
+			EventBus.getDefault().unregister(this);//why not destroy?
+			eventBusRegisted = false;
+		}
 	}
 	
 	

@@ -27,7 +27,7 @@ public class GetSeriesForMotionReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SERIESID, proSeriesId + "");
+		halfway.put(PARAMS_SERIESID, proSeriesId + "");
 		return halfway;
 	}
 

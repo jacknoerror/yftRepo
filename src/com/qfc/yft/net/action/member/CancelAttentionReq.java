@@ -27,8 +27,8 @@ public class CancelAttentionReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_FROM_MEMBER, fromMember+"");
-		halfway.put(URL_TO_MEMBER, toMember+"");
+		halfway.put(PARAMS_FROM_MEMBER, fromMember+"");
+		halfway.put(PARAMS_TO_MEMBER, toMember+"");
 		return halfway;
 	}
 

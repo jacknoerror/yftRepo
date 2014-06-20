@@ -20,6 +20,8 @@ import com.qfc.yft.net.action.collection.IsCollectByProductIdReq;
 import com.qfc.yft.net.action.member.PointVerifyForIMReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.net.action.member.SearchCardsByKeywordReq;
+import com.qfc.yft.net.action.member.SearchManageProductReq;
+import com.qfc.yft.net.action.product.FindAllSeriesReq;
 import com.qfc.yft.net.action.product.FindSeriesByShopIdForIphoneReq;
 import com.qfc.yft.net.action.product.GetProductForMotion1Req;
 import com.qfc.yft.net.action.product.GetProductReq;
@@ -75,6 +77,12 @@ public class NetConnectTest extends AndroidTestCase {
 			MyData.data().setUserCode(TestConst.usercode);
 			ari = new SearchPicsByAlbumIdReq(14843, 5070, 1);
 			break;
+		case 9://获取系列
+			ari = new FindAllSeriesReq(14843);
+			break;
+		case 10://产品管理列表
+			ari = new SearchManageProductReq(null, null, null, null, 14843,1);
+			break;
 		default://login
 			ari = new PointVerifyForIMReq("ydspipad1", "333333a");
 			break;
@@ -96,7 +104,7 @@ public class NetConnectTest extends AndroidTestCase {
 		String result = "";
 
 		// login:26 ;
-		result = test(6);
+		result = test(9);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
 		assertTrue(result.contains("true"));

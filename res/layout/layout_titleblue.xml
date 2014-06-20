@@ -38,30 +38,27 @@
             android:id="@+id/btn_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible" />
+            android:src="@drawable/btn_back"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
  		<TextView
             android:id="@+id/tv_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:textColor="@android:color/white"
             android:textSize="@dimen/textsize_r_bigger"
-            android:visibility="invisible" />
-        <!-- <ImageView
-            android:id="@+id/btn_title_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@id/btn_title_menu"
-            android:src="@drawable/titlebtn_menu"
-            android:visibility="invisible" /> -->
+            android:visibility="gone" />
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/layout_title_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/common_margin" 
-        
+        android:orientation="horizontal"
         >
 
          <TextView
@@ -70,12 +67,13 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textSize="@dimen/textsize_r_bigger"
+            android:visibility="gone"
              /> 
 		<ImageView
             android:id="@+id/btn_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible" />
-    </FrameLayout>
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

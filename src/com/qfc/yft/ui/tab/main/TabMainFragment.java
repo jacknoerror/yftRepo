@@ -1,8 +1,11 @@
 package com.qfc.yft.ui.tab.main;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.ui.tab.ContentAbstractFragment;
 
 public class TabMainFragment extends ContentAbstractFragment implements View.OnClickListener{
@@ -36,8 +39,23 @@ public class TabMainFragment extends ContentAbstractFragment implements View.OnC
 		case R.id.et_home:
 			//go search
 			break;
-		case R.id.tvbtn_a1:
-			
+		case R.id.tvbtn_b1:
+			goWebView(getString(R.string.title_b1),Const.URL_B1);
+			break;
+		case R.id.tvbtn_b2:
+			goWebView(getString(R.string.title_b2),Const.URL_B2);
+			break;
+		case R.id.tvbtn_b3:
+			goWebView(getString(R.string.title_b3),Const.URL_B3);
+			break;
+		case R.id.tvbtn_b4:
+			goWebView(getString(R.string.title_b4),Const.URL_B4);
+			break;
+		case R.id.tvbtn_b5:
+			goWebView(getString(R.string.title_b5),Const.URL_B5);
+			break;
+		case R.id.tvbtn_b6:
+			goWebView(getString(R.string.title_b6),Const.URL_B6);
 			break;
 		case R.id.tvbtn_c1:
 			
@@ -46,6 +64,14 @@ public class TabMainFragment extends ContentAbstractFragment implements View.OnC
 			break;
 		}
 		
+	}
+
+	private void goWebView(String name, String url) {
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), WebViewActivity.class);
+		intent.putExtra(NetConst.EXTRAS_MARKETNAME, name);
+		intent.putExtra(NetConst.EXTRAS_MARKETURL, url);
+		startActivity(intent);
 	}
 
 }

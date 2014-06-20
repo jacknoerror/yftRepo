@@ -128,7 +128,10 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 					int position, long id) {
 //					view.setSelected(!view.isSelected);
 				
-				boolean selecting = selectedUrl.get(position)==null;
+				AlbumPic albumPic = gAdapter.contentList.get(position);
+				int picId = albumPic.getPicId();
+				if(picId==0) picId =position ;
+				boolean selecting = selectedUrl.get(picId)==null;
 				if(albumId==0&&selectedUrl.size()>=MAX_UPLOAD_COUNT&&selecting) {//判断是否超了
 					JackUtils.showToast(getActivity(), "一次最多上传"+MAX_UPLOAD_COUNT+"张图片");
 					return;
@@ -136,11 +139,10 @@ public class GFGrids extends CompoundRadiosFragment implements OnScrollListener 
 				view.findViewById(R.id.layout_item_grids).setVisibility(selecting?View.VISIBLE:View.INVISIBLE);
 //					mGridView.setItemChecked(position, !mGridView.isItemChecked(position));//min 11
 					//对选中的图片进行记录
-				AlbumPic albumPic = gAdapter.contentList.get(position);
 				if(selecting){
-					selectedUrl.put(albumPic.getPicId(),albumPic.getPicOriginNameCode());
+					selectedUrl.put(picId,albumPic.getPicOriginNameCode());
 				}else{
-					selectedUrl.remove(position);
+					selectedUrl.remove(picId);
 				}
 				//对数量进行记录
 				int size = selectedUrl.size();

@@ -34,9 +34,9 @@ public class SearchAlbumReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(NetConst.URL_COMP_ID,compId+"");
-		halfway.put(URL_PAGENO,pageNo+"");
-		halfway.put(URL_PAGESIZE,pageSize+"");
+		halfway.put(NetConst.PARAMS_COMP_ID,compId+"");
+		halfway.put(PARAMS_PAGENO,pageNo+"");
+		halfway.put(PARAMS_PAGESIZE,pageSize+"");
 		return halfway;
 	}
 

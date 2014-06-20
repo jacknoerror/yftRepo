@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qfc.yft.R;
@@ -23,6 +24,8 @@ public class TitleManager implements View.OnClickListener{
 	JackTitle jackTitle;
 	TextView tv_titlename,tv_right,tv_left;
 	ImageView btn_titleleft,btn_titleright,img_logo;
+	
+	LinearLayout layout_right;
 	
 	View cartView;
 	TextView cartTv;
@@ -46,6 +49,8 @@ public class TitleManager implements View.OnClickListener{
 		btn_titleleft = (ImageView) titleView().findViewById(R.id.btn_title_left);
 		btn_titleright = (ImageView) titleView().findViewById(R.id.btn_title_right);
 		img_logo = (ImageView) titleView().findViewById(R.id.img_title_logo);
+		
+		layout_right = (LinearLayout)titleView().findViewById(R.id.layout_title_right);
 	}
 	
 	public void setTitleName(String name){
@@ -105,7 +110,10 @@ public class TitleManager implements View.OnClickListener{
 		if(null!=mView) return mView.findViewById(id);
 		return null;
 	}
-	
+	public void addToRightLayout(View v){
+		if(null==layout_right||null==v) return;
+		layout_right.addView(v);
+	}
 	
 	@Override
 	public void onClick(View v) {

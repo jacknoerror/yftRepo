@@ -40,7 +40,7 @@ public class TabWorkFragment extends ContentAbstractFragment implements OnClickL
 			MyPortal.goAlbumShList(getActivity(), Const.BS_GO_LOCAL);
 			break;
 		case R.id.tvbtn_work_y1://产品管理
-			
+			MyPortal.goProductManage(getActivity());
 			break;
 		case R.id.tvbtn_work_y2://销售订单
 			

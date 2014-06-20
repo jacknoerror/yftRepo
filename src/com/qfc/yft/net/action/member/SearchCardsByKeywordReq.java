@@ -31,9 +31,9 @@ public class SearchCardsByKeywordReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SEARCH, keyword);
-		halfway.put(URL_PAGESIZE, pageSize + "");
-		halfway.put(URL_PAGENO, pageNo + "");
+		halfway.put(PARAMS_SEARCH, keyword);
+		halfway.put(PARAMS_PAGESIZE, pageSize + "");
+		halfway.put(PARAMS_PAGENO, pageNo + "");
 		return halfway;
 	}
 

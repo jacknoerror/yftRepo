@@ -31,7 +31,7 @@ public class GetProductReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_PRODUCTID, productId + "");
+		halfway.put(PARAMS_PRODUCTID, productId + "");
 		return halfway;
 	}
 

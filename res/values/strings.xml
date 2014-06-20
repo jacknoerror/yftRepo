@@ -25,6 +25,8 @@
 	<string name="titlename_album_lc">本地相册</string>
 	<string name="titlename_album_create">新建相册</string>
 	<string name="titlename_upload">上传照片</string>
+	<string name="titlename_pm">产品管理</string>
+	<string name="titlename_filter">筛选</string>
 	
 	<string name="subname_main_a1">产品类目</string>
 	<string name="subname_main_a2">找产品</string>
@@ -42,6 +44,7 @@
 	<string name="title_y2">销售订单</string>
 	<string name="title_y3">采购订单</string>
 	
+	<string name="no_data">暂无</string>
 	
 	<drawable name="divider_h_grey">#c8c8c8</drawable>
 	<drawable name="transparent_half">#a000</drawable>

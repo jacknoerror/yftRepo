@@ -3,6 +3,6 @@
     <item android:state_pressed="true" android:drawable="@drawable/shape_rb_bg_blue_left"></item>
     <item android:state_selected="true" android:drawable="@drawable/shape_rb_bg_blue_left"/>
     <item android:state_checked="true" android:drawable="@drawable/shape_rb_bg_blue_left"/>
-    <item android:drawable="@drawable/shape_rb_bg_grey_left"/>
+    <item android:drawable="@drawable/shape_rb_bg_grey_left_stroke"/>
 
 </selector>

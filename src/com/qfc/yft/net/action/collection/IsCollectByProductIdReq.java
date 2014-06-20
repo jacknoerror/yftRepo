@@ -27,8 +27,8 @@ public class IsCollectByProductIdReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_PRODUCTID, productId + "");
-		halfway.put(URL_ACCOUNT_ID, accountId + "");
+		halfway.put(PARAMS_PRODUCTID, productId + "");
+		halfway.put(PARAMS_ACCOUNT_ID, accountId + "");
 		return halfway;
 	}
 

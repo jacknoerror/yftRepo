@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.qfc.yft.R;
+import com.qfc.yft.data.NetConst;
+import com.qfc.yft.net.action.ActionBuilder;
+import com.qfc.yft.net.action.ActionReceiverImpl;
+import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.util.ShareHelper;
 
 public class CurProdActivity extends Activity {
@@ -15,8 +19,14 @@ public class CurProdActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_cp);
+		int pid = getIntent().getIntExtra(NetConst.EXTRAS_PRODUCT_ID, 0);
+		if(0==pid) return; //
+		
+//		ActionRequestImpl actReq = new get;
+//		ActionReceiverImpl actRcv;
+//		ActionBuilder.getInstance().request(actReq, actRcv);
+		
 		Button btn = (Button) this.findViewById(R.id.btn_test);
 		btn.setOnClickListener(new View.OnClickListener() {
 

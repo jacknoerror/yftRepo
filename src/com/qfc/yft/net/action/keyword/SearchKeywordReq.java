@@ -7,9 +7,10 @@ import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 
 public class SearchKeywordReq implements ActionRequestImpl {
-	int keyword, pageSize, searchType;
+	int pageSize;
+	String searchType,keyword;
 
-	public SearchKeywordReq(int keyword, int pageSize, int searchType) {
+	public SearchKeywordReq(String keyword, int pageSize, String searchType) {
 		super();
 		this.keyword = keyword;
 		this.pageSize = pageSize;
@@ -29,9 +30,9 @@ public class SearchKeywordReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SEARCH, keyword + "");
-		halfway.put(URL_PAGESIZE, pageSize + "");
-		halfway.put(NetConst.URL_SEARCH_TYPE, searchType + "");
+		halfway.put(PARAMS_SEARCH, keyword + "");
+		halfway.put(PARAMS_PAGESIZE, pageSize + "");
+		halfway.put(NetConst.PARAMS_SEARCH_TYPE, searchType + "");
 		return halfway;
 	}
 

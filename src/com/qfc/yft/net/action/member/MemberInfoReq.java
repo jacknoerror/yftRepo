@@ -38,7 +38,7 @@ public class MemberInfoReq implements ActionRequestImpl {
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
 //		halfway.put(URL_USERCODE,userCode );
-		halfway.put(URL_USERCODE,MyData.data().getUserCode());// to be tested 0604
+		halfway.put(PARAMS_USERCODE,MyData.data().getUserCode());// to be tested 0604
 		return halfway;
 	}
 

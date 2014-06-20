@@ -1,5 +1,6 @@
 package com.qfc.yft.net.action;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +39,13 @@ public class ActionStrategies implements NetConst {
 			if(obj instanceof JSONObject) return (JSONObject)obj;
 		}
 		Log.e("ACTTAG", "resultJob nil");
+		return null;
+	}
+	public static JSONArray getResultArray(String result) throws JSONException {
+		Object obj = getResultTrueObject(result);
+		if(null!=obj){
+			if(obj instanceof JSONArray) return (JSONArray)obj;
+		}
 		return null;
 	}
 	public static String getResultString(String result) throws JSONException {

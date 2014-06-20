@@ -88,7 +88,6 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 			dop.write(params[0].getBytes("utf-8"));//把中文转成utf-8
 			dop.flush();
 			dop.close();
-
 			in = new InputStreamReader(connection.getInputStream());
 			BufferedReader bufferedReader = new BufferedReader(in);
 			StringBuffer strBuffer = new StringBuffer();
@@ -130,9 +129,9 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 	 */
 	@Override
 	protected void onPostExecute(String result) {
-		Log.i(TAG, "result::	"+result);
 		super.onPostExecute(result);
-		
+		if(isCancelled()) return;//0620
+		Log.i(TAG, "result::	"+result);
 		try {
 			receiver.response(result);
 		} catch (JSONException e) {

@@ -30,6 +30,15 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
+        <activity android:name="com.qfc.yft.ui.tab.main.cat.CategoryAndSearchActivity" />
+        <activity android:name="com.qfc.yft.ui.tab.work.ProductManageFilterActivity" 
+            android:screenOrientation="portrait"
+            />
+        <activity android:name="com.qfc.yft.ui.tab.work.ProductManageActivity" 
+            android:screenOrientation="portrait"
+             android:windowSoftInputMode="stateAlwaysHidden"
+            />
+        <activity android:name="com.qfc.yft.ui.tab.main.WebViewActivity" />
         <activity android:name="com.qfc.yft.ui.gallery.AlbumFragmentActivity" />
         <activity android:name="com.qfc.yft.ui.gallery.CreateAlbumActivity" />
         <activity android:name="com.qfc.yft.ui.common.ViewpagerActivity" >

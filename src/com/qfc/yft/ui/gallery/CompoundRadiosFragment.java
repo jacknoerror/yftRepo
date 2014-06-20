@@ -3,18 +3,15 @@ package com.qfc.yft.ui.gallery;
 import com.qfc.yft.R;
 import com.qfc.yft.data.Const;
 import com.qfc.yft.data.NetConst;
-import com.qfc.yft.ui.MyPortal;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public abstract class CompoundRadiosFragment extends JackAbsCompoundFragment implements OnCheckedChangeListener{
+public abstract class CompoundRadiosFragment extends JackAbsCompTitleFragment implements OnCheckedChangeListener{
 
 	protected RadioGroup mRadioGroup;
 	protected FrameLayout mFrame;

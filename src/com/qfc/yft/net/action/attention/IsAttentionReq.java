@@ -27,8 +27,8 @@ public class IsAttentionReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_MEMBER_ID, memberId + "");
-		halfway.put(URL_ACCOUNT_ID, accountId + "");
+		halfway.put(PARAMS_MEMBER_ID, memberId + "");
+		halfway.put(PARAMS_ACCOUNT_ID, accountId + "");
 		return halfway;
 	}
 

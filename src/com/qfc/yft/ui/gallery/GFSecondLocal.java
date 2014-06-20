@@ -20,7 +20,7 @@ import com.qfc.yft.vo.Album;
 
 import de.greenrobot.event.EventBus;
 
-public class GFSecondLocal extends JackAbsCompoundFragment {
+public class GFSecondLocal extends JackAbsCompTitleFragment {
 
 	ListView mListView;
 	private ListAdapterAlbumLc mAdapter;

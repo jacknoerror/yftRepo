@@ -43,11 +43,11 @@ public class SearchProductByShopIdAndSeriesIdForIphoneReq implements
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SHOPID, shopId + "");
+		halfway.put(PARAMS_SHOPID, shopId + "");
 		if (null != proSeriesId)
-		halfway.put(URL_SERIESID, proSeriesId + "");
-		halfway.put(URL_PAGESIZE, pageSize + "");
-		halfway.put(URL_PAGENO, pageNo + "");
+		halfway.put(PARAMS_SERIESID, proSeriesId + "");
+		halfway.put(PARAMS_PAGESIZE, pageSize + "");
+		halfway.put(PARAMS_PAGENO, pageNo + "");
 		return halfway;
 	}
 

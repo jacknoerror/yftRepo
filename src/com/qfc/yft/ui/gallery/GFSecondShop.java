@@ -27,7 +27,7 @@ import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
 import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.Album;
 
-public class GFSecondShop extends JackAbsCompoundFragment {
+public class GFSecondShop extends JackAbsCompTitleFragment {
 
 	MyJackListView mListView;
 	private ListAdapterAlbumLc mAdapter;
