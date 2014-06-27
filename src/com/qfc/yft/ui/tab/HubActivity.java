@@ -18,11 +18,13 @@ import android.widget.TextView;
 import com.qfc.yft.R;
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.ui.custom.JackFragmentTabChangedHelper;
+import com.qfc.yft.ui.offline.OfflineHelper;
 import com.qfc.yft.ui.tab.chat.TabChatFragment;
 import com.qfc.yft.ui.tab.main.TabMainFragment;
 import com.qfc.yft.ui.tab.person.TabPersonFragment;
 import com.qfc.yft.ui.tab.work.TabWorkFragment;
 import com.qfc.yft.util.JackUtils;
+import com.qfc.yft.vo.User;
 import com.umeng.analytics.MobclickAgent;
 
 public class HubActivity extends FragmentActivity implements OnTabChangeListener{
@@ -98,10 +100,13 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
         mTabHost.setCurrentTab(0);
         
         MyData.data().setTabHost(mTabHost);
-        /*if(YftData.data().getMe().getMemberType()==3&&!singleBack){
-        	OfflineDownloadBuilder.setContext(this);
-        	OfflineDownloadBuilder.onClick();
-        }*/
+        User me = MyData.data().getMe();
+		if(me.getMemberType()==3){//&&!singleBack){
+        	OfflineHelper.getInstance().init(this).initKeeper(me.getShopId());
+        	OfflineHelper.getInstance().checkUpdateStatus(false);
+//        	OfflineDownloadBuilder.setContext(this);
+//        	OfflineDownloadBuilder.onClick();
+        }
         
     }
     

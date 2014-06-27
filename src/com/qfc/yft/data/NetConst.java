@@ -89,7 +89,7 @@ public interface NetConst  {
 	public static final String REQUEST_PATH_COMPANY_PRO ="open.api.product.findSeriesByShopIdForIphone"; //获取产品系列
 	public static final String REQUEST_PATH_COMPANY_SUBPRO ="open.api.product.searchProductByShopIdAndSeriesIdForIphone"; //系列下所有产品
 	public static final String REQUEST_PATH_RECOMMEND ="open.api.shop.searchShopForIphone"; //企业推荐
-	public static final String REQUEST_PATH_SEARCH ="open.api.shop.searchShopForIphone"; //企业搜索接口
+//	public static final String REQUEST_PATH_SEARCH ="open.api.shop.searchShopForIphone"; //企业搜索接口
 	public static final String REQUEST_PATH_CHECKVERSION ="cn.shop.getIOSVersionConfig"; //检查最新客户端版本
 	public static final String REQUEST_PATH_LOGIN ="cn.member.sso.pointVerify"; //验证登录
 	public static final String REQUEST_PATH_LOGIN_IM ="cn.member.sso.pointVerifyForIm"; //验证登录(移动端)
@@ -162,6 +162,18 @@ public interface NetConst  {
 	public static final String REQUEST_OPEN_API_PRODUCT_REPUBLISH = "open.api.product.republish";
 
 	public static final String PARAMS_PRODUCT_IDS = "productId";
+
+	public static final String EXTRAS_SEARCH_TYPE_INT = "searchTypeInt";
+
+	public static final String EXTRAS_CATEPAGE = "catepage";
+
+	public static final String EXTRAS_KEYWORD = "keyword";
+
+	public static final String PARAMS_ORDER_STATUS = "orderStatus";
+
+	public static final String REQUEST_TRADE_API_ORDER_EXT_SEARCH_SELLER_ORDERS = "open.api.trade.search.sellerorders";
+
+	public static final String REQUEST_TRADE_API_ORDER_EXT_SEARCH_BUYER_ORDERS = "open.api.trade.search.buyerorders";
 
 
 	

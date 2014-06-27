@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.Const;
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.keyword.SearchKeywordReq;
@@ -34,6 +39,8 @@ import com.qfc.yft.ui.custom.list.ListItemImpl.Type;
 import com.qfc.yft.ui.custom.list.MyJackListView;
 import com.qfc.yft.ui.custom.list.MyJackListView.OnGetPageListener;
 import com.qfc.yft.util.JackUtils;
+import com.qfc.yft.vo.LIICompany;
+import com.qfc.yft.vo.LIIPeople;
 import com.qfc.yft.vo.LIIProduct;
 
 public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedChangeListener, OnGetPageListener, OnItemClickListener, TextWatcher{
@@ -46,6 +53,8 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 	private MyJackListView currentJlv;
 	private View emptyImageView;
 	private TextView emptyTextView;
+	private CatTopBarFrag topFrag;
+	private RadioGroup jrGroup;
 	
 	@Override
 	public int getLayoutRid() {
@@ -56,36 +65,74 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 	public void initView() {
 		super.initView();
 		jlvMap = new HashMap<ListItemImpl.Type, MyJackListView>();
-		
+		//init jackRadioGroup
 		jRadios = new JackRadioViewGroup(getActivity());
-		jRadios.initBtns(R.layout.view_radiogroup_search,this);
-//		jRadios.setOnCheckedChangeListener( this);
+		jrGroup = jRadios.initBtns(R.layout.view_radiogroup_search,this);
 		mView = jRadios;
 		mView.setBackgroundColor(getResources().getColor(android.R.color.white));
 		jrFrame = jRadios.mFrame;
-		
+		//init empty views
 		emptyImageView = mInflator.inflate(R.layout.emptyview_img_noresult, null);
 		emptyTextView = new TextView(getActivity());
 		emptyTextView.setTextAppearance(getActivity(), R.style.Nodata_textview);
+		emptyTextView.setGravity(Gravity.CENTER);//gravity in style not work
 		emptyTextView.setText("没有记录");
 		jrFrame.addView(emptyImageView);
 		jrFrame.addView(emptyTextView);
-		
-		CatTopBarFrag top = (CatTopBarFrag)fraMana.findFragmentByTag(CatTopBarFrag.class.getSimpleName());
-		if(null!=top) {
-			searchEdit = top.getEdit();
+		//init top
+		topFrag = (CatTopBarFrag)fraMana.findFragmentByTag(CatTopBarFrag.class.getSimpleName());
+		if(null!=topFrag) {
+			searchEdit = topFrag.getEdit();
 			searchEdit.addTextChangedListener(this);
-			top.getBtnSearch().setOnClickListener(new View.OnClickListener() {
+			topFrag.getBtnSearch().setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					goSearch();
-					
 				}
 			});
 		}
-		
-		jRadios.getRadioGroup().check(FIRSTiD);
+		//
+		handleArguments();
+	}
+	private void handleArguments() {
+		Bundle arguments = getArguments();
+		int b =0;
+		String keyword=null;
+		if(null!=arguments) {
+			
+		b = arguments.getInt(NetConst.EXTRAS_SEARCH_TYPE_INT);
+		keyword= arguments.getString(NetConst.EXTRAS_KEYWORD);
+		}
+		jrGroup.check(FIRSTiD+(b>0?1:0));//check default
+		if(null!=keyword){
+			searchEdit.setText(keyword);
+			goSearch();
+		}
+	}
+
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if(!hidden){
+			configTop();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void configTop() {
+		if(null==topFrag) return;
+		View btnSearch = topFrag.getBtnSearch();
+		if(btnSearch.getVisibility()!=View.VISIBLE){
+			Animation animation = new TranslateAnimation(200, 0, 0, 0);
+			animation.setFillAfter(true);
+			animation.setDuration(100);
+			btnSearch.setAnimation(animation);
+			btnSearch.setVisibility(View.VISIBLE);
+			topFrag.getEdit().setCursorVisible(true);
+		}
 	}
 
 	protected void goSearch() {
@@ -94,12 +141,14 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 		MyJackListView ccurrentJlv = getJackListViewByType((Type) jrFrame.getTag());//
 		ccurrentJlv.setup();	
 		switchTabcontent(ccurrentJlv);
-		LocalSearchHistoryManager.getInstance().add(keyword, jRadios.getRadioGroup().getCheckedRadioButtonId()+"");
+		LocalSearchHistoryManager.getInstance().add(keyword, jrGroup.getCheckedRadioButtonId()+"");
 		emptyTextView.setVisibility(View.GONE);
 		emptyImageView.setVisibility(View.GONE);
 		
 //		hideSoftKeyboard();//0325 原来位置在gosearch调用的后面 即onclick
-		JackUtils.hideSoftKeyboard(getActivity());//tobe test
+		try{
+			JackUtils.hideSoftKeyboard(getActivity());//tobe test
+		}catch(Exception e){}
 		
 	}
 
@@ -127,17 +176,18 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 		//TODO emptyView 优化
 		
 		switch (type) {
-		case ITEMTYPE_COMPANY_SEARCH:
-		case ITEMTYPE_PRODUCT_SEARCH:
-		case ITEMTYPE_PEOPLE_SEARCH:
+		case IP_COMPANY_SEARCH:
+		case IP_PRODUCT_SEARCH:
+		case IP_PEOPLE_SEARCH:
 			ccurrentJlv.setOnGetPageListener(this);//don't move to common--keywords..
 			ccurrentJlv.setEmptyView(emptyImageView);
+			ccurrentJlv.setOnItemClickListener(this);
 			break;
-		case ITEMTYPE_LOCALHISTORY:
+		case IP_LOCALHISTORY:
 			ccurrentJlv.setOnItemClickListener(this);
 				ccurrentJlv.setEmptyView(emptyTextView);
 			break;
-		case ITEMTYPE_IMAGINE:
+		case IP_IMAGINE:
 			ccurrentJlv.setOnItemClickListener(this);
 			break;
 		default:
@@ -161,16 +211,16 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 			ListItemImpl.Type t = null;
 			int index = checkedId-FIRSTiD ;
 			//mark the search type for goSearch();
-			if(index==0) t = ListItemImpl.Type.ITEMTYPE_PRODUCT_SEARCH;
-			else if(index ==1) t = ListItemImpl.Type.ITEMTYPE_COMPANY_SEARCH;
-			else if(index ==2) t = ListItemImpl.Type.ITEMTYPE_PEOPLE_SEARCH;
+			if(index==0) t = ListItemImpl.Type.IP_PRODUCT_SEARCH;
+			else if(index ==1) t = ListItemImpl.Type.IP_COMPANY_SEARCH;
+			else if(index ==R.id.radio3-FIRSTiD) t = ListItemImpl.Type.IP_PEOPLE_SEARCH;
 			jrFrame.setTag(t);
 	//		searchEdit.setHint(HINTS[checkedId-FIRSTiD]);//0312
 			
 			emptyTextView.setVisibility(View.GONE);
 			emptyImageView.setVisibility(View.GONE);
 			
-			MyJackListView history = getJackListViewByType(ListItemImpl.Type.ITEMTYPE_LOCALHISTORY);
+			MyJackListView history = getJackListViewByType(ListItemImpl.Type.IP_LOCALHISTORY);
 			history.updateList(getLocalData(checkedId));
 			switchTabcontent(history);
 		}
@@ -180,13 +230,13 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 		ActionRequestImpl req = null;
 		String keyword = searchEdit.getText().toString();
 		switch (qListView.getType()) {
-		case ITEMTYPE_PRODUCT_SEARCH:
+		case IP_PRODUCT_SEARCH:
 			req = new SearchProductReq(keyword, Const.DEFULAT_PAGESIZE	, pageNo);
 			break;
-		case ITEMTYPE_COMPANY_SEARCH:
+		case IP_COMPANY_SEARCH:
 			req = new SearchShopForIphoneReq(keyword, Const.DEFULAT_PAGESIZE, pageNo);
 			break;
-		case ITEMTYPE_PEOPLE_SEARCH:
+		case IP_PEOPLE_SEARCH:
 			req = new SearchCardsByKeywordReq(keyword, Const.DEFULAT_PAGESIZE, pageNo);
 			break;
 		default:
@@ -200,16 +250,25 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		Object itemAtPosition = parent.getItemAtPosition(position);
 		switch (currentJlv.getType()) {
-		case ITEMTYPE_IMAGINE:
+		case IP_IMAGINE:
 			searchEdit.setText(((ImagineItemInfo)itemAtPosition).iii_name);
 			goSearch();
 			break;
-		case  ITEMTYPE_LOCALHISTORY:
+		case  IP_LOCALHISTORY:
 			searchEdit.setText((((SearchHistoryItemInfo)itemAtPosition).history_str).trim());//trim
 			goSearch();
 			break;
-		case ITEMTYPE_PRODUCT_SEARCH:
+		case IP_PRODUCT_SEARCH:
 			MyPortal.goProduct( getActivity(),  (LIIProduct)itemAtPosition);
+			break;
+		case IP_COMPANY_SEARCH:
+//			YftActivityGate.goShop(parent.getContext(), comp.getShopId(), comp.getShopName(), comp.getHasMotion(), -1);
+			LIICompany comp = (LIICompany)parent.getAdapter().getItem(position);
+			MyPortal.goShop(getActivity(), comp.getShopId(), comp.getShopName(), comp.getHasMotion());
+			break;
+		case IP_PEOPLE_SEARCH:
+			LIIPeople peop = (LIIPeople) parent.getAdapter().getItem(position);
+			MyPortal.goPeople(getActivity(), peop);
 			break;
 		default:
 			break;
@@ -233,9 +292,9 @@ public class CatSearchFrag extends CatAbsContentFragment implements OnCheckedCha
 		//TODO xx btn
 		//获得searchType字段
 		ListItemImpl.Type t = (Type) jrFrame.getTag();
-		if(null==t||t==ListItemImpl.Type.ITEMTYPE_PEOPLE_SEARCH) return;
-		String searchType = t==ListItemImpl.Type.ITEMTYPE_COMPANY_SEARCH?"company":"product";
-		MyJackListView fraImagine = getJackListViewByType(ListItemImpl.Type.ITEMTYPE_IMAGINE);//{keyword=h, pageSize=3, searchType=product}
+		if(null==t||t==ListItemImpl.Type.IP_PEOPLE_SEARCH) return;
+		String searchType = t==ListItemImpl.Type.IP_COMPANY_SEARCH?"company":"product";
+		MyJackListView fraImagine = getJackListViewByType(ListItemImpl.Type.IP_IMAGINE);//{keyword=h, pageSize=3, searchType=product}
 		
 		//发送请求
 		ActionBuilder.getInstance().cancelLastReq();//终止上次请求

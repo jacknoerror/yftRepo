@@ -5,10 +5,10 @@ import java.util.Map;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 
-public class SearchReq implements ActionRequestImpl {
+public class SearchMyCardReq implements ActionRequestImpl {
 	int accountId;
 
-	public SearchReq(int accountId) {
+	public SearchMyCardReq(int accountId) {
 		super();
 		this.accountId = accountId;
 	}

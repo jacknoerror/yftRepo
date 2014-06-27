@@ -5,11 +5,14 @@ import java.util.Map;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
 
-public class SaveForOpenAPIReq implements ActionRequestImpl {
+public class SaveCollectionReq implements ActionRequestImpl {
+	public static final int COLLECTTYPE_PRODUCT = 0;
+	public static final int COLLECTTYPE_COMPANY = 3;
+	
 	int accountId, fromId, collectType;
 	String collectTitle;
 
-	public SaveForOpenAPIReq(int accountId, int fromId, int collectType,
+	public SaveCollectionReq(int accountId, int fromId, int collectType,
 			String collectTitle) {
 		super();
 		this.accountId = accountId;

@@ -1,8 +1,12 @@
 package com.qfc.yft.vo;
 
-import com.qfc.yft.ui.custom.list.ListItemImpl;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class LIIPeople implements ListItemImpl{
+import com.qfc.yft.ui.custom.list.ListItemImpl;
+import com.qfc.yft.ui.custom.list.MspJsonItem;
+
+public class LIIPeople extends MspJsonItem{
 	/*
 	 * {"phoneDdd":"0575","contactVisible":0,"accountId":9,
 	 * "department":null,"college":null,"phoneIdd":"86",
@@ -53,7 +57,69 @@ public class LIIPeople implements ListItemImpl{
 		}
 		return realName;
 	}
-	
+
+	@Override
+	public void initJackJson(JSONObject job) throws JSONException {
+		if(job.has(CONTACTVISIBLE))contactVisible = job.optInt(CONTACTVISIBLE);
+		if(job.has(ACCOUNTID))accountId = job.optInt(ACCOUNTID);
+		if(job.has(DEPARTMENT))department = job.optString(DEPARTMENT);
+		if(job.has(COLLEGE))college = job.optString(COLLEGE);
+		if(job.has(PHONEIDD))phoneIdd = job.optInt(PHONEIDD);
+		if(job.has(CONTACT))contact = job.optString(CONTACT);
+		if(job.has(WANGWANG))wangwang = job.optString(WANGWANG);
+		if(job.has(PHONETEL))phoneTel = job.optString(PHONETEL);
+		if(job.has(WEBSITE))webSite = job.optString(WEBSITE);
+		if(job.has(COMPPROV))compProv = job.optInt(COMPPROV);
+		if(job.has(COMPPROFESSION))compProfession = job.optString(COMPPROFESSION);
+		if(job.has(COMPCOUNTY))compCounty = job.optInt(COMPCOUNTY);
+		if(job.has(USERNAME))userName = job.optString(USERNAME);
+		if(job.has(COMPMAINPRODUCT))compMainProduct = job.optString(COMPMAINPRODUCT);
+		if(job.has(QQ))qq = job.optString(QQ);
+		if(job.has(MEMBERPOSITION))memberPosition = job.optString(MEMBERPOSITION);
+		if(job.has(STATUS))status = job.optInt(STATUS);
+		if(job.has(COMPNAME))compName = job.optString(COMPNAME);
+		if(job.has(COMPCITY))compCity = job.optInt(COMPCITY);
+		if(job.has(PRIVATESIGNATURE))privateSignature = job.optString(PRIVATESIGNATURE);
+		if(job.has(HEADICON))headIcon = job.optString(HEADICON);
+		if(job.has(MEMBERSEX))memberSex = job.optInt(MEMBERSEX);
+		if(job.has(COMPADDRESS))compAddress = job.optString(COMPADDRESS);
+		if(job.has(EMAIL))email = job.optString(EMAIL);
+		if(job.has(REALNAME))realName = job.optString(REALNAME);
+		if(job.has(TEXTALK))texTalk = job.optLong(TEXTALK);
+		if(job.has(WECHAT))wechat = job.optString(WECHAT);
+		if(job.has(MOBILE))mobile = job.optString(MOBILE);
+		if(job.has("region"))region=job.optString("region");
+		
+	}
+	public final String PHONEDDD ="phoneDdd";
+	public final String CONTACTVISIBLE ="contactVisible";
+	public final String ACCOUNTID ="accountId";
+	public final String DEPARTMENT ="department";
+	public final String COLLEGE ="college";
+	public final String PHONEIDD ="phoneIdd";
+	public final String CONTACT ="contact";
+	public final String WANGWANG ="wangwang";
+	public final String PHONETEL ="phoneTel";
+	public final String WEBSITE ="webSite";
+	public final String COMPPROV ="compProv";
+	public final String COMPPROFESSION ="compProfession";
+	public final String COMPCOUNTY ="compCounty";
+	public final String USERNAME ="userName";
+	public final String COMPMAINPRODUCT ="compMainProduct";
+	public final String QQ ="qq";
+	public final String MEMBERPOSITION ="memberPosition";
+	public final String STATUS ="status";
+	public final String COMPNAME ="compName";
+	public final String COMPCITY ="compCity";
+	public final String PRIVATESIGNATURE ="privateSignature";
+	public final String HEADICON ="headIcon";
+	public final String MEMBERSEX ="memberSex";
+	public final String COMPADDRESS ="compAddress";
+	public final String EMAIL ="email";
+	public final String REALNAME ="realName";
+	public final String TEXTALK ="texTalk";
+	public final String WECHAT ="wechat";
+	public final String MOBILE ="mobile";
 	/*
 	 	account_id bigint(20) (NULL) NO PRI (NULL) auto_increment select,insert,update,references 账户ID 
 		real_name varchar(50) gbk_chinese_ci YES (NULL) select,insert,update,references 真实姓名 

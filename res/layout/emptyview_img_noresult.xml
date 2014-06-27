@@ -2,8 +2,7 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Nodata_imageview"
     android:contentDescription="@string/no_data"
-    android:layout_margin="50dp"
-    android:paddingBottom="@dimen/v_margin_givetonoimg"
+    android:padding="70dp"
     android:src="@drawable/nosearchresult" >
 
 </ImageView>

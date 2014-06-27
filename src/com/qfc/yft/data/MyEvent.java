@@ -8,13 +8,24 @@ import de.greenrobot.event.EventBus;
  * @author taotao
  * @Date 2014-6-13
  */
-public class MyEvent {
-	int eventId;
+public class MyEvent implements Cloneable{
+	int eventId = -1;
+	String eventMsg="";
 	Bundle bundle;
+	
+	public int what ;
+	public Object obj;
+	
 	public MyEvent(int eventId) {
 		super();
 		this.eventId = eventId;
 	}
+	
+	public MyEvent(String eventMsg) {
+		super();
+		this.eventMsg = eventMsg;
+	}
+
 	public final Bundle getBundle() {
 		return bundle;
 	}
@@ -24,5 +35,26 @@ public class MyEvent {
 	public final int getEventId() {
 		return eventId;
 	}
+
+	public final String getEventMsg() {
+		return eventMsg;
+	}
 	
+	public final MyEvent msg(String eventMsg) {
+		this.eventMsg = eventMsg;
+		return this;
+	}
+
+	@Override
+	public MyEvent clone()   {
+		MyEvent ev=null;
+		try
+		{
+			ev=(MyEvent)super.clone();
+		} catch (CloneNotSupportedException e)
+		{
+			e.printStackTrace();
+		}
+		return ev;
+	}
 }

@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.MyData;
-import com.qfc.yft.entity.offline.OfflineDataKeeper;
 import com.qfc.yft.net.action.ActStringRcv;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionReceiverImpl;
@@ -35,6 +34,7 @@ import com.qfc.yft.net.action.member.PointVerifyForIMReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.ui.common.StartPagerActivity;
 import com.qfc.yft.ui.custom.JackResizeLayout;
+import com.qfc.yft.ui.offline.OfflineDataKeeper;
 import com.qfc.yft.ui.tab.HubActivity;
 import com.qfc.yft.util.JackButtonColorFilter;
 import com.qfc.yft.util.JackUtils;
@@ -125,7 +125,7 @@ public class StartLoginActivity extends Activity implements View.OnClickListener
 	
 	private void initOfflinePref(User user) {
 		if(null!=user&&user.getShopId()>0){
-			OfflineDataKeeper.setCurrentUserOfflinePreference(this, user.getShopId());
+			OfflineDataKeeper.init(user.getShopId());
 			//
 		}
 		

@@ -8,7 +8,7 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 public class DeleteForOpenAPIReq implements ActionRequestImpl {
 	int accountId, fromId, collectType;
 
-	public DeleteForOpenAPIReq(int accountId, int fromId, int collectType) {
+	public DeleteForOpenAPIReq(int fromId, int accountId, int collectType) {
 		super();
 		this.accountId = accountId;
 		this.fromId = fromId;

@@ -49,6 +49,8 @@
         android:layout_marginRight="@dimen/common_margin_bigger"
         android:text="搜索"
         android:textColor="@color/selector_common_white_grey_textcolor"
-        android:textSize="@dimen/textsize_detail_normal" />
+        android:textSize="@dimen/textsize_detail_normal" 
+        android:visibility="gone"
+        />
 
 </LinearLayout>

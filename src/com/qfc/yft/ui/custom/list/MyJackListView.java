@@ -90,6 +90,10 @@ public class MyJackListView extends ListView implements
 
 	}
 
+	public final MspPage getCurrentPage() {
+		return currentPage;
+	}
+
 	public final ListItemImpl.Type getType() {
 		return mType;
 	}
@@ -244,7 +248,7 @@ public class MyJackListView extends ListView implements
 			mHandler.sendMessage(msg);
 		}
 		switch (mType) {
-		case ITEMTYPE_IMAGINE:// {"data":[{"亚麻面料":0}]}}
+		case IP_IMAGINE:// {"data":[{"亚麻面料":0}]}}
 			JSONObject job = ActionStrategies.getResultObject(result);
 			if (null != job) {
 				JSONArray jarr = job.getJSONArray("data");
@@ -287,7 +291,7 @@ public class MyJackListView extends ListView implements
 
 	@Override
 	public Context getReceiverContext() {
-		if(mType==ListItemImpl.Type.ITEMTYPE_IMAGINE){
+		if(mType==ListItemImpl.Type.IP_IMAGINE){
 			return null;
 		}
 		return (requestingPage > 1 || mPullRefreshState == EXIT_PULL_REFRESH) ? null
@@ -381,7 +385,7 @@ public class MyJackListView extends ListView implements
 				+ visibleItemCount
 				- (mHeaderLinearLayout != null ? 1 : 0)
 				- (moreView != null && moreView.getVisibility() == View.VISIBLE ? 1
-						: 0);// TODO notice,test
+						: 0);//  notice,test
 		if (lastItem == count) {
 			nextPage(); // 加载更多数据，这里可以使用异步加载
 		}
@@ -415,6 +419,7 @@ public class MyJackListView extends ListView implements
 			// 移动时手指的位置
 			if (padTop > 0) {
 			}
+			if(null==mHeaderTextView)break;
 			// Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
 			if (mPullRefreshState == OVER_PULL_REFRESH) {
 				setHeaderTopPadding(padTop);

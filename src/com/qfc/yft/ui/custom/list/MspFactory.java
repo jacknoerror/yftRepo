@@ -5,12 +5,17 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.qfc.yft.data.Const;
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.data.NetConst;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionRequestImpl;
 import com.qfc.yft.net.action.album.SearchAlbumReq;
+import com.qfc.yft.net.action.collection.FindCompanyReq;
+import com.qfc.yft.net.action.collection.FindProductReq;
 import com.qfc.yft.net.action.member.SearchManageProductReq;
+import com.qfc.yft.net.action.member.SearchMyCardReq;
+import com.qfc.yft.net.action.shop.SearchShopForIphoneReq;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumLc;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumSh;
 import com.qfc.yft.ui.adapter.mj.ListAdapterCompany;
@@ -24,6 +29,7 @@ import com.qfc.yft.util.TestDataTracker;
 import com.qfc.yft.vo.Album;
 import com.qfc.yft.vo.AlbumPic;
 import com.qfc.yft.vo.LIICompany;
+import com.qfc.yft.vo.LIIPeople;
 import com.qfc.yft.vo.LIIProduct;
 import com.qfc.yft.vo.ProductManage;
 import com.qfc.yft.vo.User;
@@ -49,19 +55,23 @@ public class MspFactory implements MspFactoryImpl {
 		case PM:
 			adapter = new ListAdapterProductManage();
 			break;
-		case ITEMTYPE_PRODUCT_SEARCH:
+		case IP_PRODUCT_SEARCH:
+		case IP_PRODUCT_MY:
 			adapter = new ListAdapterProduct();
 			break;
-		case ITEMTYPE_COMPANY_SEARCH:
+		case IP_COMPANY_SEARCH:
+		case IP_COMPANY_MY:
+		case IP_COMPANY_RECOMMEND:
 			adapter = new ListAdapterCompany();
 			break;
-		case ITEMTYPE_PEOPLE_SEARCH:
+		case IP_PEOPLE_SEARCH:
+		case IP_PEOPLE_MY:
 			adapter = new ListAdapterPeople();
 			break;
-		case ITEMTYPE_IMAGINE:
+		case IP_IMAGINE:
 			adapter = new ListAdapterImagine();
 			break;
-		case ITEMTYPE_LOCALHISTORY:
+		case IP_LOCALHISTORY:
 			adapter=  new ListAdapterSearchHistory( );
 			break;
 		default:
@@ -100,11 +110,18 @@ public class MspFactory implements MspFactoryImpl {
 		case PM:
 			mji = new ProductManage();
 			break;
-		case ITEMTYPE_PRODUCT_SEARCH:
+		case IP_PRODUCT_SEARCH:
+		case IP_PRODUCT_MY:
 			mji = new LIIProduct();
 			break;
-		case ITEMTYPE_COMPANY_SEARCH:
+		case IP_COMPANY_SEARCH:
+		case IP_COMPANY_MY:
+		case IP_COMPANY_RECOMMEND:
 			mji = new LIICompany();
+			break;
+		case IP_PEOPLE_MY:
+		case IP_PEOPLE_SEARCH:
+			mji = new LIIPeople();
 			break;
 		default:
 			break;
@@ -122,7 +139,10 @@ public class MspFactory implements MspFactoryImpl {
 		switch (type) {
 		case ALBUM:
 		case CHOOSE:
-//		case ITEMTYPE_PRODUCT_SEARCH:
+		case IP_PRODUCT_MY:
+		case IP_COMPANY_MY:
+		case IP_PEOPLE_MY:
+		case IP_COMPANY_RECOMMEND:
 			listener = new MspDefaultOnGetPageListener();
 			break;
 		// // already add , test it
@@ -146,10 +166,26 @@ public class MspFactory implements MspFactoryImpl {
 					req = new SearchAlbumReq(me.getShopId(),pageNo, NetConst.DEFULAT_PAGESIZE);
 					ActionBuilder.getInstance().request(req, qListView);
 					break;
-				/*case ITEMTYPE_PRODUCT_SEARCH:
-					req
+				case IP_PRODUCT_MY:
+					if(null==me) return;
+					req = new FindProductReq(me.getId());
 					ActionBuilder.getInstance().request(req, qListView);
-					break;*/
+					break;
+				case IP_COMPANY_MY:
+					if(null==me) return;
+					req = new FindCompanyReq(me.getId());
+					ActionBuilder.getInstance().request(req, qListView);
+					break;
+				case IP_PEOPLE_MY:
+					if(null==me )return;
+					req = new SearchMyCardReq(me.getId());
+					ActionBuilder.getInstance().request(req, qListView);
+					break;
+				case IP_COMPANY_RECOMMEND:
+					if(null==me) return;
+					req = new SearchShopForIphoneReq(null, Const.DEFULAT_PAGESIZE, pageNo);
+					ActionBuilder.getInstance().request(req, qListView);
+					break;
 				default:
 					break;
 			}

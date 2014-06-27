@@ -18,7 +18,6 @@ import com.qfc.yft.net.action.album.SearchAlbumReq;
 import com.qfc.yft.net.action.album.SearchPicsByAlbumIdReq;
 import com.qfc.yft.net.action.collection.IsCollectByProductIdReq;
 import com.qfc.yft.net.action.member.PointVerifyForIMReq;
-import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.net.action.member.SearchCardsByKeywordReq;
 import com.qfc.yft.net.action.member.SearchManageProductReq;
 import com.qfc.yft.net.action.product.FindAllSeriesReq;
@@ -27,6 +26,7 @@ import com.qfc.yft.net.action.product.GetProductForMotion1Req;
 import com.qfc.yft.net.action.product.GetProductReq;
 import com.qfc.yft.net.action.product.SearchProductByShopIdAndSeriesIdForIphoneReq;
 import com.qfc.yft.net.action.product.SearchProductReq;
+import com.qfc.yft.net.action.trade.GetSellerOrdersReq;
 import com.qfc.yft.util.JackUtils;
 
 public class NetConnectTest extends AndroidTestCase {
@@ -83,6 +83,12 @@ public class NetConnectTest extends AndroidTestCase {
 		case 10://产品管理列表
 			ari = new SearchManageProductReq(null, null, null, null, 14843,1);
 			break;
+		case 11://卖家订单
+//			ari = new GetSellerOrdersReq(14843, null, 1, 10);
+			ari = new GetSellerOrdersReq(TestConst.userId, null, 1, 10);
+//			ari = new GetBuyerOrdersReq(TestConst.userId, null, 1, 10);
+			break;
+			
 		default://login
 			ari = new PointVerifyForIMReq("ydspipad1", "333333a");
 			break;
@@ -104,7 +110,7 @@ public class NetConnectTest extends AndroidTestCase {
 		String result = "";
 
 		// login:26 ;
-		result = test(9);
+		result = test(11);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
 		assertTrue(result.contains("true"));

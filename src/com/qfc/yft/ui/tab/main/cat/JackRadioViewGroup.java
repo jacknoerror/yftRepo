@@ -36,9 +36,9 @@ public class JackRadioViewGroup extends LinearLayout{
 	}
 
 
-	public final RadioGroup getRadioGroup() {
+	/*public final RadioGroup getRadioGroup() {
 		return mRadioGroup;
-	}
+	}*/
 
 
 	private void  init(Context context ) {
@@ -77,10 +77,16 @@ public class JackRadioViewGroup extends LinearLayout{
 		}
 	}
 */
-	public void initBtns(int rgId,  OnCheckedChangeListener listener){
+	/**
+	 * @param rgId should be the layout of radioGroup
+	 * @param listener
+	 * @return 
+	 */
+	public RadioGroup initBtns(int rgId,  OnCheckedChangeListener listener){
 		mRadioGroup = (RadioGroup) jrInflater.inflate(rgId, null);
 		mFrame0.addView(mRadioGroup);
 		mRadioGroup.setOnCheckedChangeListener(listener);
+		return mRadioGroup;
 	}
 
 

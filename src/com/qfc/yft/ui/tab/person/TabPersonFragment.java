@@ -20,6 +20,9 @@ import android.widget.ToggleButton;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.MyData;
+import com.qfc.yft.ui.offline.OfflineDataKeeper;
+import com.qfc.yft.ui.offline.OfflineDownloadBuilder;
+import com.qfc.yft.ui.offline.OfflineHelper;
 import com.qfc.yft.ui.tab.BarData;
 import com.qfc.yft.ui.tab.BarGroup;
 import com.qfc.yft.ui.tab.ContentAbstractFragment;
@@ -137,8 +140,8 @@ public class TabPersonFragment extends ContentAbstractFragment {
 		new Thread(){
 			@Override
 			public void run() {
-				/*String path = YftValues.getMyLocalPath();
-				MyData.data().clearOffPref();//
+				String path = MyData.data().getMyLocalPath();
+				OfflineDataKeeper.clearOffPref();//
 					if(!new File(path).exists()){
 						oHandler.sendEmptyMessage(2);
 					}else{
@@ -147,7 +150,7 @@ public class TabPersonFragment extends ContentAbstractFragment {
 						}else{
 							oHandler.sendEmptyMessage(1);
 						}
-					}*///TODO
+					} 
 			};
 		}.start();
 		
@@ -185,39 +188,40 @@ public class TabPersonFragment extends ContentAbstractFragment {
 	
 
 	private void initUpdateSets(View BarView){
-		/*OfflineDownloadBuilder.setBtns(
+		OfflineDownloadBuilder.getInstance().setViews(
 							(ProgressBar)BarView.findViewById(R.id.progress_offline_person), 
 							(ImageView)BarView.findViewById(R.id.img_item_person_right));
-		OfflineDownloadBuilder.setContext(getActivity());*/
 	}
 	private void initToggleBtn(View barView) {
 		tgBtn = (ToggleButton)barView.findViewById(R.id.toggle_offline_person);
 		barView.findViewById(R.id.img_item_person_right).setVisibility(View.GONE);
 		tgBtn.setVisibility(View.VISIBLE);
-		/*tgBtn.setChecked(MyData.data().isOfflineEnabled());
+		tgBtn.setChecked(OfflineDataKeeper.isOfflineEnabled());
 		tgBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked){
-					String path = YftValues.getMyLocalPath();
-					MyData.data().setOfflineEnable(true);
-					if(MyData.data().getOfflineData()==null||!new File(path).exists()){//
+					String path = MyData.data().getMyLocalPath();
+					OfflineDataKeeper.setOfflineEnable(true);
+					if(
+//							OfflineDataKeeper.getOfflineData()==null||
+							!new File(path).exists()){//
 						JackUtils.showToast(getActivity(), "没有本地商铺数据，不能离线浏览");
 						((ToggleButton)buttonView).setChecked(false);
-						MyData.data().setOfflineEnable(false);
+						OfflineDataKeeper.setOfflineEnable(false);
 					}
 				}else{
-					MyData.data().setOfflineEnable(false);
+					OfflineDataKeeper.setOfflineEnable(false);
 					if(!JackUtils.isOpenNetwork()){
 						JackUtils.showToast(getActivity(), "网络不可用，请检查您的网络");
 						((ToggleButton)buttonView).setChecked(true);
-						MyData.data().setOfflineEnable(true);
+						OfflineDataKeeper.setOfflineEnable(true);
 					}
-					Log.i("person_toggleBtn", "check false");
+//					Log.i("person_toggleBtn", "check false");
 				}
 			}
-		});*/
+		});
 	}
 	
 }

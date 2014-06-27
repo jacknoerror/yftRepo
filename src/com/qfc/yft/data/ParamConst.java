@@ -6,6 +6,9 @@ public interface ParamConst {
 	public static final int AR_UP_LOCAL = 0x011;//not in use
 	public static final int AR_UP_CREATE = 0x012;// 
 	public static final int AR_PM_FILTER = 0x013; 
+	public static final int AR_CATEGORY = 0x014; 
+	public static final int AR_QR = 0x015; 
+	public static final int AR_QPC = 0x016; 
 
 	//BUNDLE SWITCH
 	public static final int BS_GO_PHOTO = 0X101;

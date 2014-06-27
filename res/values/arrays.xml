@@ -35,6 +35,14 @@
         <item>非私有</item>
         <item>私有</item>
     </string-array>
-    
+    <string-array name="shop_tabs">
+      
+        <item >公司介绍</item> 
+	    <item >联系方式</item>
+	    <item >产品介绍</item>
+	    <item >企业形象</item>
+	    <item >资质证书</item>
+    </string-array>
+     
      
 </resources>

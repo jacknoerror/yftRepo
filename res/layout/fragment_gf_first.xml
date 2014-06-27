@@ -17,7 +17,7 @@
          <RadioButton 
              android:id="@+id/radio1"
              style="@style/RadioButton_subleft"
-             android:text="\t\t照片\t\t"
+             android:text="\t拍照\t"
              android:layout_weight="1"
              
              />

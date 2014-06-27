@@ -8,7 +8,7 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 public class CancelAttentionReq implements ActionRequestImpl {
 	int toMember, fromMember;
 
-	public CancelAttentionReq(int toMember, int fromMember) {
+	public CancelAttentionReq(int fromMember, int toMember) {
 		super();
 		this.toMember = toMember;
 		this.fromMember = fromMember;

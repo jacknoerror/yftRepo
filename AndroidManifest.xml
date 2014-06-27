@@ -30,6 +30,15 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
+        <activity android:name="com.qfc.yft.ui.common.CurrentPersonActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.qfc.yft.ui.common.QRCaptureActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.qfc.yft.ui.common.RecommendActivity" />
+        <activity android:name="com.qfc.yft.ui.common.MyPeopleActivity" />
+        <activity android:name="com.qfc.yft.ui.common.MyCollectionActivity" />
+        <activity android:name="com.qfc.yft.ui.tab.main.cat.CateProdListActivity" />
+        <activity android:name="com.qfc.yft.ui.tab.main.cat.CategoryActivity" />
         <activity android:name="com.qfc.yft.ui.tab.main.cat.CategoryAndSearchActivity" />
         <activity android:name="com.qfc.yft.ui.tab.work.ProductManageFilterActivity" 
             android:screenOrientation="portrait"
@@ -63,6 +72,16 @@
         </activity>
         <activity android:name="com.qfc.yft.ui.tab.HubActivity" >
         </activity>
+        
+        <activity android:name="com.qfc.yft.ui.shop.ShActivityInfo" />
+        <activity android:name="com.qfc.yft.ui.shop.pro.ShActivityPro" />
+        <activity android:name="com.qfc.yft.ui.shop.ShActivityAdd" />
+        <activity android:name="com.qfc.yft.ui.shop.pic.ShActivityPCC" />
+        <activity android:name="com.qfc.yft.ui.shop.pic.ShActivityPCP" />
+        <activity android:name="com.qfc.yft.ui.shop.ShopActivity" />
+        <activity android:name="com.baidumap.GeoCoderActivity" />
+        <activity android:name="com.qfc.yft.ui.shop.pic.ViewpagerActivity" />
+        
     </application>
 
     <instrumentation

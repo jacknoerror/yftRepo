@@ -1,11 +1,13 @@
 package com.qfc.yft.ui.tab.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.Const;
 import com.qfc.yft.data.NetConst;
+import com.qfc.yft.ui.MyPortal;
 import com.qfc.yft.ui.tab.ContentAbstractFragment;
 
 public class TabMainFragment extends ContentAbstractFragment implements View.OnClickListener{
@@ -37,7 +39,15 @@ public class TabMainFragment extends ContentAbstractFragment implements View.OnC
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.et_home:
+		case R.id.tvbtn_a2:
 			//go search
+			MyPortal.goCatnSrch((Context)getActivity(),1);
+			break;
+		case R.id.tvbtn_a1:
+			MyPortal.goCatnSrch((Context)getActivity(),0);
+			break;
+		case R.id.tvbtn_a3:
+			MyPortal.goCatnSrch((Context)getActivity(),2);
 			break;
 		case R.id.tvbtn_b1:
 			goWebView(getString(R.string.title_b1),Const.URL_B1);
@@ -59,6 +69,12 @@ public class TabMainFragment extends ContentAbstractFragment implements View.OnC
 			break;
 		case R.id.tvbtn_c1:
 			
+			break;
+		case R.id.tvbtn_c2:
+			MyPortal.goMyCollection((Context)getActivity());
+			break;
+		case R.id.tvbtn_c3:
+			MyPortal.goMyPeople((Context)getActivity());
 			break;
 		default:
 			break;
