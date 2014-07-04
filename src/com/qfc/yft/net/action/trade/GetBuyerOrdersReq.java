@@ -11,6 +11,7 @@ import com.qfc.yft.net.action.ActionRequestImpl;
  * @author taotao
  * @Date 2014-6-23
  */
+@Deprecated
 public class GetBuyerOrdersReq implements ActionRequestImpl {
 	public static final String OStatus_ALL ="";
 	public static final String OStatus_2PAY ="waitPay";

@@ -13,7 +13,7 @@ public class PMRepublish extends PMFuncAbsReq  {
 	
 	
 
-	public PMRepublish(long companyId, long[] productId) {
+	public PMRepublish(long companyId, long... productId) {
 		super(companyId, productId);
 	}
 

@@ -26,7 +26,11 @@ import com.qfc.yft.net.action.product.GetProductForMotion1Req;
 import com.qfc.yft.net.action.product.GetProductReq;
 import com.qfc.yft.net.action.product.SearchProductByShopIdAndSeriesIdForIphoneReq;
 import com.qfc.yft.net.action.product.SearchProductReq;
+import com.qfc.yft.net.action.trade.GetOrderDetail;
 import com.qfc.yft.net.action.trade.GetSellerOrdersReq;
+import com.qfc.yft.net.action.trade.GetBuyerOrdersReq;
+import com.qfc.yft.util.JackRexUtil;
+import com.qfc.yft.util.JackRexUtil.JackReRules;
 import com.qfc.yft.util.JackUtils;
 
 public class NetConnectTest extends AndroidTestCase {
@@ -85,10 +89,15 @@ public class NetConnectTest extends AndroidTestCase {
 			break;
 		case 11://Âô¼Ò¶©µ¥
 //			ari = new GetSellerOrdersReq(14843, null, 1, 10);
-			ari = new GetSellerOrdersReq(TestConst.userId, null, 1, 10);
+			ari = new GetSellerOrdersReq(36745, null, 1, 10);
 //			ari = new GetBuyerOrdersReq(TestConst.userId, null, 1, 10);
 			break;
-			
+		case 12:
+			ari = new IsCollectByProductIdReq(TestConst.compId, 20056);
+			break;
+		case 13:
+			ari = new GetOrderDetail(9355, 0);
+			break;
 		default://login
 			ari = new PointVerifyForIMReq("ydspipad1", "333333a");
 			break;
@@ -110,7 +119,7 @@ public class NetConnectTest extends AndroidTestCase {
 		String result = "";
 
 		// login:26 ;
-		result = test(11);
+		result = test(13);
 		Log.i(TAG, "result=>" + result);
 		// Log.i(TAG,"mtime2=>"+System.currentTimeMillis());
 		assertTrue(result.contains("true"));
@@ -119,15 +128,18 @@ public class NetConnectTest extends AndroidTestCase {
 	public void testSayNo() {
 	}
 
-	/*
-	 * public void testRE(){ boolean check; // check =
-	 * JackRexUtil.checkRE(JackReRules.RE_RULE_EMAIL, "o@k.cn"); // check =
-	 * "555d".matches("[0-9]+?"); // check =
-	 * JackRexUtil.hasRE(JackReRules.RE_RULE_HAS_DIGIT,"o@k.cn44444"); check =
-	 * JackRexUtil
-	 * .checkRE(JackReRules.RE_RULE_A_Z_A_Z0_9_$_SIZE,"12345123456789067890-");
-	 * // check = JackRexUtil.checkPwdComplex("wdsr-1216"); assertTrue(check); }
-	 */
+	public void testRE() {
+		boolean check; 
+		 check =JackRexUtil.checkRE(JackReRules.RE_INFO_1, "http://m.tnc.com.cn/info/c-001006-d-3464911.html"); 
+		 check &=JackRexUtil.checkRE(JackReRules.RE_INFO_2, "http://m.tnc.com.cn/info/rc-041001-d-3464772.html"); 
+		 check &=JackRexUtil.checkRE(JackReRules.RE_INFO_3, "http://m.tnc.com.cn/expo/d1926.html"); 
+		 check &=JackRexUtil.checkRE(JackReRules.RE_INFO_4, "http://m.tnc.com.cn/market/d-119-p-.html"); 
+		// check ="555d".matches("[0-9]+?"); 
+		// check =JackRexUtil.hasRE(JackReRules.RE_RULE_HAS_DIGIT, "o@k.cn44444");
+//		check = JackRexUtil.checkRE(JackReRules.RE_RULE_A_Z_A_Z0_9_$_SIZE,"12345123456789067890-");
+		// check = JackRexUtil.checkPwdComplex("wdsr-1216"); 
+		assertTrue(check);
+	}
 
 	public void testNetwork() {
 		ConnectivityManager connManager = (ConnectivityManager) MyApplication

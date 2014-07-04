@@ -1,6 +1,9 @@
 package com.qfc.yft.ui.adapter.mj;
 
+import org.json.JSONException;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,13 +18,20 @@ import android.widget.TextView;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.Const;
+import com.qfc.yft.net.action.ActionBuilder;
+import com.qfc.yft.net.action.ActionReceiverImpl;
+import com.qfc.yft.net.action.ActionRequestImpl;
+import com.qfc.yft.net.action.product.PMOffline;
+import com.qfc.yft.net.action.product.PMOnline;
+import com.qfc.yft.net.action.product.PMRepublish;
 import com.qfc.yft.ui.ImageLoaderHelper;
 import com.qfc.yft.ui.custom.list.MspAdapter;
+import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.ProductManage;
 
 public class ListAdapterProductManage extends MspAdapter {
 
-	class ProductManageViewHolder extends ViewHolderImpl implements OnClickListener{
+	class ProductManageViewHolder extends ViewHolderImpl implements OnClickListener, ActionReceiverImpl{
 
 		ImageView icon;
 		TextView tvName,tvPrice,tvStatus;
@@ -54,10 +64,12 @@ public class ListAdapterProductManage extends MspAdapter {
 			tvPrice.setText("￥"+itm.getProductPrice());
 			tvStatus.setText(itm.getStatusStr());
 			
-			//test
-			funcOn.setEnabled(false);
-			funcOff.setEnabled(true);
-			funcRe.setEnabled(true);
+			funcOn.setEnabled(itm.isOnline());
+			funcOff.setEnabled(itm.isOffline());
+			funcRe.setEnabled(itm.isRepublish());
+			funcOn.setTag(itm);
+			funcOff.setTag(itm);
+			funcRe.setTag(itm);
 			
 			cb.setVisibility(myScrollPageListView.isSelected()?View.VISIBLE:View.GONE);
 			cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -80,21 +92,45 @@ public class ListAdapterProductManage extends MspAdapter {
 
 		@Override
 		public void onClick(View v) {
+			ProductManage pm = (ProductManage) v.getTag();
+			if(null==pm) return;
+			ActionRequestImpl actReq = null;
+			ActionReceiverImpl actRcv = this;
 			switch (v.getId()) {
 			case R.id.btn_pm_on:
-				
+				actReq = new PMOnline(pm.getCompanyId(), pm.getProductId());
 				break;
 			case R.id.btn_pm_off:
+				actReq = new PMOffline(pm.getCompanyId(), pm.getProductId());
 				
 				break;
 			case R.id.btn_pm_re:
 				
+				actReq = new PMRepublish(pm.getCompanyId(), pm.getProductId());
 				break;
 
 			default:
 				break;
 			}
+			ActionBuilder.getInstance().request(actReq, actRcv);
 //			Log.i("NOW", "onClick");
+		}
+
+		@Override
+		public boolean response(String result) throws JSONException {
+			if(result.contains("true")){ //FIXME
+				JackUtils.showToast(getContextInAdapter(), "操作成功");
+				myScrollPageListView.setup();
+			}else{
+				JackUtils.showToast(getContextInAdapter(), "操作失败");
+				
+			}
+			return false;
+		}
+
+		@Override
+		public Context getReceiverContext() {
+			return null;
 		}
 		
 	}

@@ -175,6 +175,12 @@ public interface NetConst  {
 
 	public static final String REQUEST_TRADE_API_ORDER_EXT_SEARCH_BUYER_ORDERS = "open.api.trade.search.buyerorders";
 
+	public static final String REQUEST_OPEN_API_TRADE_GET_ORDERDETAIL = "open.api.trade.get.orderdetail";
+
+	public static final String PARAMS_ORDER_ID = "orderId";
+
+	public static final String PAMAMS_USER_TYPE = "userType";
+
 
 	
 

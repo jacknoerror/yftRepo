@@ -58,8 +58,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:lines="3"
-                android:text="延宕二十年、曲折十余载,公元2014年5月21日,中国、俄罗斯终于签署了高达4000多亿美元的天然气大单"
+                android:lines="2"
                 android:textColor="@color/textcolor_dark"
                 android:textSize="@dimen/textsize_detail_normal" />
 
@@ -73,7 +72,6 @@
                     android:id="@+id/tv_item_order_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥37000"
                     android:textColor="@color/down_orange"
                     android:textSize="@dimen/textsize_r_bigger" />
 
@@ -82,8 +80,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="共4种产品"
                     android:textColor="@color/textcolor_light" />
+
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

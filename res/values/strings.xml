@@ -28,6 +28,9 @@
 	<string name="titlename_upload">上传照片</string>
 	<string name="titlename_pm">产品管理</string>
 	<string name="titlename_filter">筛选</string>
+	<string name="titlename_order_sell">销售订单</string>
+	<string name="titlename_order_buy">采购订单</string>
+	<string name="titlename_order_detail">订单详情</string>
 	
 	<string name="subname_main_a1">产品类目</string>
 	<string name="subname_main_a2">找产品</string>

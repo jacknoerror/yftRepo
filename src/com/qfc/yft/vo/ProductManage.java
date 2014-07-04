@@ -60,6 +60,11 @@ public class ProductManage extends MspJsonItem {
 	private DateJson addTime;
 	
 	String imageUrl300X300 ; 
+	
+	int online;
+	int offline;
+	int republish;
+
 
 	public ProductManage() {
 		super();
@@ -293,6 +298,37 @@ public class ProductManage extends MspJsonItem {
 	}
 
 
+	public final int getOnline() {
+		return online;
+	}
+	public boolean isOnline(){
+		return online>0;
+	}
+
+	public final void setOnline(int online) {
+		this.online = online;
+	}
+
+
+	public boolean isOffline(){
+		return offline>0;
+	}
+
+
+	public final void setOffline(int offline) {
+		this.offline = offline;
+	}
+
+
+	public boolean isRepublish(){
+		return republish>0;
+	}
+
+	public final void setRepublish(int republish) {
+		this.republish = republish;
+	}
+
+
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if(job.has("propMap")) propMap = job.getJSONObject("propMap");
@@ -317,6 +353,11 @@ public class ProductManage extends MspJsonItem {
 		if(job.has("addTime")) addTime =  new DateJson(job.optJSONObject("addTime"));
 		if(job.has("imageUrl300X300")) imageUrl300X300 = job.getString("imageUrl300X300");
 		if(job.has("sellStatus")) sellStatus = job.optInt("sellStatus");
+		
+		if(job.has("online")) online = job.optInt("online");
+		if(job.has("offline")) offline = job.optInt("offline");
+		if(job.has("republish")) republish = job.optInt("republish");
+		
 
 	}
 

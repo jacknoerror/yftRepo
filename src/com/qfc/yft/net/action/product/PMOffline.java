@@ -14,7 +14,7 @@ public class PMOffline extends PMFuncAbsReq  {
 	
 	
 
-	public PMOffline(long companyId, long[] productId) {
+	public PMOffline(long companyId, long... productId) {
 		super(companyId, productId);
 	}
 

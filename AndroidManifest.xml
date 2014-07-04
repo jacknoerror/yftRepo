@@ -30,10 +30,13 @@
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <uses-library android:name="android.test.runner" />
 
+        <activity android:name="com.qfc.yft.ui.tab.work.OrderActivity" 
+            android:screenOrientation="portrait"/>
         <activity android:name="com.qfc.yft.ui.common.CurrentPersonActivity" 
             android:screenOrientation="portrait"/>
         <activity android:name="com.qfc.yft.ui.common.QRCaptureActivity" 
             android:screenOrientation="portrait"/>
+        <activity android:name="com.qfc.yft.ui.tab.work.OrderDetailActivity" />
         <activity android:name="com.qfc.yft.ui.common.RecommendActivity" />
         <activity android:name="com.qfc.yft.ui.common.MyPeopleActivity" />
         <activity android:name="com.qfc.yft.ui.common.MyCollectionActivity" />
@@ -70,7 +73,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.qfc.yft.ui.tab.HubActivity" >
+        <activity android:name="com.qfc.yft.ui.tab.HubActivity"
+            android:screenOrientation="portrait" >
         </activity>
         
         <activity android:name="com.qfc.yft.ui.shop.ShActivityInfo" />
@@ -80,7 +84,7 @@
         <activity android:name="com.qfc.yft.ui.shop.pic.ShActivityPCP" />
         <activity android:name="com.qfc.yft.ui.shop.ShopActivity" />
         <activity android:name="com.baidumap.GeoCoderActivity" />
-        <activity android:name="com.qfc.yft.ui.shop.pic.ViewpagerActivity" />
+        <activity android:name="com.qfc.yft.ui.shop.pic.ViewpagerActivity"/>
         
     </application>
 

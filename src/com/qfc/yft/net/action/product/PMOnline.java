@@ -14,7 +14,7 @@ public class PMOnline extends PMFuncAbsReq  {
 	
 	
 
-	public PMOnline(long companyId, long[] productId) {
+	public PMOnline(long companyId, long... productId) {
 		super(companyId, productId);
 	}
 

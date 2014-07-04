@@ -20,6 +20,7 @@ import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumLc;
 import com.qfc.yft.ui.adapter.mj.ListAdapterAlbumSh;
 import com.qfc.yft.ui.adapter.mj.ListAdapterCompany;
 import com.qfc.yft.ui.adapter.mj.ListAdapterImagine;
+import com.qfc.yft.ui.adapter.mj.ListAdapterOrder;
 import com.qfc.yft.ui.adapter.mj.ListAdapterPeople;
 import com.qfc.yft.ui.adapter.mj.ListAdapterProduct;
 import com.qfc.yft.ui.adapter.mj.ListAdapterProductManage;
@@ -31,6 +32,7 @@ import com.qfc.yft.vo.AlbumPic;
 import com.qfc.yft.vo.LIICompany;
 import com.qfc.yft.vo.LIIPeople;
 import com.qfc.yft.vo.LIIProduct;
+import com.qfc.yft.vo.Order;
 import com.qfc.yft.vo.ProductManage;
 import com.qfc.yft.vo.User;
 
@@ -73,6 +75,10 @@ public class MspFactory implements MspFactoryImpl {
 			break;
 		case IP_LOCALHISTORY:
 			adapter=  new ListAdapterSearchHistory( );
+			break;
+		case ORDER_BUY:
+		case ORDER_SELL:
+			adapter = new ListAdapterOrder();
 			break;
 		default:
 			break;
@@ -122,6 +128,10 @@ public class MspFactory implements MspFactoryImpl {
 		case IP_PEOPLE_MY:
 		case IP_PEOPLE_SEARCH:
 			mji = new LIIPeople();
+			break;
+		case ORDER_BUY:
+		case ORDER_SELL:
+			mji = new Order();
 			break;
 		default:
 			break;

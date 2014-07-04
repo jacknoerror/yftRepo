@@ -29,6 +29,7 @@ public class ActionBuilder {
 	}
 	SoftReference<HttpRequestTask> lastRequest;
 	public void request(ActionRequestImpl actReq, ActionReceiverImpl actRcv ){
+		if(null==actReq) throw new IllegalStateException("action nil");
 		// map?
 		HttpRequestTask httpRequestTask = new HttpRequestTask(actRcv);
 		lastRequest = new SoftReference<HttpRequestTask>(httpRequestTask);

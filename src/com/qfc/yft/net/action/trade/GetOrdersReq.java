@@ -2,22 +2,24 @@ package com.qfc.yft.net.action.trade;
 
 import java.util.Map;
 
+import com.qfc.yft.data.NetConst;
 import com.qfc.yft.net.NetStrategies;
 import com.qfc.yft.net.action.ActionRequestImpl;
+import com.qfc.yft.ui.tab.work.OrderActivity;
 
 /**
- * 卖家订单
- * 
+ * 采购订单
  * @author taotao
  * @Date 2014-6-23
  */
-@Deprecated
-public class GetSellerOrdersReq implements ActionRequestImpl {
+public class GetOrdersReq implements ActionRequestImpl {
 	public static final String OStatus_ALL ="";
 	public static final String OStatus_2PAY ="waitPay";
 	public static final String OStatus_2CNFM ="waitConfirm";
 	public static final String OStatus_2SCMMT= "waitSellerJudge";
 	public static final String OStatus_2BCMMT= "waitBuyerJudge";
+	public static final String OStatus_2SEND= "waitSend";
+	public static final String OStatus_2REFUND= "waitRefund";
 	
 	int memberId;// 用户Id（Integer类型数据） （不必填，为空时companyId必填）
 	// long companyId ;// 公司Id（Long类型数据） （不必填，为空时memberId必填）
@@ -30,9 +32,12 @@ public class GetSellerOrdersReq implements ActionRequestImpl {
 	// int order ;// 排序方式（String类型） （不必填）（默认desc）
 	// int orderBy ;// 排序字段（String类型） （不必填）（默认order_time）
 
-	public GetSellerOrdersReq(int memberId, String orderStatus, int pageNo,
+	private int type;
+	
+	public GetOrdersReq(int type, int memberId, String orderStatus, int pageNo,
 			int pageSize) {
 		super();
+		this.type = type;
 		this.memberId = memberId;
 		this.orderStatus = orderStatus;
 		this.pageNo = pageNo;
@@ -41,7 +46,10 @@ public class GetSellerOrdersReq implements ActionRequestImpl {
 
 	@Override
 	public String getApiName() {
-		return REQUEST_TRADE_API_ORDER_EXT_SEARCH_SELLER_ORDERS;
+		if (type == OrderActivity.BUY)
+			return NetConst.REQUEST_TRADE_API_ORDER_EXT_SEARCH_BUYER_ORDERS;
+		else
+			return NetConst.REQUEST_TRADE_API_ORDER_EXT_SEARCH_SELLER_ORDERS;
 	}
 
 	@Override

@@ -104,6 +104,15 @@
         <item name="android:lines">1</item>
     </style>
 
+     <style name="RadioButton_order" parent="WrapAll">
+         
+         <item name="android:drawablePadding">@dimen/common_margin</item>
+        <item name="android:textColor">@color/textcolor_dark</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_margin</item>
+         <item name="android:textSize">@dimen/textsize_min</item>
+    </style>
     <style name="RadioButton_sub" parent="WrapAll">
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/selector_radio_bg</item>
