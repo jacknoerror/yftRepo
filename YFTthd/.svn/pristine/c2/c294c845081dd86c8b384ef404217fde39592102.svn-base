@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_grey"
+    >
+    <LinearLayout 
+        android:id="@+id/layout_upload_choosealbum"
+        style="@style/MatchWidthOnly"
+        android:orientation="horizontal"
+        android:background="@drawable/selector_field_white_grey"
+        android:padding="@dimen/common_margin_bigger"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textcolor_dark"
+            android:text="上传到"
+            />
+        <TextView 
+            android:id="@+id/tv_upload_toalbum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/textcolor_dark"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/common_margin_bigger"
+            android:text="默认相册"
+            />
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow"
+            />
+    </LinearLayout>
+    <CheckBox 
+        android:id="@+id/cb_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上传高清图片"
+        android:padding="@dimen/common_margin_bigger"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/titleblue"
+        />
+    <ListView 
+        android:id="@+id/lv_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_margin"
+        android:divider="@null"
+        
+        ></ListView>
+
+</LinearLayout>

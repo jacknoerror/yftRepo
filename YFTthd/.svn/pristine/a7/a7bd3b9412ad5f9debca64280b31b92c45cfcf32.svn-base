@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="test_array">
+        <item>跟踪1212121</item>
+        <item>定时提醒</item>
+        <item>跟踪2</item>
+        <item>定时提醒2</item>
+        <item>跟踪3</item>
+        <item>定时提醒3</item>
+        <item>跟踪4</item>
+        <item>定时提醒4</item>
+        <item>跟踪5</item>
+        <item>定时提醒5</item>
+        <item>跟踪6</item>
+        <item>定时提醒6</item>
+    </string-array>
+     <string-array name="pmf_group">
+        <item>上架状态</item>
+        <item>审核状态</item>
+        <item>是否私人</item>
+        <item>产品系列</item>
+    </string-array>
+     <string-array name="pmf_pstat">
+        <item>下架</item>
+        <item>上架</item>
+        
+    </string-array>
+     <string-array name="pmf_astat">
+        <item>待审核</item>
+        <item>审核通过</item>
+        <item>审核驳回</item>
+        <item>暂不审核</item>
+    </string-array>
+     <string-array name="pmf_private">
+        <item>非私有</item>
+        <item>私有</item>
+    </string-array>
+    <string-array name="shop_tabs">
+      
+        <item >公司介绍</item> 
+	    <item >联系方式</item>
+	    <item >产品介绍</item>
+	    <item >企业形象</item>
+	    <item >资质证书</item>
+    </string-array>
+     
+     
+</resources>

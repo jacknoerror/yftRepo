@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">易纺通</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="login_username">邮箱/手机/用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_guest">随便逛逛</string>
+    
+    <string name="preference">.tnc</string>
+	<string name="pref_notfirsttime">nft</string>
+	<string name="pref_username">username</string>
+    
+	<string name="titlename_chat">纺织聊</string>
+	<string name="titlename_work">工作台</string>
+	<string name="titlename_person">个人中心</string>
+	<string name="titlename_myshop">我的商铺</string>
+	<string name="titlename_myfave">我的收藏</string>
+	<string name="titlename_mypeop">我的人脉</string>
+	<string name="titlename_recommend">商铺推荐</string>
+	<string name="titlename_album_sh">商铺相册</string>
+	<string name="titlename_album_lc">本地相册</string>
+	<string name="titlename_album_create">新建相册</string>
+	<string name="titlename_upload">上传照片</string>
+	<string name="titlename_pm">产品管理</string>
+	<string name="titlename_filter">筛选</string>
+	<string name="titlename_order_sell">销售订单</string>
+	<string name="titlename_order_buy">采购订单</string>
+	<string name="titlename_order_detail">订单详情</string>
+	<string name="titlename_information_detail">资讯详情</string>
+	
+	<string name="subname_main_a1">产品类目</string>
+	<string name="subname_main_a2">找产品</string>
+	<string name="subname_main_a3">找企业</string>
+	<string name="title_b1">宜布到位</string>
+	<string name="title_b2">坯布市场</string>
+	<string name="title_b3">家纺市场</string>
+	<string name="title_b4">虚拟市场</string>
+	<string name="title_b5">童装市场</string>
+	<string name="title_b6">面料市场</string>
+	<string name="title_x1">公司相册</string>
+	<string name="title_x2">\t拍照\t</string>
+	<string name="title_x3">图片上传</string>
+	<string name="title_y1">产品管理</string>
+	<string name="title_y2">销售订单</string>
+	<string name="title_y3">采购订单</string>
+	
+<<<<<<< .working
+	<string name="upgrade_btn_ok">立即升级</string>
+	<string name="upgrade_btn_cancel">取消</string>
+	<string name="upgrade_alert_deprecated">有新版本啦</string>
+	<string name="upgrade_alert_latest">当前已是最新版本</string>
+	<string name="upgrade_alert_error">服务器异常，请稍后再试</string>
+	
+	<string name="account_title_register">注册</string>
+	<string name="account_title_find_password">找回密码</string>
+	<string name="account_title_license">服务条款</string>
+	<string name="account_step1_text_phone">手机号码</string>
+	<string name="account_step1_text_license">《网上轻纺城服务条款》</string>
+	<string name="account_step1_hint_phone_register">此信息不公开，用于登录和找回密码</string>
+	<string name="account_step1_hint_phone_find_password">请输入要找回密码的会员手机号码</string>
+	<string name="account_step1_btn_ok_register">同意条款并获取验证码</string>
+	<string name="account_step1_btn_ok_find_password">获取验证码</string>
+	<string name="account_step1_warn_phone">请输入正确的手机号码</string>
+	<string name="account_step1_error">获取验证码出错，请稍后再试</string>
+	<string name="account_step2_text_captcha">验证码</string>
+	<string name="account_step2_text_password">登录密码</string>
+	<string name="account_step2_text_reenter">确认密码</string>
+	<string name="account_step2_text_countdown_start">秒后可重发（您还有</string>
+	<string name="account_step2_text_countdown_end">次机会）</string>
+	<string name="account_step2_text_countdown_resend">点击这里重新发送（您还有</string>
+	<string name="account_step2_text_countdown_over">发送次数不能超过9次，请24小时后再试</string>
+	<string name="account_step2_hint_captcha">请输入您收到的6位验证码</string>
+	<string name="account_step2_hint_password"><![CDATA[6-20位，数字、字母或符号]]></string>
+	<string name="account_step2_hint_reenter">再次输入您设置的密码</string>
+	<string name="account_step2_btn_ok_register">确定注册</string>
+	<string name="account_step2_btn_ok_reset">重置密码</string>
+	<string name="account_step2_warn_captcha">验证码错误</string>
+	<string name="account_step2_warn_password">登录密码格式错误</string>
+	<string name="account_step2_warn_reenter">确认密码不一致</string>
+	<string name="account_step2_error_register">注册账户出错，请稍后再试</string>
+	<string name="account_step2_error_reset">重置密码出错，请稍后再试</string>
+	
+=======
+	  <string name="add_personincharge">负责人:</string>
+    <string name="add_mainpage">公司主页:</string>
+    <string name="add_phone">公司电话:</string>
+    <string name="add_fax">公司传真:</string>
+    <string name="add_cell">手机:</string>
+    <string name="add_remark">备注信息:</string>
+    <string name="add_qr">扫一扫上面的二维码，添加收藏</string>
+	
+    <string name="info21">所属行业：</string>
+    <string name="info22">经营模式：</string>
+    <string name="info23">所在地区：</string>
+    <string name="info31">主营产品/服务：</string>
+    <string name="info32">采购产品：</string>
+    <string name="info33">详细地址：</string>
+    <string name="info40">公司简介：</string>
+    <string name="info_map">查看地图</string>
+    
+	<string name="no_data">暂无</string>
+	<string name="no_data_record">没有记录</string>
+	
+	  <string name="a_0">个人信息:</string>
+    <string name="a_1">居住地:</string>
+    <string name="a_2">毕业高校:</string>
+    <string name="b_0">联系方式:</string>
+    <string name="b_1">手机:</string>
+    <string name="b_2">电话:</string>
+    <string name="b_3">邮箱:</string>
+    <string name="b_4">旺旺:</string>
+    <string name="b_5">微信:</string>
+    <string name="c_0">业务信息:</string>
+    <string name="c_1">所属行业:</string>
+    <string name="c_2">主要产品:</string>
+    <string name="d_0">单位信息:</string>
+    <string name="d_1">职	务:</string>
+    <string name="d_2">所属单位:</string>
+    <string name="d_3">单位网址:</string>
+    <string name="d_4">详细地址:</string>
+	
+	<!-- waterfall -->
+    <string name="ptr_pull_to_refresh">释放更新</string>
+    <string name="ptr_release_to_refresh">释放更新</string>
+    <string name="ptr_refreshing">更新中</string>
+    <string name="ptr_last_updated">已更新: %1$s</string>   
+>>>>>>> .merge-right.r78
+	
+	<drawable name="divider_h_grey">#c8c8c8</drawable>
+	<drawable name="transparent_half">#a000</drawable>
+	<drawable name="selected_category">#D1E5FD</drawable>
+	<drawable name="hsv_frame_bg">#DDFFFFEE</drawable>
+</resources>
