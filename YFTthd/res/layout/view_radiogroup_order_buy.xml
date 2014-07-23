@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/common_margin_bigger"
+    android:gravity="center"
+    android:background="@color/bg_grey"
+    android:orientation="horizontal" 
+    android:divider="@drawable/divider_h"
+    >
+    
+<!--     android:background="@drawable/shape_btn_bg_blue_stroke" -->
+
+    <RadioButton
+        android:id="@+id/radio1"
+        style="@style/RadioButton_order"
+        android:layout_weight="1"
+        android:text="全部" 
+        android:drawableTop="@drawable/selector_order_all"
+        />
+    <View 
+        style="@style/DividerInMain_V"
+        />
+    <RadioButton
+        android:id="@+id/radio2"
+        style="@style/RadioButton_order"
+        android:layout_weight="1"
+        android:text="待付款" 
+        android:button="@null"
+        android:drawableTop="@drawable/selector_order_pay"
+        />
+    <View 
+        style="@style/DividerInMain_V"
+        />
+    <RadioButton
+        android:id="@+id/radio3"
+        style="@style/RadioButton_order"
+        android:layout_weight="1"
+        android:text="待确认" 
+        android:button="@null"
+        android:drawableTop="@drawable/selector_order_check"
+        />
+    <View 
+        style="@style/DividerInMain_V"
+        />
+    <RadioButton
+        android:id="@+id/radio4"
+        style="@style/RadioButton_order"
+        android:layout_weight="1"
+        android:text="待评价" 
+        android:button="@null"
+        android:drawableTop="@drawable/selector_order_comment"
+        />
+    
+
+</RadioGroup>

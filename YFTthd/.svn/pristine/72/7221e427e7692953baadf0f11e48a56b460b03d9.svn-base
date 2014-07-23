@@ -1,0 +1,54 @@
+package com.qfc.yft;
+
+import java.util.Iterator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.test.AndroidTestCase;
+import android.util.Log;
+
+import com.qfc.yft.util.HandleStrings;
+import com.qfc.yft.util.JackUtils;
+
+
+public class FormatingTest extends AndroidTestCase {
+	private final String TAG  = "UNIT_TEST";
+
+	@Override
+	protected void setUp() throws Exception {
+		// TODO Auto-generated method stub
+		super.setUp();
+	}
+	
+	public void fromJsonstrToCode() throws JSONException{
+		convertJsonToCode();
+		String result = HandleStrings.readAndConvert3(mContext);
+		assertNotNull(result);
+		Log.i(TAG, result);
+	}
+	
+	public void convertJsonToCode() throws JSONException{
+		final String jsonStr = "{\"compContacterSex\":0,\"compId\":14495,\"createTime\":{\"nanos\":0,\"time\":1333260700000,\"minutes\":11,\"seconds\":40,\"hours\":14,\"month\":3,\"year\":112,\"timezoneOffset\":-480,\"day\":0,\"date\":1},\"shopValidBeginTime\":{\"nanos\":0,\"time\":1345564800000,\"minutes\":0,\"seconds\":0,\"hours\":0,\"month\":7,\"year\":112,\"timezoneOffset\":-480,\"day\":3,\"date\":22},\"CompMainProduct\":\"企业,,,,,\",\"compTelphone\":\"28974642\",\"compTelIdd\":\"86\",\"compMainSite\":\"www\",\"compProv\":12,\"compProfession\":\"03\",\"compFax\":\"111,111,111111111111\",\"compCounty\":null,\"compNature\":\"\",\"shopValidEndTime\":{\"nanos\":0,\"time\":1408550400000,\"minutes\":0,\"seconds\":0,\"hours\":0,\"month\":7,\"year\":114,\"timezoneOffset\":-480,\"day\":4,\"date\":21},\"compDelete\":0,\"compRemarks\":null,\"compLogoImg\":\"01|company|4816.jpg\",\"compModel\":\"2\",\"compPurchaseProduct\":\",,,,,\",\"privateHallPassword\":null,\"publishTime\":{\"nanos\":0,\"time\":1377594052000,\"minutes\":0,\"seconds\":52,\"hours\":17,\"month\":7,\"year\":113,\"timezoneOffset\":-480,\"day\":2,\"date\":27},\"compEmail\":\"\",\"compCheckTime\":{\"nanos\":0,\"time\":1377594052000,\"minutes\":0,\"seconds\":52,\"hours\":17,\"month\":7,\"year\":113,\"timezoneOffset\":-480,\"day\":2,\"date\":27},\"mallType\":0,\"compName\":\"公共买家账户\",\"compContacter\":\"联系儿女\",\"compCity\":132,\"compMobile\":\"\",\"compTelDdd\":\"575\",\"compChecker\":\"admin\",\"compAddress\":\"创意大厦\",\"shopName\":\"公共买家账户\",\"shopDomain\":\"sp00000224\",\"compStatus\":0,\"compTrustGrade\":1,\"compIntro\":\"12331\",\"shopCreditRating\":2,\"compZipCode\":\"\"}";
+		JSONObject job = new JSONObject(jsonStr);
+		Iterator<String> it = job.keys();
+		StringBuffer sb = new StringBuffer();
+		while(it.hasNext()){
+			String name = it.next();
+			String line = String.format("private %s %s;", "String",name);
+			sb.append(line);
+//			write(name);
+		}
+//		Log.i(TAG, sb.toString());
+		JackUtils.writeToSomeWhere(mContext, sb.toString());
+	}
+
+	/**
+	 * @param name
+	 */
+	private void write(String name) {
+		JackUtils.writeToFile(getContext(), "Format", name);
+	}
+	
+	
+}

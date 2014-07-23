@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/common_margin"
+    android:descendantFocusability="afterDescendants"
+     >
+    <ImageView 
+        android:id="@+id/img_item_upload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        />
+	<EditText 
+	    android:id="@+id/et_item_upload"
+	    android:layout_width="0dp"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:layout_marginLeft="@dimen/common_margin"
+	    android:background="@drawable/edittext_bg"
+	    android:inputType="none"
+	    android:gravity="start"
+	    android:visibility="invisible"
+	    />
+    
+</LinearLayout>

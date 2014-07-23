@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_grey"
+    >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        
+    
+     <GridView 
+         android:id="@+id/gridview_gf"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:horizontalSpacing="@dimen/common_margin"
+         android:verticalSpacing="@dimen/common_margin"
+         android:numColumns="3"
+         android:padding="@dimen/common_margin"
+         android:listSelector="@null"
+         android:drawSelectorOnTop="false"
+         android:drawingCacheQuality="low"
+         android:layoutMode="clipBounds"
+         android:background="@android:color/white"
+         ></GridView>
+     <include layout="@layout/merge_albumradios"
+        android:layout_alignParentTop="true"
+        />
+    </RelativeLayout>
+	<RelativeLayout 
+	    android:id="@+id/layout_gf_grid_bottom"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_vertical"
+	    android:padding="@dimen/common_margin"
+	    >
+         <Button 
+             android:id="@+id/btn_gf_grid"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/v_height_edit"
+             android:background="@drawable/btn_login_bg"
+             android:text="确  定"
+             android:textColor="@android:color/white"
+             android:textSize="@dimen/textsize_title"
+             android:shadowColor="@android:color/black"
+             android:shadowDx="1"
+             android:shadowDy="1"
+             android:shadowRadius="1"
+             />
+	    <TextView 
+	        android:id="@+id/tv_gf_grid_count"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginRight="75dp"
+	        android:background="@drawable/shape_bg_green_counter"
+	        android:textColor="@android:color/white"
+	        android:textSize="@dimen/textsize_detail_normal"
+	        android:paddingLeft="@dimen/common_margin_bigger"
+	        android:paddingRight="@dimen/common_margin_bigger"
+	        android:visibility="invisible"
+	        />
+	</RelativeLayout>
+</LinearLayout>

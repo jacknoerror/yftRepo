@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="h_margin_side">10dp</dimen>
+    <dimen name="v_padding_login_up">42dp</dimen>
+    <dimen name="v_padding_login_down">120dp</dimen>
+    
+    <dimen name="logo_margin">60dp</dimen>
+    <dimen name="v_height_bottombar">62dp</dimen>
+    
+    <dimen name="v_margin_givetonoimg">90dp</dimen>
+</resources>

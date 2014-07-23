@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/loginbgtop"
+        android:scaleType="fitStart"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        />
+    <LinearLayout 
+        android:id="@+id/layout_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="@dimen/h_margin_side"
+        android:paddingRight="@dimen/h_margin_side"
+        android:gravity="center"
+        >
+        <ImageView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/homelogo"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/app_name"
+            android:paddingRight="@dimen/common_margin"
+            android:layout_weight="11"
+        />
+        <EditText 
+            android:id="@+id/et_home"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="none"
+            android:background="@drawable/edittext_search_trans"
+            android:layout_weight="3"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dp"
+            android:hint="搜索一二三四五六七"
+            
+            />
+        </LinearLayout>
+    	<ScrollView 
+    	    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/loginbgbottom"
+		    android:layout_alignParentBottom="true"
+		    android:layout_below="@id/layout_home_top"
+    	    >
+	    	<TableLayout 
+	    	    android:id="@+id/table_home"
+	    	    android:layout_width="match_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:padding="@dimen/h_margin_side"
+	    	    >
+	    	</TableLayout>
+    	    
+    	</ScrollView>
+    
+	    
+</RelativeLayout>

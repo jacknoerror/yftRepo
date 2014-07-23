@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/merge_jacktitle" />
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <ImageView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_person_upper"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            />
+        <ImageView 
+            android:id="@+id/img_work_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/common_margin_bigger"
+            />
+        <TextView 
+            android:id="@+id/tv_work_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/img_work_icon"
+            android:textColor="@android:color/white"
+            android:text="我的名字"
+            android:layout_marginBottom="@dimen/common_margin_bigger"
+            android:textSize="@dimen/textsize_r_bigger"
+            />
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/tv_work_name"
+            android:background="@android:color/white"
+            >
+            <LinearLayout 
+                style="@style/MatchWidthOnly"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                >
+                <TextView 
+                    android:id="@+id/tvbtn_work_x1"
+                    style="@style/TextView_inWork_top"
+                    android:text="@string/title_x1"
+                    android:drawableTop="@drawable/workbtn1"
+                    />
+                 <View style="@style/DividerInMain_V" />
+                <TextView 
+                    android:id="@+id/tvbtn_work_x2"
+                    style="@style/TextView_inWork_top"
+                    android:text="@string/title_x2"
+                    android:drawableTop="@drawable/workbtn2"
+                    />
+                 <View style="@style/DividerInMain_V" />
+                <TextView 
+                    android:id="@+id/tvbtn_work_x3"
+                    style="@style/TextView_inWork_top"
+                    android:text="@string/title_x3"
+                    android:drawableTop="@drawable/workbtn3"
+                    />
+            </LinearLayout>
+             <View style="@style/DividerInMain_H" />
+            <LinearLayout 
+                style="@style/MatchWidthOnly"
+                android:orientation="horizontal"
+                >
+                <TextView 
+                    android:id="@+id/tvbtn_work_y1"
+                    style="@style/TextView_inWork_top"
+                    android:drawableTop="@drawable/workbtn4"
+                    android:text="@string/title_y1"
+                    />
+                 <View style="@style/DividerInMain_V" />
+                <TextView 
+                    android:id="@+id/tvbtn_work_y2"
+                    style="@style/TextView_inWork_top"
+                    android:text="@string/title_y2"
+                    android:drawableTop="@drawable/workbtn5"
+                    />
+                 <View style="@style/DividerInMain_V" />
+                <TextView 
+                    android:id="@+id/tvbtn_work_y3"
+                    style="@style/TextView_inWork_top"
+                    android:text="@string/title_y3"
+                    android:drawableTop="@drawable/workbtn6"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+</LinearLayout>
