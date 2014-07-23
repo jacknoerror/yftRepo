@@ -3,14 +3,15 @@ package com.qfc.yft.ui.custom.list;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,10 +24,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qfc.yft.R;
-import com.qfc.yft.net.NetStrategies;
+import com.qfc.yft.R.style;
 import com.qfc.yft.net.action.ActionReceiverImpl;
 import com.qfc.yft.net.action.ActionStrategies;
+import com.qfc.yft.ui.adapter.mj.ListAdapterImagine.ImagineItemInfo;
 
+/**
+ * 
+ * @author taotao
+ * @Date 2014-7-15
+ */
 public class MyJackListView extends ListView implements
 		AbsListView.OnScrollListener, ActionReceiverImpl {
 	private static final String HINT_DONE = "";
@@ -38,7 +45,7 @@ public class MyJackListView extends ListView implements
 	List<ListItemImpl> everythingList;
 	MspFactoryImpl factory;
 
-	MspAdapter mAdapter;
+	MspAdapter myAdapter;
 	MspPage currentPage;
 	OnGetPageListener gpListener;
 
@@ -71,9 +78,9 @@ public class MyJackListView extends ListView implements
 		mInflater = LayoutInflater.from(getContext());
 
 		factory = new MspFactory(mType);
-		mAdapter = factory.getNewAdapter();
-		if (null != mAdapter)
-			mAdapter.setListView(this);
+		myAdapter = factory.getNewAdapter();
+		if (null != myAdapter)
+			myAdapter.setListView(this);
 
 		setOnGetPageListener(factory.getDefaultOnPageChangeListener());
 
@@ -82,38 +89,57 @@ public class MyJackListView extends ListView implements
 		setFastScrollEnabled(true);
 		everythingList = new ArrayList<ListItemImpl>();
 
-		addHeaderView();
-		measureView(mHeaderLinearLayout);
-		mHeaderHeight = mHeaderLinearLayout.getMeasuredHeight();
-		setHeaderTopPadding(-mHeaderHeight);//0523 set minus header padding
-//		setFooterDividersEnabled(false);
-		setHeaderDividersEnabled(false);
+		// initHeader();//
+		// setFooterDividersEnabled(false);
 		setSelector(R.drawable.selector_field_white_grey); //
 		setDivider(getResources().getDrawable(R.color.textcolor_light));
 		setDividerHeight(2);
+
+	}
+
+	public final MspPage getCurrentPage() {
+		return currentPage;
+	}
+
+	public final ListItemImpl.Type getType() {
+		return mType;
+	}
+
+	/**
+	 * 
+	 */
+	public void initHeader() {
+		addHeaderView();
+		measureView(mHeaderLinearLayout);
+		mHeaderHeight = mHeaderLinearLayout.getMeasuredHeight();
+		setHeaderTopPadding(-mHeaderHeight);// 0523 set minus header padding
+		setHeaderDividersEnabled(false);
 	}
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {
 		super.setAdapter(adapter);
 		if (adapter instanceof MspAdapter)
-			mAdapter = (MspAdapter) adapter;
+			myAdapter = (MspAdapter) adapter;
 	}
 
 	public void updateList(List<ListItemImpl> list) {
-		if (null == getAdapter() && null != mAdapter)
-			setAdapter(mAdapter);
+		if (null == getAdapter() && null != myAdapter) {
+			setAdapter(myAdapter);
+			if (null != mHeaderLinearLayout)
+				setSelection(1);// do this after// setAdapter// everytime//
+								// 0617why everytime & move
+		}
 		// 放在此处，在更新数据的时候再设置adapter
-		if (mAdapter != null) {
-			List<ListItemImpl> lvList = ((MspAdapter) mAdapter).getList();
+		if (myAdapter != null) {
+			List<ListItemImpl> lvList = ((MspAdapter) myAdapter).getList();
 			if (lvList != list) {
 				lvList.clear();
 				lvList.addAll(list);
 			}
 		}
-		setSelection(mHeaderLinearLayout != null ? 1 : 0);// do this after// setAdapter// everytime
-															
-		mAdapter.notifyDataSetChanged();
+		myAdapter.notifyDataSetChanged();
+
 	}
 
 	public final boolean isSetup() {
@@ -180,12 +206,14 @@ public class MyJackListView extends ListView implements
 		// footer //0224 放在if外防止再搜索时moreView的bug //0226 extract handle
 		// visibility
 		if (null == moreView) {
-			if(isSetup&&iS_TOTAL_TOO_FEW) return; //0523 when few, no show. usually have to do this when "nextpage" results in errors
+			if (isSetup && iS_TOTAL_TOO_FEW)
+				return; // 0523 when few, no show. usually have to do this when
+						// "nextpage" results in errors
 			moreView = mInflater.inflate(R.layout.footer_more, null);
 			addFooterView(moreView);
-		} else {//never happen
-			
-				moreView.setVisibility(View.VISIBLE);
+		} else {// never happen
+
+			moreView.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -226,26 +254,53 @@ public class MyJackListView extends ListView implements
 			// 通知主线程加载数据完成
 			mHandler.sendMessage(msg);
 		}
-
-		currentPage = new MspPage(factory);
-		if (!result.isEmpty()) {// 确保有pages
-			currentPage.initJackJson(ActionStrategies.getResultObject(result));
-			//curP status ok?
+		switch (mType) {
+		case IP_IMAGINE:// {"data":[{"亚麻面料":0}]}}
+			JSONObject job = ActionStrategies.getResultObject(result);
+			if (null != job) {
+				JSONArray jarr = job.getJSONArray("data");
+				// if(null==everythingList) everythingList = new
+				// ArrayList<ListItemImpl>();
+				everythingList.clear();
+				for (int i = 0; i < jarr.length(); i++) {
+					ImagineItemInfo iii = new ImagineItemInfo();
+					String singleResult = jarr.getString(i);
+					if (!singleResult.contains(":"))
+						continue;
+					String[] srPats = singleResult.split(":");
+					iii.iii_name = srPats[0].replace('{', ' ').replace('\"',' ');
+					iii.iii_count = srPats[1].replace('}', ' ');
+					everythingList.add(iii);
+				}
+				updateList(everythingList);
+			}
+			break;
+		default:
+			currentPage = new MspPage(factory);
+			if (!result.isEmpty()) {// 确保有pages
+				currentPage.initJackJson(ActionStrategies
+						.getResultObject(result));
+				// curP status ok?
 				currentPage.curPageNo = requestingPage;
 				everythingList.addAll(currentPage.getDataList());
 				updateList(everythingList);
-		}
+			}
 
-		if (null == currentPage || !currentPage.hasNext) {
-			removeMoreView();
-			 Log.i(TAG, "no Next");
-		} else {
+			if (null == currentPage || !currentPage.hasNext) {
+				removeMoreView();
+				Log.i(TAG, "no Next");
+			} else {
+			}
+			break;
 		}
 		return false;
 	}
 
 	@Override
 	public Context getReceiverContext() {
+		if(mType==ListItemImpl.Type.IP_IMAGINE){
+			return null;
+		}
 		return (requestingPage > 1 || mPullRefreshState == EXIT_PULL_REFRESH) ? null
 				: getContext();// 0512
 	}
@@ -253,6 +308,10 @@ public class MyJackListView extends ListView implements
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		mCurrentScrollState = scrollState;
+		if (scrollState == SCROLL_STATE_IDLE) {
+			// invalidateViews();
+		}
+		;
 	}
 
 	private final static int NONE_PULL_REFRESH = 0; // 正常状态
@@ -264,58 +323,76 @@ public class MyJackListView extends ListView implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-//		if(null!=mHeaderLinearLayout)Log.i(TAG, "b:"+mHeaderLinearLayout.getBottom()+"-"+mHeaderHeight);
-		iS_TOTAL_TOO_FEW = visibleItemCount>=totalItemCount;
-		// header
-		if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
-				&& firstVisibleItem == 0
-				&& (mHeaderLinearLayout.getBottom() >= 0 && mHeaderLinearLayout
-						.getBottom() < mHeaderHeight)) {
-			// 进入且仅进入下拉刷新状态
-			if (mPullRefreshState == NONE_PULL_REFRESH) {
-				mPullRefreshState = ENTER_PULL_REFRESH;
-				
+		// if(null!=mHeaderLinearLayout)Log.i(TAG,
+		// "b:"+mHeaderLinearLayout.getBottom()+"-"+mHeaderHeight+"touch"+SCROLL_STATE_TOUCH_SCROLL+":"+mCurrentScrollState);
+		iS_TOTAL_TOO_FEW = visibleItemCount >= totalItemCount;
+
+		if (null != mHeaderLinearLayout) {
+
+			// header
+			if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
+					&& firstVisibleItem == 0
+					&& (mHeaderLinearLayout.getBottom() >= 0 && mHeaderLinearLayout
+							.getBottom() < mHeaderHeight)) {
+				// 进入且仅进入下拉刷新状态
+				if (mPullRefreshState == NONE_PULL_REFRESH) {
+					mPullRefreshState = ENTER_PULL_REFRESH;
+					Log.i(TAG, "in");
+				}
+			} else if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
+					&& firstVisibleItem == 0
+					&& (mHeaderLinearLayout.getBottom() >= mHeaderHeight)) {
+				// 下拉达到界限，进入松手刷新状态
+				if (mPullRefreshState == ENTER_PULL_REFRESH
+						|| mPullRefreshState == NONE_PULL_REFRESH) {
+					mPullRefreshState = OVER_PULL_REFRESH;
+					// 下面是进入松手刷新状态需要做的一个显示改变
+					mDownY = mMoveY;// 用于后面的下拉特殊效果
+					mHeaderTextView.setText("松开刷新");
+					/*
+					 * mHeaderPullDownImageView.setVisibility(View.GONE);
+					 * mHeaderReleaseDownImageView.setVisibility(View.VISIBLE);
+					 */
+				}
+			} else if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
+					&& firstVisibleItem != 0) {
+				// 不刷新了
+				if (mPullRefreshState == ENTER_PULL_REFRESH) {
+					mPullRefreshState = NONE_PULL_REFRESH;
+				}
+			} else if (mCurrentScrollState == SCROLL_STATE_FLING) {
+				// &&firstVisibleItem == 0 ) {
+				// 飞滑状态，不能显示出header，也不能影响正常的飞滑
+				// 只在正常情况下才纠正位置
+				// Log.i("NOW", "line 315");
+				if (firstVisibleItem == 0) {
+					if (mPullRefreshState == NONE_PULL_REFRESH) {
+						/*
+						 * MotionEvent mEvent = MotionEvent.obtain(
+						 * SystemClock.uptimeMillis(),
+						 * SystemClock.uptimeMillis(),
+						 * MotionEvent.ACTION_CANCEL, 0, 0, 0);
+						 * dispatchTouchEvent(mEvent);// mEvent.recycle();
+						 * setSelection(1);
+						 */
+						setHeaderTopPadding(-mHeaderHeight);
+
+					}
+				}
 			}
-		} else if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
-				&& firstVisibleItem == 0
-				&& (mHeaderLinearLayout.getBottom() >= mHeaderHeight)) {
-			// 下拉达到界限，进入松手刷新状态
-			if (mPullRefreshState == ENTER_PULL_REFRESH
-					|| mPullRefreshState == NONE_PULL_REFRESH) {
-				mPullRefreshState = OVER_PULL_REFRESH;
-				// 下面是进入松手刷新状态需要做的一个显示改变
-				mDownY = mMoveY;// 用于后面的下拉特殊效果
-				mHeaderTextView.setText("松开刷新");
-				/*
-				 * mHeaderPullDownImageView.setVisibility(View.GONE);
-				 * mHeaderReleaseDownImageView.setVisibility(View.VISIBLE);
-				 */
-			}
-		} else if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
-				&& firstVisibleItem != 0) {
-			// 不刷新了
-			if (mPullRefreshState == ENTER_PULL_REFRESH) {
-				mPullRefreshState = NONE_PULL_REFRESH;
-			}
-		} else if (mCurrentScrollState == SCROLL_STATE_FLING
-				&& firstVisibleItem == 0) {
-			// 飞滑状态，不能显示出header，也不能影响正常的飞滑
-			// 只在正常情况下才纠正位置
-			if (mPullRefreshState == NONE_PULL_REFRESH) {
-				MotionEvent mEvent = MotionEvent.obtain(
-						SystemClock.uptimeMillis(), SystemClock.uptimeMillis(),
-						MotionEvent.ACTION_CANCEL, 0, 0, 0);
-				dispatchTouchEvent(mEvent);//
-				mEvent.recycle();
-				setSelection(1);
-			}
-		} 
+		}
+		// if(null!=mHeaderLinearLayout)Log.i("NOW",
+		// mHeaderLinearLayout.getTop()+":top");
 
 		// footer
-		if (mAdapter == null || mAdapter.getCount() == 0)
+		if (myAdapter == null || myAdapter.getCount() == 0)
 			return;
-		int count = mAdapter.getCount();
-		int lastItem = firstVisibleItem + visibleItemCount -( mHeaderLinearLayout!=null?1:0) - (moreView!=null&&moreView.getVisibility()==View.VISIBLE?1:0);//TODO notice,test
+		int count = myAdapter.getCount();
+		int lastItem = firstVisibleItem
+				+ visibleItemCount
+				- (mHeaderLinearLayout != null ? 1 : 0)
+				- (moreView != null && moreView.getVisibility() == View.VISIBLE ? 1
+						: 0);//  notice,test
 		if (lastItem == count) {
 			nextPage(); // 加载更多数据，这里可以使用异步加载
 		}
@@ -337,26 +414,28 @@ public class MyJackListView extends ListView implements
 			// 记下按下位置
 			// 改变
 			mDownY = ev.getY();
-			if(!iS_TOTAL_TOO_FEW) setHeaderTopPadding(0);//0523 abort minus header padding
+			// if(!iS_TOTAL_TOO_FEW) setHeaderTopPadding(0);//0523 abort minus
+			// header padding // 0617 why minus?
 			break;
 		case MotionEvent.ACTION_MOVE:
-//			Log.i(TAG, "ACTION_MOVE:mPullRefreshState:"+mPullRefreshState);
-//			Log.i(TAG, "mCurrentScrollState:"+mCurrentScrollState);
+			// Log.i(TAG, "ACTION_MOVE:mPullRefreshState:"+mPullRefreshState);
+			// Log.i(TAG, "mCurrentScrollState:"+mCurrentScrollState);
 			mMoveY = ev.getY();
-			
-			int padTop = (int)( (mMoveY - mDownY) / 3);// 1/3距离折扣
-				// 移动时手指的位置
-			if(padTop>0) {
+
+			int padTop = (int) ((mMoveY - mDownY) / 3);// 1/3距离折扣
+			// 移动时手指的位置
+			if (padTop > 0) {
 			}
-//			Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
+			if(null==mHeaderTextView)break;
+			// Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
 			if (mPullRefreshState == OVER_PULL_REFRESH) {
 				setHeaderTopPadding(padTop);
 				mHeaderTextView.setText(HINT_PULLTOREFRESH);
 			}
 			//
-			if(iS_TOTAL_TOO_FEW&&mCurrentScrollState==1&&mMoveY>mDownY){//0515 
+			if (iS_TOTAL_TOO_FEW && mCurrentScrollState == 1 && mMoveY > mDownY) {// 0515
 				setHeaderTopPadding(padTop);
-				if(mPullRefreshState == NONE_PULL_REFRESH){//每回基本运行一次
+				if (mPullRefreshState == NONE_PULL_REFRESH) {// 每回基本运行一次
 					mPullRefreshState = OVER_PULL_REFRESH;
 					mHeaderTextView.setText(HINT_PULLTOREFRESH);
 				}
@@ -402,13 +481,27 @@ public class MyJackListView extends ListView implements
 	 * @param padTop
 	 */
 	private void setHeaderTopPadding(int padTop) {
-		if(null==mHeaderLinearLayout) return;
+		if (null == mHeaderLinearLayout)
+			return;
 		// 注意下面的mDownY在onScroll的第二个else中被改变了
-		mHeaderLinearLayout.setPadding(
-				mHeaderLinearLayout.getPaddingLeft(),
-				padTop,
-				mHeaderLinearLayout.getPaddingRight(),
+		mHeaderLinearLayout.setPadding(mHeaderLinearLayout.getPaddingLeft(),
+				padTop, mHeaderLinearLayout.getPaddingRight(),
 				mHeaderLinearLayout.getPaddingBottom());
+	}
+
+	/**
+	 * @param context  
+	 * @param text  
+	 * @return 
+	 * 
+	 */
+	public static TextView getEmptyTextView(Context context, String text) {
+		if(null==context) return null;
+		TextView etv = new TextView(context);
+		etv.setTextAppearance(context, R.style.Nodata_textview);
+		etv.setGravity(Gravity.CENTER);//gravity in style not work
+		etv.setText(text);
+		return etv;
 	}
 
 	// 因为涉及到handler数据处理，为方便我们定义如下常量
@@ -422,11 +515,13 @@ public class MyJackListView extends ListView implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case REFRESH_BACKING:
-				/*mHeaderLinearLayout.setPadding(
-						mHeaderLinearLayout.getPaddingLeft(),
-						(int) (mHeaderLinearLayout.getPaddingTop() * 0.75f),
-						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());*/
+				/*
+				 * mHeaderLinearLayout.setPadding(
+				 * mHeaderLinearLayout.getPaddingLeft(), (int)
+				 * (mHeaderLinearLayout.getPaddingTop() * 0.75f),
+				 * mHeaderLinearLayout.getPaddingRight(),
+				 * mHeaderLinearLayout.getPaddingBottom());
+				 */
 				setHeaderTopPadding((int) (mHeaderLinearLayout.getPaddingTop() * 0.75f));
 				break;
 			case REFRESH_BACED:
@@ -437,7 +532,7 @@ public class MyJackListView extends ListView implements
 				 * mHeaderReleaseDownImageView.setVisibility(View.GONE);
 				 */
 				mPullRefreshState = EXIT_PULL_REFRESH;
-				//do refreshing work here
+				// do refreshing work here
 				setup();
 				break;
 			case REFRESH_RETURN:
@@ -448,11 +543,13 @@ public class MyJackListView extends ListView implements
 				 * mHeaderPullDownImageView.setVisibility(View.VISIBLE);
 				 * mHeaderReleaseDownImageView.setVisibility(View.GONE);
 				 */
-				/*mHeaderLinearLayout.setPadding(
-						mHeaderLinearLayout.getPaddingLeft(), 0,
-						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());*/
-				setHeaderTopPadding(iS_TOTAL_TOO_FEW?-mHeaderHeight:0);//过少时消去头部
+				/*
+				 * mHeaderLinearLayout.setPadding(
+				 * mHeaderLinearLayout.getPaddingLeft(), 0,
+				 * mHeaderLinearLayout.getPaddingRight(),
+				 * mHeaderLinearLayout.getPaddingBottom());
+				 */
+				setHeaderTopPadding(iS_TOTAL_TOO_FEW ? -mHeaderHeight : 0);// 过少时消去头部
 				mPullRefreshState = NONE_PULL_REFRESH;
 				setSelection(1);
 				break;
@@ -467,11 +564,13 @@ public class MyJackListView extends ListView implements
 				 * app_list_header_refresh_last_update,
 				 * mSimpleDateFormat.format(new Date())));
 				 */
-				/*mHeaderLinearLayout.setPadding(
-						mHeaderLinearLayout.getPaddingLeft(), 0,
-						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());*/
-				setHeaderTopPadding(iS_TOTAL_TOO_FEW?-mHeaderHeight:0);
+				/*
+				 * mHeaderLinearLayout.setPadding(
+				 * mHeaderLinearLayout.getPaddingLeft(), 0,
+				 * mHeaderLinearLayout.getPaddingRight(),
+				 * mHeaderLinearLayout.getPaddingBottom());
+				 */
+				setHeaderTopPadding(iS_TOTAL_TOO_FEW ? -mHeaderHeight : 0);
 				mPullRefreshState = NONE_PULL_REFRESH;
 				setSelection(1);
 				break;
@@ -480,8 +579,6 @@ public class MyJackListView extends ListView implements
 			}
 		}
 	};
-
-	private View makeItLongView;
 
 	private boolean iS_TOTAL_TOO_FEW;
 }

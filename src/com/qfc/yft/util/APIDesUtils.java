@@ -36,7 +36,7 @@ public class APIDesUtils {
 	 * @throws Exception
 	 */
 	public String encrypt(String strIn, String keyStr) throws Exception {
-		return base64Encode(encrypt(strIn.getBytes("UTF-8"), getDesKeyStr(keyStr)));//.replaceAll("\\+", "@api_param_add@");
+		return base64Encode(encrypt(strIn.getBytes("UTF-8"), getDesKeyStr(keyStr))).replaceAll("\\+", "@api_param_add@");
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class APIDesUtils {
 	 * @throws Exception
 	 */
 	public String decrypt(String strIn, String keyStr) throws Exception {
-		return new String(decrypt(base64Decode(strIn), getDesKeyStr(keyStr)),"UTF-8");//.replaceAll("@api_param_add@", "+")
+		return new String(decrypt(base64Decode(strIn), getDesKeyStr(keyStr)),"UTF-8").replaceAll("@api_param_add@", "+");
 	}
 	
 	public APIDesUtils() throws Exception{//taotao

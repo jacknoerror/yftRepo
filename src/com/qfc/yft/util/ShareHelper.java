@@ -14,10 +14,10 @@ import android.widget.Toast;
 
 import com.qfc.yft.MyApplication;
 import com.qfc.yft.R;
-import com.qfc.yft.data.Const;
 import com.qfc.yft.ui.custom.MyShareDialog;
 import com.qfc.yft.wbapi.AccessTokenKeeper;
 import com.qfc.yft.wbapi.WeiboConstants;
+import com.qfc.yft.wxapi.WeixinConstants;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
@@ -41,9 +41,10 @@ import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
 public class ShareHelper implements View.OnClickListener {
+	private static final int maxsize = 260000;
 	public String title;// 分享标题
 	public String desc;// 分享内容
-	public Bitmap thumb;// 分享图片
+	private Bitmap thumb;// 分享图片
 	public String shareUrl;// 分享链接
 
 	private static IWXAPI wxApi;// 微信实例
@@ -53,10 +54,11 @@ public class ShareHelper implements View.OnClickListener {
 	Context context;
 
 	private SsoHandler mSsoHandler;// 微博授权handler
+	private boolean wbInstallCanceled;
+	private boolean wbRegisted;
 
 	public ShareHelper(Context context) {
-		this(context, "易纺通", "向您推荐", BitmapFactory.decodeResource(MyApplication
-				.app().getResources(), R.drawable.ic_launcher), "www.qfc.cn");
+		this(context, "易纺通", "向您推荐", null, "www.qfc.cn");
 	}
 
 	public ShareHelper(Context context, String title, String desc,
@@ -70,7 +72,7 @@ public class ShareHelper implements View.OnClickListener {
 
 		this.title = title;
 		this.desc = desc;
-		this.thumb = thumb;
+		setThumb(thumb);
 		shareUrl = url;
 	}
 
@@ -83,23 +85,7 @@ public class ShareHelper implements View.OnClickListener {
 		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(context,
 				WeiboConstants.APP_KEY);
 
-		// 获取微博客户端相关信息，如是否安装、支持 SDK 的版本
-		boolean isInstalledWeibo = mWeiboShareAPI.isWeiboAppInstalled();
-		// int supportApiLevel = mWeiboShareAPI.getWeiboAppSupportAPI();
-
-		// 如果未安装微博客户端，设置下载微博对应的回调
-		if (!isInstalledWeibo) {
-			mWeiboShareAPI
-					.registerWeiboDownloadListener(new IWeiboDownloadListener() {
-						@Override
-						public void onCancel() {
-							Toast.makeText(context, "\t取消下载",
-									Toast.LENGTH_SHORT).show();
-						}
-					});
-		}
-		// 注册到新浪微博
-		mWeiboShareAPI.registerApp();
+		
 	}
 
 	@Override
@@ -130,6 +116,28 @@ public class ShareHelper implements View.OnClickListener {
 	}
 
 	private void weiboShare() {
+		
+		// 获取微博客户端相关信息，如是否安装、支持 SDK 的版本
+				boolean isInstalledWeibo = mWeiboShareAPI.isWeiboAppInstalled();
+				// int supportApiLevel = mWeiboShareAPI.getWeiboAppSupportAPI();
+
+				// 如果未安装微博客户端，设置下载微博对应的回调
+				if (!isInstalledWeibo) {
+					mWeiboShareAPI
+							.registerWeiboDownloadListener(new IWeiboDownloadListener() {
+								@Override
+								public void onCancel() {
+									Toast.makeText(context, "\t取消下载",
+											Toast.LENGTH_SHORT).show();
+									wbInstallCanceled = true;
+								}
+							});
+				}
+				// 注册到新浪微博
+				if(!wbRegisted&&!wbInstallCanceled)wbRegisted=mWeiboShareAPI.registerApp();
+		if(!isInstalledWeibo&&!wbInstallCanceled) return;
+		
+		//授权
 		mAccessToken = AccessTokenKeeper.readAccessToken(context);
 		if (mAccessToken != null && mAccessToken.isSessionValid()) {// 已经授权
 			// 去分享
@@ -192,6 +200,7 @@ public class ShareHelper implements View.OnClickListener {
      * @return 图片消息对象。
      */
     private ImageObject getImageObj() {
+    	
         ImageObject imageObject = new ImageObject();
 //        BitmapDrawable bitmapDrawable = (BitmapDrawable) mImageView.getDrawable();
         imageObject.setImageObject(thumb);//
@@ -203,6 +212,7 @@ public class ShareHelper implements View.OnClickListener {
      * @return 多媒体（网页）消息对象。
      */
     private WebpageObject getWebpageObj() {
+    	if(shareUrl==null) return null;//0529
         WebpageObject mediaObject = new WebpageObject();
         mediaObject.identify = Utility.generateGUID();
         mediaObject.title = title;
@@ -223,8 +233,18 @@ public class ShareHelper implements View.OnClickListener {
 		if (null != wxApi)
 			return;
 		wxApi = WXAPIFactory
-				.createWXAPI(MyApplication.app(), Const.AppID, true);
-		wxApi.registerApp(Const.AppID);
+				.createWXAPI(MyApplication.app(), WeixinConstants.AppID, true);
+		wxApi.registerApp(WeixinConstants.AppID);
+	}
+
+	public final void setThumb(Bitmap thumb) {
+		if(null==thumb) thumb= BitmapFactory.decodeResource(MyApplication
+				.app().getResources(), R.drawable.ic_launcher);//0529
+    	long bitmapsize = JackImageUtils.getBitmapsize(thumb);
+		if(bitmapsize>maxsize){
+			thumb = JackImageUtils.resizeBitmap(thumb, (float)maxsize/bitmapsize);
+    	}
+		this.thumb = thumb;
 	}
 
 	/**
@@ -246,6 +266,7 @@ public class ShareHelper implements View.OnClickListener {
 				// 保存 Token 到 SharedPreferences
 				AccessTokenKeeper.writeAccessToken(context, mAccessToken);
 				Toast.makeText(context, "授权成功", Toast.LENGTH_SHORT).show();
+				weiboShare();//0529
 			} else {
 				// 以下几种情况，您会收到 Code：
 				// 1. 当您未在平台上注册的应用程序的包名与签名时；
@@ -281,7 +302,12 @@ public class ShareHelper implements View.OnClickListener {
 	 *            (0:分享到微信好友，1：分享到微信朋友圈)
 	 */
 	private void wechatShare(int flag) {
+		if(!wxApi.isWXAppInstalled()){
+			JackUtils.showToast(context, "对不起,您没有安装微信app");
+		}
+		
 		WXWebpageObject webpage = new WXWebpageObject();
+		if(null==shareUrl||shareUrl.isEmpty()) shareUrl = "http://qfc.cn";
 		webpage.webpageUrl = shareUrl;
 		WXMediaMessage msg = new WXMediaMessage(webpage);
 		msg.title = title;

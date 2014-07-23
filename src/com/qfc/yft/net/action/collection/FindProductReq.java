@@ -26,9 +26,9 @@ public class FindProductReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_ACCOUNT_ID, accountId + "");
-		halfway.put(URL_PAGESIZE, "10");
-		halfway.put(URL_PAGENO, "1");
+		halfway.put(PARAMS_ACCOUNT_ID, accountId + "");
+		halfway.put(PARAMS_PAGESIZE, "10");
+		halfway.put(PARAMS_PAGENO, "1");
 		return halfway;
 	}
 

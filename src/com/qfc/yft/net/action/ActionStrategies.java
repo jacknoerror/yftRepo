@@ -1,5 +1,6 @@
 package com.qfc.yft.net.action;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +28,8 @@ public class ActionStrategies implements NetConst {
 	 * @throws JSONException
 	 */
 	public static void showErrMsg(String result) throws JSONException {
-		String errMsg = new JSONObject(result).optString(RESULT_ERROR_MSG);
+//		String errMsg = new JSONObject(result).optString(RESULT_ERROR_MSG);
+		String errMsg = "对不起，网络请求出错";//0716
 		if(!errMsg.isEmpty())JackUtils.showToast(MyApplication.app(), errMsg);
 	}
 	
@@ -40,6 +42,13 @@ public class ActionStrategies implements NetConst {
 		Log.e("ACTTAG", "resultJob nil");
 		return null;
 	}
+	public static JSONArray getResultArray(String result) throws JSONException {
+		Object obj = getResultTrueObject(result);
+		if(null!=obj){
+			if(obj instanceof JSONArray) return (JSONArray)obj;
+		}
+		return null;
+	}
 	public static String getResultString(String result) throws JSONException {
 		Object obj = getResultTrueObject(result);
 		if(null!=obj){
@@ -47,5 +56,7 @@ public class ActionStrategies implements NetConst {
 		}
 		return null;
 	}
-	
+	public static boolean getResultBoolean(String result) throws JSONException {
+		return new JSONObject(result).optBoolean(RESULT_OBJECT);
+	}
 }

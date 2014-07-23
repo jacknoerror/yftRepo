@@ -32,8 +32,8 @@ public class PointVerifyReq implements ActionRequestImpl {
 		String pwdDesStr;
 		try {
 			pwdDesStr= new APIDesUtils().encrypt(password, DES_KEY);
-			halfway.put(URL_USERNAME, username);
-			halfway.put(URL_PASSWORD, pwdDesStr);
+			halfway.put(PARAMS_USERNAME, username);
+			halfway.put(PARAMS_PASSWORD, pwdDesStr);
 		} catch (Exception e) {
 //			Log.e(TAG, "密码加密有问题");
 			halfway = null;

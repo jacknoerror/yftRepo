@@ -12,6 +12,12 @@ import android.widget.BaseAdapter;
 
 import com.qfc.yft.MyApplication;
 
+/**
+ * Adapter for {@link MyJackListView}
+ * @notice setTag(Activity) to ListView for receiver-use
+ * @author taotao
+ * @Date 2014-7-15
+ */
 public abstract class MspAdapter extends BaseAdapter {
 
 	/**
@@ -24,8 +30,7 @@ public abstract class MspAdapter extends BaseAdapter {
 		View holderView;
 
 		public ViewHolderImpl() {
-			holderView = LayoutInflater.from(getContextInAdapter()).inflate(
-					getLayoutId(), null);
+			holderView = LayoutInflater.from(getContextInAdapter()).inflate(getLayoutId(), null);
 			init();
 			holderView.setTag(this);
 		}
@@ -113,5 +118,9 @@ public abstract class MspAdapter extends BaseAdapter {
 		this.myScrollPageListView = myScrollPageListView;
 
 	}
-
+	
+	@Override
+	public boolean hasStableIds() {
+		return true;
+	}
 }

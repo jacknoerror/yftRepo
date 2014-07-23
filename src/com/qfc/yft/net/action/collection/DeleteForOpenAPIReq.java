@@ -8,10 +8,10 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 public class DeleteForOpenAPIReq implements ActionRequestImpl {
 	int accountId, fromId, collectType;
 
-	public DeleteForOpenAPIReq(int accountId, int fromId, int collectType) {
+	public DeleteForOpenAPIReq(int myId, int id, int collectType) {
 		super();
-		this.accountId = accountId;
-		this.fromId = fromId;
+		this.accountId = myId;
+		this.fromId = id;
 		this.collectType = collectType;
 	}
 
@@ -28,9 +28,9 @@ public class DeleteForOpenAPIReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_ACCOUNT_ID, accountId + "");// 36662
-		halfway.put(URL_FROM_ID, fromId + "");// 14723
-		halfway.put(URL_COLLECT_TYPE, collectType + "");// 0 产品 3 商铺
+		halfway.put(PARAMS_ACCOUNT_ID, accountId + "");// 36662
+		halfway.put(PARAMS_FROM_ID, fromId + "");// 14723
+		halfway.put(PARAMS_COLLECT_TYPE, collectType + "");// 0 产品 3 商铺
 		return halfway;
 	}
 

@@ -1,8 +1,0 @@
-<resources>
-
-    <dimen name="v_margin_side">9dp</dimen>
-    <dimen name="v_padding_login_up">42dp</dimen>
-    <dimen name="v_padding_login_down">120dp</dimen>
-
-    
-</resources>

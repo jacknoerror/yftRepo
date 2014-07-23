@@ -23,8 +23,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -44,6 +42,7 @@ import android.os.Environment;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -55,6 +54,9 @@ import android.widget.Toast;
 
 import com.qfc.yft.MyApplication;
 import com.qfc.yft.R;
+import com.qfc.yft.data.chat.CimConsts;
+import com.qfc.yft.util.HanziToPingyin.Token;
+import com.qfc.yft.vo.chat.SystemParams;
 
 /**
  * @author taotao
@@ -64,7 +66,7 @@ public class JackUtils {
 	public final static String file_path = "/sdcard/gim/";
 	public final static String log_path = "/sdcard/gim/log";
 
-	/*public static int[] resIds() {
+	public static int[] resIds() {
 
 		int[] dd = { R.drawable.f0, R.drawable.f1, R.drawable.f2,
 				R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
@@ -90,12 +92,12 @@ public class JackUtils {
 		};
 
 		return dd;
-	}*/
+	}
 
 	public final static String srcRegEx = "(?<=src=\")(.*?)(?=\")";
 
 	public static void showToast(Context context, String text) {
-		if (null != context)
+		if (null != context&&!TextUtils.isEmpty(text))
 			Toast.makeText(context, text, Toast.LENGTH_SHORT).show();// 0413 判断空
 	}
 
@@ -464,7 +466,7 @@ public class JackUtils {
 
 	}
 
-	/*// 汉字返回拼音，字母原样返回，都转换为小写(默认取得的拼音全大写)
+	// 汉字返回拼音，字母原样返回，都转换为小写(默认取得的拼音全大写)
 	public static String getPinYin(String input) {
 
 		ArrayList<Token> tokens = HanziToPingyin.getInstance().get(input);
@@ -479,7 +481,7 @@ public class JackUtils {
 			}
 		}
 		return sb.toString().toLowerCase();
-	}*/
+	}
 
 	/**
 	 * 返回替换后的表情信息
@@ -536,7 +538,7 @@ public class JackUtils {
 	/**
 	 * 
 	 * @return
-	 *//*
+	 */
 	public static ImageGetter getImageGetter(final Context context) {
 		ImageGetter imgGetter = new Html.ImageGetter() {
 			public Drawable getDrawable(String source) {
@@ -567,7 +569,7 @@ public class JackUtils {
 								px2dip(context, 58));
 					} else {
 						d = context.getResources()
-								.getDrawable(R.drawable.start);
+								.getDrawable(R.drawable.chatpic_start);
 					}
 				}
 
@@ -583,9 +585,9 @@ public class JackUtils {
 			}
 		};
 		return imgGetter;
-	}*/
+	}
 
-	/*public static String getUserHeadPath(String faceIndex) {
+	public static String getUserHeadPath(String faceIndex) {
 
 		StringBuffer imgPath = new StringBuffer();
 		imgPath.append(file_path).append(
@@ -593,7 +595,7 @@ public class JackUtils {
 		imgPath.append("/UserHead/").append(faceIndex).append(".jpg");
 		return imgPath.toString();
 
-	}*/
+	}
 
 	/**
 	 * 返回带状态的头像
@@ -601,7 +603,7 @@ public class JackUtils {
 	 * @param context
 	 * @param node
 	 * @return
-	 *//*
+	 */
 	public static Bitmap getUserHead(Context context, Bitmap bitmap, short state) {
 
 		try {
@@ -630,7 +632,7 @@ public class JackUtils {
 
 		return bitmap;
 
-	}*/
+	}
 
 	/**
 	 * 存储拍照图片到SD卡
@@ -853,10 +855,16 @@ public class JackUtils {
 	}
 	
 	
-	//获取图片所在文件夹名称
+    /**
+     * 获取图片所在文件夹名称
+     * @param path
+     * @return
+     */
     public static String getDir(String path)
     {
         String subString = path.substring(0, path.lastIndexOf('/'));
         return subString.substring(subString.lastIndexOf('/') + 1, subString.length());
     }
+    
+    
 }

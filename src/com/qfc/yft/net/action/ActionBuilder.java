@@ -1,8 +1,12 @@
 package com.qfc.yft.net.action;
 
+import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
+
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 
 import com.qfc.yft.net.HttpRequestTask;
 
@@ -23,11 +27,22 @@ public class ActionBuilder {
 		}
 		return ab;
 	}
-	
+	SoftReference<HttpRequestTask> lastRequest;
 	public void request(ActionRequestImpl actReq, ActionReceiverImpl actRcv ){
-		//TODO map?
-		new HttpRequestTask(actRcv).execute(actReq.toHttpBody());
+		if(null==actReq) throw new IllegalStateException("action nil");
+		// map?
+		HttpRequestTask httpRequestTask = new HttpRequestTask(actRcv);
+		lastRequest = new SoftReference<HttpRequestTask>(httpRequestTask);
+		httpRequestTask.execute(actReq.toHttpBody());
+		httpRequestTask = null;
 //		TestDataTracker.simulateConnection(actRcv, actReq.getApiName());
+	}
+	
+	public void cancelLastReq(){
+		if(null==lastRequest) return;
+		HttpRequestTask httpRequestTask = lastRequest.get();
+		if(null!=httpRequestTask&&httpRequestTask.getStatus()==Status.RUNNING) httpRequestTask.cancel(true);
+		lastRequest.clear();
 	}
 	
 	/**

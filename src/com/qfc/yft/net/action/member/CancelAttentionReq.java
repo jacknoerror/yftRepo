@@ -8,7 +8,7 @@ import com.qfc.yft.net.action.ActionRequestImpl;
 public class CancelAttentionReq implements ActionRequestImpl {
 	int toMember, fromMember;
 
-	public CancelAttentionReq(int toMember, int fromMember) {
+	public CancelAttentionReq(int fromMember, int toMember) {
 		super();
 		this.toMember = toMember;
 		this.fromMember = fromMember;
@@ -27,8 +27,8 @@ public class CancelAttentionReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_FROM_MEMBER, fromMember+"");
-		halfway.put(URL_TO_MEMBER, toMember+"");
+		halfway.put(PARAMS_FROM_MEMBER, fromMember+"");
+		halfway.put(PARAMS_TO_MEMBER, toMember+"");
 		return halfway;
 	}
 

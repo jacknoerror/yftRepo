@@ -26,7 +26,7 @@ public class GetShopAndCompanyByIdReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SHOPID, shopId + "");
+		halfway.put(PARAMS_SHOPID, shopId + "");
 		return halfway;
 	}
 }

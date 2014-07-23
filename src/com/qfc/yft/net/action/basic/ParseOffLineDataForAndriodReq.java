@@ -26,7 +26,7 @@ public class ParseOffLineDataForAndriodReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SYNC, jsonString);
+		halfway.put(PARAMS_SYNC, jsonString);
 		return halfway;
 	}
 

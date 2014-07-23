@@ -9,13 +9,18 @@ public class SearchShopForIphoneReq implements ActionRequestImpl {
 	String keyword;
 	int pageSize, pageNo;
 
+	/**
+	 * @param keyword parse null to get the recommended-shop list
+	 * @param pageSize
+	 * @param pageNo
+	 */
 	public SearchShopForIphoneReq(String keyword, int pageSize, int pageNo) {
 		super();
 		this.keyword = keyword;
 		this.pageSize = pageSize;
 		this.pageNo = pageNo;
 	}
-
+	
 	@Override
 	public String getApiName() {
 		return REQUEST_PATH_RECOMMEND;
@@ -29,9 +34,10 @@ public class SearchShopForIphoneReq implements ActionRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(URL_SEARCH, keyword);
-		halfway.put(URL_PAGESIZE, pageSize + "");
-		halfway.put(URL_PAGENO, pageNo + "");
+		if(null!=keyword)halfway.put(PARAMS_SEARCH, keyword);
+		else halfway.put(PARAMS_RECOMMEND, "1");
+		halfway.put(PARAMS_PAGESIZE, pageSize + "");
+		halfway.put(PARAMS_PAGENO, pageNo + "");
 		return halfway;
 	}
 	// TODO

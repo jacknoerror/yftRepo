@@ -14,8 +14,8 @@ public interface NetConst  {
 	public static final long TIMEOUT_REQUEST_10 = 1000*60*2;//
 	public static final String URL_FORGETPWD="http://member.qfc.cn/my/get-password.action";
 	
-	public static final boolean DEBUG = true;//测试环境
-	public static final boolean FORMAL = true;//正式环境
+	public static final boolean DEBUG = false;//测试环境
+	public static final boolean FORMAL = false;//正式环境
 	
 	public static final URLFactory _UF = new URLFactory(FORMAL);
 	
@@ -26,26 +26,26 @@ public interface NetConst  {
 	public static final String URL_OPENAPI_USERCODE = "openApiUserCode";
 	public static final String URL_OPENAPI_SESSIONKEY = "openApiSessionKey";
 	
-	public static final String URL_USERNAME = "userName";
-	public static final String URL_PASSWORD = "password";
-	public static final String URL_USERCODE = "userCode";
-	public static final String URL_SHOPID = "shopId";
-	public static final String URL_SERIESID = "proSeriesId";
-	public static final String URL_PRODUCTID= "productId";//1128
-	public static final String URL_RECOMMEND="isRecommend";
-	public static final String URL_SEARCH	="keyword";
-	public static final String URL_PAGESIZE="pageSize";
-	public static final String URL_PAGENO	="pageNo";
-	public static final String URL_SYNC 	="jsonString";//="xmlString";
-	public static final String URL_ACCOUNT_ID = "accountId";
-	public static final String URL_TO_MEMBER = "toMember";
-	public static final String URL_FROM_MEMBER = "fromMember";
-	public static final String URL_MEMBER_ID = "memberId";
-	public static final String URL_FROM_ID = "fromId";
-	public static final String URL_COLLECT_TYPE = "collectType";
-	
-	public static final String URL_SEARCH_TYPE = "searchType";
-	public static final String URL_COMP_ID = "compId";
+	public static final String PARAMS_USERNAME = "userName";
+	public static final String PARAMS_PASSWORD = "password";
+	public static final String PARAMS_USERCODE = "userCode";
+	public static final String PARAMS_SHOPID = "shopId";
+	public static final String PARAMS_SERIESID = "proSeriesId";
+	public static final String PARAMS_PRODUCTID= "productId";//1128
+	public static final String PARAMS_RECOMMEND="isRecommend";
+	public static final String PARAMS_SEARCH	="keyword";
+	public static final String PARAMS_PAGESIZE="pageSize";
+	public static final String PARAMS_PAGENO	="pageNo";
+	public static final String PARAMS_SYNC 	="jsonString";//="xmlString";
+	public static final String PARAMS_ACCOUNT_ID = "accountId";
+	public static final String PARAMS_TO_MEMBER = "toMember";
+	public static final String PARAMS_FROM_MEMBER = "fromMember";
+	public static final String PARAMS_MEMBER_ID = "memberId";
+	public static final String PARAMS_FROM_ID = "fromId";
+	public static final String PARAMS_COLLECT_TYPE = "collectType";
+	public static final String PARAMS_SEARCH_TYPE = "searchType";
+	public static final String PARAMS_COMP_ID = "compId";
+	public static final String PARAMS_COMPANY_ID = "companyId";
 
 	public static final String DES_KEY = "88211711";//"ipad_motion_key";
 	
@@ -85,12 +85,11 @@ public interface NetConst  {
 	public static final String PREF_LOCAL = ".local";
 	
 	public static final int DEFULAT_PAGESIZE = 10;
-	
 
 	public static final String REQUEST_PATH_COMPANY_PRO ="open.api.product.findSeriesByShopIdForIphone"; //获取产品系列
 	public static final String REQUEST_PATH_COMPANY_SUBPRO ="open.api.product.searchProductByShopIdAndSeriesIdForIphone"; //系列下所有产品
 	public static final String REQUEST_PATH_RECOMMEND ="open.api.shop.searchShopForIphone"; //企业推荐
-	public static final String REQUEST_PATH_SEARCH ="open.api.shop.searchShopForIphone"; //企业搜索接口
+//	public static final String REQUEST_PATH_SEARCH ="open.api.shop.searchShopForIphone"; //企业搜索接口
 	public static final String REQUEST_PATH_CHECKVERSION ="cn.shop.getIOSVersionConfig"; //检查最新客户端版本
 	public static final String REQUEST_PATH_LOGIN ="cn.member.sso.pointVerify"; //验证登录
 	public static final String REQUEST_PATH_LOGIN_IM ="cn.member.sso.pointVerifyForIm"; //验证登录(移动端)
@@ -116,6 +115,91 @@ public interface NetConst  {
 	public static final String REQUEST_GETSHOPBYUID = "cn.attention.getShopByMemberId";//
 
 	public static final String REQUEST_PATH_SEARCHBYCOMPID = "open.api.album.searchbycompid";
+	public static final String REQUEST_OPEN_API_ALBUM_ADD = "open.api.album.add";
+	public static final String REQUEST_OPEN_API_PICTURE_DELETE = "open.api.picture.delete";
+	public static final String REQUEST_OPEN_API_PRODUCT_SERISE_FINDALL = "open.api.product.serise.findall";
+
+	public static final String EXTRAS_UPLOADACTION = "uploadaction";
+
+	public static final String EXTRAS_ALBUMFIRSTTYPE = "albumfirsttype";
+
+	public static final String EXTRAS_GRIDALBUMNAME = "gridalbumname";
+
+	public static final String EXTRAS_GRIDALBUMID = "gridalbumid";
+
+	public static final String EXTRAS_ALBUM_ID = "albumId";
+
+	public static final String EXTRAS_COMP_ID = "compId";
+
+	public static final String EXTRAS_LOCAL2UPLOAD = "local2upload";
+
+	public static final String EXTRAS_TOALBUMNAME = "toalbumname";
+
+	public static final String EXTRAS_TOALBUMID = "toalbumid";
+
+	public static final String EXTRAS_ALBUM_DESC = "albumDesc";
+
+	public static final String EXTRAS_ALBUM_NAME = "albumName";
+
+	public static final String EXTRAS_PIC_ID = "picId";
+
+	public static final String EXTRAS_MARKETNAME = "marketname";
+
+	public static final String EXTRAS_MARKETURL = "marketurl";
+
+	public static final String PARAMS_PRODUCT_SERIES = "productSeries";
+
+	public static final String PARAMS_PRODUCT_STATUS = "productStatus";
+
+	public static final String PARAMS_IS_PRIVATE = "isPrivate";
+
+	public static final String PARAMS_AUDIT_STATUS = "auditStatus";
+
+	public static final String REQUEST_OPEN_API_PRODUCT_MEMBER_SEARCH = "open.api.product.member.search";
+
+	public static final String REQUEST_OPEN_API_PRODUCT_ONLINE = "open.api.product.online";
+	public static final String REQUEST_OPEN_API_PRODUCT_OFFLINE = "open.api.product.offline";
+	public static final String REQUEST_OPEN_API_PRODUCT_REPUBLISH = "open.api.product.republish";
+
+	public static final String PARAMS_PRODUCT_IDS = "productId";
+
+	public static final String EXTRAS_SEARCH_TYPE_INT = "searchTypeInt";
+
+	public static final String EXTRAS_CATEPAGE = "catepage";
+
+	public static final String EXTRAS_KEYWORD = "keyword";
+
+	public static final String PARAMS_ORDER_STATUS = "orderStatus";
+
+	public static final String REQUEST_TRADE_API_ORDER_EXT_SEARCH_SELLER_ORDERS = "open.api.trade.search.sellerorders";
+
+	public static final String REQUEST_TRADE_API_ORDER_EXT_SEARCH_BUYER_ORDERS = "open.api.trade.search.buyerorders";
+
+	public static final String REQUEST_OPEN_API_TRADE_GET_ORDERDETAIL = "open.api.trade.get.orderdetail";
+
+	public static final String PARAMS_ORDER_ID = "orderId";
+
+	public static final String PAMAMS_USER_TYPE = "userType";
+
+	public static final String EXTRAS_ORDERID = "orderid";
+
+	public static final String EXTRAS_USERTYPE = "usertype";
+
+	public static final String EXTRAS_ORDERTYPE = "ordertype";
+
+
 	
+
+
+	
+	public static final String REQUEST_SEND_MOBILE_CODE = "open.api.member.sendmobilecode";
+	public static final String REQUEST_RESET_PASSWORD = "open.api.member.resetpassword";
+	public static final String REQUEST_REGISTER_BY_MOBILE = "open.api.member.registerbymobile";
+
+	public static final String WEBVIEW_INFO = "info";
+
+	public static final String WEBVIEW_FROM_ANDROID = "FromAndroid";
+
+
 
 }

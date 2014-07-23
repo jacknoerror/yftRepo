@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.qfc.yft.R;
 import com.qfc.yft.data.MyData;
-import com.qfc.yft.entity.offline.OfflineDataKeeper;
 import com.qfc.yft.net.action.ActStringRcv;
 import com.qfc.yft.net.action.ActionBuilder;
 import com.qfc.yft.net.action.ActionReceiverImpl;
@@ -35,7 +34,8 @@ import com.qfc.yft.net.action.member.PointVerifyForIMReq;
 import com.qfc.yft.net.action.member.PointVerifyReq;
 import com.qfc.yft.ui.common.StartPagerActivity;
 import com.qfc.yft.ui.custom.JackResizeLayout;
-import com.qfc.yft.ui.tab.HubActivity;
+import com.qfc.yft.ui.offline.OfflineDataKeeper;
+import com.qfc.yft.ui.tabs.HubActivity;
 import com.qfc.yft.util.JackButtonColorFilter;
 import com.qfc.yft.util.JackUtils;
 import com.qfc.yft.vo.User;
@@ -120,19 +120,20 @@ public class StartLoginActivity extends Activity implements View.OnClickListener
 			goSlide();
 		}
 		
-		et2.setText("333333a");//FIXME delete
+//		et2.setText("333333a");//FIXME delete
 	}
 	
 	private void initOfflinePref(User user) {
 		if(null!=user&&user.getShopId()>0){
-			OfflineDataKeeper.setCurrentUserOfflinePreference(this, user.getShopId());
+			OfflineDataKeeper.init(user.getShopId());
 			//
 		}
 		
 	}
 	
 	private void enter(boolean has){
-//		if(has)ChatLoginHelper.getInstance().logInChatGo(username, password);//TODO 纺织聊
+//		if(has)ChatLoginHelper.getInstance().logInChatGo("ipadputong1", "111111a");//  纺织聊
+		if(has)ChatLoginHelper.getInstance().logInChatGo(username, password);//  纺织聊
 		
 		Intent intent = new Intent();
 		intent.setClass(this, HubActivity.class);
@@ -225,14 +226,14 @@ public class StartLoginActivity extends Activity implements View.OnClickListener
 		};
 		ActionBuilder.getInstance().request(actReq, actRcv);
 	}
-	private void goRegister(){
-		//TODO 改成新注册界面
-//		Intent intent = new Intent();
-//		intent.setClass(StartLoginActivity.this, RegisterActivity.class);
-//		StartLoginActivity.this.startActivity(intent);
-//		overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 	
+	private void goRegister(){
+		Intent intent = new Intent();
+		intent.setClass(StartLoginActivity.this, RegisterStepOneActivity.class);
+		StartLoginActivity.this.startActivity(intent);
+		overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 	}
+	
 	private void goGuest(){
 		enter(false);
 		User guest  = new User();//1113

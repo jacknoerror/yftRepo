@@ -40,7 +40,7 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 	protected String doInBackground(String... params) {
 		String result = null;
 		try {
-			result = doHttpRequest( params);
+			result = doHttpRequest(params.length>1?params[1]: Const._UF.getUrl(), params[0]);
 		} catch(UnknownHostException e){
 			publishProgress(1);
 			e.printStackTrace();
@@ -56,17 +56,18 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 	}
 
 	/**
+	 * @param baseurl TODO
+	 * @param param TODO
 	 * @param result
-	 * @param params
 	 * @return
 	 */
-	public static String doHttpRequest( String... params) throws UnknownHostException,SocketTimeoutException,IOException{
+	public static String doHttpRequest( String baseurl, String param) throws UnknownHostException,SocketTimeoutException,IOException{
 		URL url = null;
 		HttpURLConnection connection = null;
 		InputStreamReader in = null;
 		try {
 			
-			url = new URL(Const._UF.getUrl());//0506
+			url = new URL(baseurl);//0506
 			if(Const.DEBUG){
 				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(NetConst.PROXY_HOST, 80)); 
 				connection = (HttpURLConnection) url.openConnection(proxy);
@@ -84,11 +85,12 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 			connection.setReadTimeout(TIMEOUT);
 			DataOutputStream dop = new DataOutputStream(
 					connection.getOutputStream());
-			Log.i("doHttpRequest", params[0]);//
-			dop.write(params[0].getBytes("utf-8"));//把中文转成utf-8
+			if(null!=param){//0716
+			Log.i("doHttpRequest", param);//
+			dop.write(param.getBytes("utf-8"));//把中文转成utf-8
+			}
 			dop.flush();
 			dop.close();
-
 			in = new InputStreamReader(connection.getInputStream());
 			BufferedReader bufferedReader = new BufferedReader(in);
 			StringBuffer strBuffer = new StringBuffer();
@@ -130,9 +132,9 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 	 */
 	@Override
 	protected void onPostExecute(String result) {
-		Log.i(TAG, "result::	"+result);
 		super.onPostExecute(result);
-		
+		if(isCancelled()) return;//0620
+		Log.i(TAG, "result::	"+result);
 		try {
 			receiver.response(result);
 		} catch (JSONException e) {

@@ -5,7 +5,7 @@
     <dimen name="v_padding_login_down">120dp</dimen>
     
     <dimen name="logo_margin">60dp</dimen>
-    <dimen name="v_height_bottombar">62dp</dimen>
+    <dimen name="v_height_bottombar">60dp</dimen>
     
     <dimen name="v_margin_givetonoimg">90dp</dimen>
 </resources>

@@ -31,14 +31,14 @@ public class JackTitle extends RelativeLayout {
 		setId(R.id.jacktitle);
 		mView = LayoutInflater.from(context).inflate(R.layout.layout_titleblue	, this,true);
 		title =(TextView)mView.findViewById(R.id.tv_title);
-		back = (ImageView)mView.findViewById(R.id.btn_title_back);
+		/*back = (ImageView)mView.findViewById(R.id.btn_);
 		back.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				back();
 			}
-		});
+		});*/
 		/*if (isInEditMode()) { return; }
 		
 		TypedArray a = context.obtainStyledAttributes(attrs,     
@@ -59,12 +59,12 @@ public class JackTitle extends RelativeLayout {
 			activity.finish();//
 		}
 	}
-	public void setBackBtnActivity(Activity activity){
+	/*public void setBackBtnActivity(Activity activity){
 		this.activity = activity;
 		if(null!=activity&&back.getVisibility()!=View.VISIBLE){
 			back.setVisibility(View.VISIBLE);
 		}
-	}
+	}*/
 
 	
 	public static JackTitle getJackTitle(Activity activity){

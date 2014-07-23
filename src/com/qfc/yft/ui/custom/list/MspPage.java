@@ -17,6 +17,7 @@ public class MspPage extends JsonImport {
 	private static final String HASNEXT = "hasNext";
 
 	public int curPageNo;
+	public int totalCount;
 
 //	boolean resultSign;
 	public boolean hasNext;
@@ -33,6 +34,7 @@ public class MspPage extends JsonImport {
 	public void initJackJson(JSONObject job) throws JSONException {
 		if(null==job) return;
 		hasNext = job.optBoolean(HASNEXT);
+		totalCount = job.optInt("totalCount");
 		infoArr = job.optJSONArray(INFOARR);
 		//currentPage?
 	}

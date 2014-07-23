@@ -1,30 +1,49 @@
 package com.qfc.yft.net;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Intent;
 import android.util.Log;
 
+import com.qfc.yft.MyApplication;
 import com.qfc.yft.data.MyData;
 import com.qfc.yft.data.NetConst;
+import com.qfc.yft.data.chat.CachMsg;
+import com.qfc.yft.net.chat.GIMSocketServer;
+import com.qfc.yft.ui.account.ChatLoginHelper;
+import com.qfc.yft.ui.offline.OfflineDownloadBuilder;
 import com.qfc.yft.util.JackUtils;
+import com.qfc.yft.vo.chat.SystemParams;
 
 
 public class NetStrategies implements NetConst{
 	static final String TAG = "NetS";
 	
 	/**
+	 * only use in test now.
 	 * @param result
 	 * @param params
 	 * @return
 	 */
 	public static String doHttpRequest( String... params) throws UnknownHostException,SocketTimeoutException,IOException{
-		return HttpRequestTask.doHttpRequest(params);
+		return HttpRequestTask.doHttpRequest(_UF.getUrl(), params[0]);
 	}
 	
 	public static String getCurrentUserCode(){
@@ -76,9 +95,42 @@ public class NetStrategies implements NetConst{
 		return url.toString();
 	}
 	
+	/**
+	 * 提交数据到服务器
+	 * @param path 上传路径(注：避免使用localhost或127.0.0.1这样的路径测试，因为它会指向手机模拟器，你可以使用http://www.itcast.cn或http://192.168.1.10:8080这样的路径测试)
+	 * @param params 请求参数 key为参数名,value为参数值
+	 * @param encode 编码
+	 */
+	public static byte[] postFromHttpClient(String path, Map<String, String> params, String encode) throws Exception{
+		List<NameValuePair> formparams = new ArrayList<NameValuePair>();//用于存放请求参数
+		for(Map.Entry<String, String> entry : params.entrySet()){
+			formparams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+		}
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, encode);
+		HttpPost httppost = new HttpPost(path);
+		httppost.setEntity(entity);
+		HttpClient httpclient = new DefaultHttpClient();//看作是浏览器
+		HttpResponse response = httpclient.execute(httppost);//发送post请求		
+		return readStream(response.getEntity().getContent());
+	}
 	
-	
-	
+	/**
+	 * 读取流
+	 * @param inStream
+	 * @return 字节数组
+	 * @throws Exception
+	 */
+	public static byte[] readStream(InputStream inStream) throws Exception{
+		ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len = -1;
+		while( (len=inStream.read(buffer)) != -1){
+			outSteam.write(buffer, 0, len);
+		}
+		outSteam.close();
+		inStream.close();
+		return outSteam.toByteArray();
+	}
 	
 	/*public static void tryGetOfflineDataHere(HttpReceiver receiver){
    	 if(receiver==null)return;
@@ -117,22 +169,22 @@ public class NetStrategies implements NetConst{
 	}*/
 
 	
-	/*public static void logout(){
+	public static void logout(){
 		try{
-			MyApplication.getApp().unregisterReceiver(MyApplication.getApp().getUIBadgeReceiver());//TODO tobe test
-			MyApplication.getApp().stopService(new Intent(MyApplication.getApp(), GIMSocketServer.class));
-			if(!OfflineDownloadBuilder.shouldStart()){
-				OfflineDownloadBuilder.cancel();//0421
-			}
+//			MyApplication.getApp().unregisterReceiver(MyApplication.getApp().getUIBadgeReceiver());//TODO tobe test
+			ChatLoginHelper.getInstance().unregisterReceiver();
+			MyApplication.app().stopService(new Intent(MyApplication.app(), GIMSocketServer.class));
+			OfflineDownloadBuilder.getInstance().cancel();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		CachMsg.getInstance().clear();//0319
-		YftData.data().destroy();
+		MyData.data().destroy();
 		//fzl
+		//TODO  纺织聊登出
 		SystemParams.getInstance().clear();
 		CachMsg.getInstance().clear();
-	}*/
+	}
 
 
 	//	private static NotificationManager nm;

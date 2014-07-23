@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qfc.yft.R;
@@ -20,48 +22,84 @@ import com.qfc.yft.ui.custom.JackTitle;
  */
 public class TitleManager implements View.OnClickListener{
 	JackTitle jackTitle;
-	TextView tv_titlename,tv_right;
-	ImageView btn_titleback;
+	TextView tv_titlename,tv_right,tv_left;
+	ImageView btn_titleleft,btn_titleright,img_logo;
+	
+	LinearLayout layout_right;
 	
 	View cartView;
 	TextView cartTv;
 	
 	Activity activity;
 	View mView;
-	private ImageView img_logo;
 	
 	public TitleManager(Activity activity) {
 		super();
 		this.activity = activity;
+		init();
 	}
 	public TitleManager(View view){
 		this.mView = view;
+		init();
+	}
+	private void init() {
+		tv_titlename = (TextView) titleView().findViewById(R.id.tv_title);
+		tv_left = (TextView) titleView().findViewById(R.id.tv_title_left);
+		tv_right = (TextView) titleView().findViewById(R.id.tv_title_right);
+		btn_titleleft = (ImageView) titleView().findViewById(R.id.btn_title_left);
+		btn_titleright = (ImageView) titleView().findViewById(R.id.btn_title_right);
+		img_logo = (ImageView) titleView().findViewById(R.id.img_title_logo);
+		
+		layout_right = (LinearLayout)titleView().findViewById(R.id.layout_title_right);
 	}
 	
 	public void setTitleName(String name){
-		if(null==tv_titlename)tv_titlename = (TextView) titleView().findViewById(R.id.tv_title);
 		tv_titlename.setText(name);
 	}
 	public void setRightText(String text, View.OnClickListener listener){
-		if(null==tv_right)tv_right =   (TextView) titleView().findViewById(R.id.tv_title_right);
-		tv_right.setText(text);
-		tv_right.setOnClickListener(listener);
-		tv_right.setVisibility(View.VISIBLE);
+		setTitleText(tv_right,text, listener);
+	}
+	public void setLeftText(String text, View.OnClickListener listener){
+		setTitleText(tv_left,text, listener);
+	}
+	public void setLeftImg(int rid,View.OnClickListener listener){
+		setTitleImg(btn_titleleft,rid,listener);
+	}
+	public void setRightImg(int rid,View.OnClickListener listener){
+		setTitleImg(btn_titleright,rid,listener);
+	}
+	public void hideBothSides(){
+		tv_right.setVisibility(View.GONE);
+		tv_left.setVisibility(View.GONE);
+		btn_titleleft.setVisibility(View.GONE);
+		btn_titleright.setVisibility(View.GONE);
+	}
+	
+	/**
+	 * @param text
+	 * @param listener
+	 */
+	private void setTitleText(TextView tv ,String text, View.OnClickListener listener) {
+		if(null==text) {tv.setVisibility(View.GONE);return;}
+		tv.setText(text);
+		tv.setOnClickListener(listener);
+		tv.setVisibility(View.VISIBLE);
+	}
+	private void setTitleImg(ImageView img, int rid,
+			OnClickListener listener) {
+		if(rid==0) {img.setVisibility(View.GONE);return;}
+		img.setImageResource(rid);
+		img.setOnClickListener(listener);
+		img.setVisibility(View.VISIBLE);
+		
 	}
 	public void initTitleLogo(){
 		img_logo = (ImageView) titleView().findViewById(R.id.img_title_logo);
 		img_logo.setVisibility(View.VISIBLE);
 	}
 	public void initTitleBack(){
-		btn_titleback = (ImageView) titleView().findViewById(R.id.btn_title_back);
-		btn_titleback.setOnClickListener(this);
-		btn_titleback.setVisibility(View.VISIBLE);
+		setTitleImg(btn_titleleft, R.drawable.btn_back, this);
 	}
-	/*public void initTitleMenu(){
-		btn_titlemenu = (ImageView) titleView().findViewById(R.id.btn_title_menu);
-		btn_titlemenu.setOnClickListener(this);
-		btn_titlemenu.setVisibility(View.VISIBLE);
-	}*/
 	
 	public JackTitle titleView(){
 		if(null==jackTitle) jackTitle = (JackTitle)findView(R.id.jacktitle);
@@ -72,35 +110,15 @@ public class TitleManager implements View.OnClickListener{
 		if(null!=mView) return mView.findViewById(id);
 		return null;
 	}
+	public void addToRightLayout(View v){
+		if(null==layout_right||null==v) return;
+		layout_right.addView(v);
+	}
 	
-	
-	/*public void updateCart(){//0503
-		View ttlv = titleView();
-		if(null==cartView&&null!=ttlv){
-			cartView = ttlv.findViewById(R.id.titleview_cart);
-			cartTv = (TextView)cartView.findViewById(R.id.tv_titlecartcount);
-			cartView.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					Context c = v.getContext();
-					Intent i = new Intent();
-					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					i.setClass(c, MyCartActivity.class);
-					c.startActivity(i);
-				}
-			});
-		}
-		cartView.setVisibility(View.VISIBLE);
-		int count = MyData.data().getCartCount();
-		cartTv.setVisibility(count==0?View.INVISIBLE:View.VISIBLE);
-		cartTv.setText(""+count);
-			
-	}*/
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_title_back:
+		case R.id.btn_title_left:
 			if(null!=activity)activity.finish();
 			break;
 		default:
